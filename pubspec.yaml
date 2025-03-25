@@ -1,14 +1,20 @@
 name: go_habit
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
   sdk: ^3.6.0
 
 dependencies:
+  bloc_concurrency: ^0.3.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.0
+  l: ^5.0.0
+  package_info_plus: ^8.3.0
+  supabase_flutter: ^2.8.4
+  yx_scope: ^1.0.2
 
 dev_dependencies:
   flutter_test:
