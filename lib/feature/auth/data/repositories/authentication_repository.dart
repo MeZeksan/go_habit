@@ -12,11 +12,13 @@ class AuthenticationRepository implements IAuthenticationRepository {
   }
 
   @override
-  getSignedInUser() {
-    // TODO: implement getSignedInUser
-    throw UnimplementedError();
+  User? getSignedInUser() {
+    return supabase.auth.currentUser;
+
+    /// AI assistant
   }
 
+  //авторизация пользователя
   @override
   Future<void> signInWithEmail({
     required String email,
@@ -28,6 +30,13 @@ class AuthenticationRepository implements IAuthenticationRepository {
     );
   }
 
+  //регистрация пользователя
+  @override
+  Future<void> singUp({required String email, required String password}) async {
+    await supabase.auth.signUp(email: email, password: password);
+  }
+
+  //выход из системы
   @override
   Future<void> signOut() async {
     await supabase.auth.signOut();
