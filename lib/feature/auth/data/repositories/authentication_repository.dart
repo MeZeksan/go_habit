@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../domain/repositories/i_authentication_repository.dart';
 
 class AuthenticationRepository implements IAuthenticationRepository {
-  final supabase = Supabase.instance.client; //ссылка на клиент supabase
+  final _supabase = Supabase.instance.client; //ссылка на клиент _supabase
 
   @override
   Stream<User?> getCurrentUser() {
@@ -13,7 +13,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
   @override
   User? getSignedInUser() {
-    return supabase.auth.currentUser;
+    return _supabase.auth.currentUser;
 
     /// AI assistant
   }
@@ -24,7 +24,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    await supabase.auth.signInWithPassword(
+    await _supabase.auth.signInWithPassword(
       email: email,
       password: password,
     );
@@ -33,12 +33,12 @@ class AuthenticationRepository implements IAuthenticationRepository {
   //регистрация пользователя
   @override
   Future<void> singUp({required String email, required String password}) async {
-    await supabase.auth.signUp(email: email, password: password);
+    await _supabase.auth.signUp(email: email, password: password);
   }
 
   //выход из системы
   @override
   Future<void> signOut() async {
-    await supabase.auth.signOut();
+    await _supabase.auth.signOut();
   }
 }
