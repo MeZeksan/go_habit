@@ -24,21 +24,33 @@ class AuthenticationRepository implements IAuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    await _supabase.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _supabase.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e) {
+      throw Exception('Ошибка авторизации: $e');
+    }
   }
 
   //регистрация пользователя
   @override
   Future<void> singUp({required String email, required String password}) async {
-    await _supabase.auth.signUp(email: email, password: password);
+    try {
+      await _supabase.auth.signUp(email: email, password: password);
+    } catch (e) {
+      throw Exception('Ошибка регистрации: $e');
+    }
   }
 
   //выход из системы
   @override
   Future<void> signOut() async {
-    await _supabase.auth.signOut();
+    try {
+      await _supabase.auth.signOut();
+    } catch (e) {
+      throw Exception('Ошибка выхода из системы: $e');
+    }
   }
 }
