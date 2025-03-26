@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_habit/core/environment/.env_config.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //supabase init
+  await Supabase.initialize(
+    url: EnvConfig.supabaseUrl,
+    anonKey: EnvConfig.supabaseAnonKey,
+  );
   runApp(const MainApp());
 }
 
