@@ -18,8 +18,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signInWithEmail(
-      {required String email, required String password}) async {
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
     await supabase.auth.signInWithPassword(
       email: email,
       password: password,
@@ -27,8 +29,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    await supabase.auth.signOut();
   }
 }
