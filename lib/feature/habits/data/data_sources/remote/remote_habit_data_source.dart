@@ -10,10 +10,10 @@ abstract interface class RemoteDataSource {
   Stream<List<Habit>> habitsStream();
 }
 
-class SupabaseDataSource implements RemoteDataSource {
+class SupabaseHabitDataSource implements RemoteDataSource {
   final SupabaseClient _supabaseClient;
 
-  SupabaseDataSource(this._supabaseClient);
+  SupabaseHabitDataSource(this._supabaseClient);
 
   // Получить все привычки пользователя
   @override

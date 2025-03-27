@@ -1,3 +1,4 @@
+import 'package:go_habit/core/database/drift_database.dart' as drift;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -59,6 +60,21 @@ class Habit {
       isActive: isActive ?? this.isActive,
       steps: steps ?? this.steps,
       icon: icon ?? this.icon,
+    );
+  }
+
+  factory Habit.fromDriftModel(drift.Habit habit) {
+    return Habit(
+      id: habit.id,
+      title: habit.title,
+      description: habit.description,
+      lastCompletedDate: habit.lastTimeCompleted.toString(),
+      categoryId: habit.categoryId,
+      createdAt: habit.createdAt.toString(),
+      updatedAt: habit.updatedAt.toString(),
+      isActive: habit.isActive,
+      steps: habit.steps,
+      icon: habit.icon,
     );
   }
 }
