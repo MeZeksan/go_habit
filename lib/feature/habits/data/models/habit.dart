@@ -1,4 +1,5 @@
 import 'package:go_habit/core/database/drift_database.dart' as drift;
+import 'package:go_habit/feature/habits/domain/enums/sync_status.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,6 +21,9 @@ class Habit {
   final int steps;
   final String? icon;
 
+  @JsonKey(ignore: true)
+  final SyncStatus syncStatus;
+
   Habit({
     String? id,
     required this.title,
@@ -31,6 +35,7 @@ class Habit {
     this.lastCompletedDate,
     this.icon,
     this.steps = 0,
+    this.syncStatus = SyncStatus.synced,
   }) : id = id ?? const Uuid().v4();
 
   factory Habit.fromJson(Map<String, dynamic> json) => _$HabitFromJson(json);

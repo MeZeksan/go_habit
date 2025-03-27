@@ -1,7 +1,7 @@
 import 'package:go_habit/feature/habits/data/models/habit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract interface class RemoteDataSource {
+abstract interface class RemoteHabitDataSource {
   Future<List<Habit>> getHabits();
   Future<Habit> getHabitById(String id);
   Future<void> addHabit(Habit habit);
@@ -10,7 +10,7 @@ abstract interface class RemoteDataSource {
   Stream<List<Habit>> habitsStream();
 }
 
-class SupabaseHabitDataSource implements RemoteDataSource {
+class SupabaseHabitDataSource implements RemoteHabitDataSource {
   final SupabaseClient _supabaseClient;
 
   SupabaseHabitDataSource(this._supabaseClient);

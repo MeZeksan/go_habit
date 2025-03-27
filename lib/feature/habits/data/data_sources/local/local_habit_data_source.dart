@@ -5,7 +5,7 @@ import '../../../../../core/database/drift_database.dart';
 import '../../../domain/enums/sync_status.dart';
 import '../../models/habit.dart' as entity;
 
-abstract interface class LocalDataSource {
+abstract interface class LocalHabitDataSource {
   Future<List<entity.Habit>> getHabits();
   Future<entity.Habit?> getHabitById(String id);
   Future<void> saveHabit(entity.Habit habit);
@@ -18,7 +18,7 @@ abstract interface class LocalDataSource {
   Future<List<entity.Habit>> getPendingSyncHabits();
 }
 
-class DriftHabitDataSource implements LocalDataSource {
+class DriftHabitDataSource implements LocalHabitDataSource {
   final HabitsDao _habitsDao;
 
   DriftHabitDataSource(this._habitsDao);
@@ -59,6 +59,7 @@ class DriftHabitDataSource implements LocalDataSource {
         title: habit.title,
         description: habit.description,
         categoryId: habit.categoryId,
+        steps: habit.steps,
         isActive: habit.isActive,
         lastTimeCompleted: DateTime.tryParse(habit.lastCompletedDate ?? ''),
         isPendingSync: true,
