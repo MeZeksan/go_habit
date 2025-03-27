@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/auth/data/repositories/authentication_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
+import 'package:go_habit/feature/auth/view/auth_screen.dart';
+import 'package:go_habit/feature/auth/widget/auth_scope.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/environment/env_config.dart';
 
@@ -22,10 +26,27 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return AuthScope(
+      child: MaterialApp(
+        title: 'Go Habit',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: BlocBuilder<app_auth.AuthBloc, app_auth.AuthState>(
+          builder: (context, state) {
+            if (state is app_auth.AuthLoading) {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else if (state is app_auth.AuthAuthenticated) {
+              return Text('Hello');
+            } else {
+              return const AuthScreen();
+            }
+          },
         ),
       ),
     );
