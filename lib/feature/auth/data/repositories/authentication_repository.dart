@@ -7,15 +7,14 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
   @override
   Stream<User?> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
+    return _supabase.auth.onAuthStateChange.map((data) {
+      return data.session?.user;
+    });
   }
 
   @override
   User? getSignedInUser() {
-    return _supabase.auth.currentUser;
-
-    /// AI assistant
+    return _supabase.auth.currentUser; // AI assistant
   }
 
   //авторизация пользователя
@@ -25,12 +24,18 @@ class AuthenticationRepository implements IAuthenticationRepository {
     required String password,
   }) async {
     try {
-      await _supabase.auth.signInWithPassword(
+      final response = await _supabase.auth.signInWithPassword(
         email: email,
         password: password,
       );
+
+      if (response.user == null) {
+        throw Exception('Пользователь не найден');
+      }
+    } on AuthException catch (e) {
+      throw Exception('Ошибка авторизации: ${e.message}');
     } catch (e) {
-      throw Exception('Ошибка авторизации: $e');
+      throw Exception('Неизвестная ошибка: $e');
     }
   }
 
@@ -38,9 +43,19 @@ class AuthenticationRepository implements IAuthenticationRepository {
   @override
   Future<void> singUp({required String email, required String password}) async {
     try {
-      await _supabase.auth.signUp(email: email, password: password);
+      final response = await _supabase.auth.signUp(
+        email: email,
+        password: password,
+        emailRedirectTo: 'io.supabase.go_habit://login-callback',
+      );
+
+      if (response.user == null) {
+        throw Exception('Ошибка при создании пользователя');
+      }
+    } on AuthException catch (e) {
+      throw Exception('Ошибка регистрации: ${e.message}');
     } catch (e) {
-      throw Exception('Ошибка регистрации: $e');
+      throw Exception('Неизвестная ошибка: $e');
     }
   }
 
