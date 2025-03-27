@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/auth/data/repositories/authentication_repository.dart';
-import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
+import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 
 class AuthScope extends StatelessWidget {
   final Widget child;
@@ -10,10 +10,10 @@ class AuthScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(
+    return BlocProvider<app_auth.AuthBloc>(
+      create: (context) => app_auth.AuthBloc(
         AuthenticationRepository(),
-      )..add(AuthCheckRequested()),
+      )..add(app_auth.AuthCheckRequested()),
       child: child,
     );
   }
