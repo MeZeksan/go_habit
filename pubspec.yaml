@@ -17,6 +17,7 @@ dependencies:
   supabase_flutter: ^2.8.4
   yx_scope: ^1.0.2
   yx_scope_flutter: ^1.0.0
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +25,9 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   yx_scope_linter: any
   custom_lint: ^0.5.3
+  json_serializable: ^6.8.0
+  json_annotation: any
+  build_runner: ^2.4.13
 
 flutter:
   uses-material-design: true
