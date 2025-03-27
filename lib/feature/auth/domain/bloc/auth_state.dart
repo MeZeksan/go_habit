@@ -4,16 +4,16 @@ sealed class AuthState {}
 
 class AuthInitial extends AuthState {}
 
-class AuthUserAuthenticated extends AuthState {
-  final User user;
+class AuthLoading extends AuthState {}
 
-  AuthUserAuthenticated(this.user);
+class AuthAuthenticated extends AuthState {
+  final User user;
+  AuthAuthenticated(this.user);
 }
 
-class AuthUserUnauthenticated extends AuthState {}
+class AuthUnauthenticated extends AuthState {}
 
-class AuthError extends AuthState {
-  final String errorMessage;
-
-  AuthError(this.errorMessage);
+class AuthFailure extends AuthState {
+  final String message;
+  AuthFailure(this.message);
 }

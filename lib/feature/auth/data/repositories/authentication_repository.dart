@@ -46,7 +46,6 @@ class AuthenticationRepository implements IAuthenticationRepository {
       final response = await _supabase.auth.signUp(
         email: email,
         password: password,
-        emailRedirectTo: 'io.supabase.go_habit://login-callback',
       );
 
       if (response.user == null) {

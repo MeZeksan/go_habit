@@ -2,18 +2,21 @@ part of 'auth_bloc.dart';
 
 sealed class AuthEvent {}
 
-class AuthInitialCheckRequested extends AuthEvent {}
+class AuthSignInRequested extends AuthEvent {
+  final String email;
+  final String password;
 
-class AuthOnCurrentUserChanged extends AuthEvent {
-  final User? user;
-
-  AuthOnCurrentUserChanged(this.user);
+  AuthSignInRequested(this.email, this.password);
 }
 
-class AuthLogoutButtonPressed extends AuthEvent {}
+class AuthSignUpRequested extends AuthEvent {
+  // AI assisted
+  final String email;
+  final String password;
 
-class AuthErrorOccurred extends AuthEvent {
-  final String errorMessage;
-
-  AuthErrorOccurred(this.errorMessage);
+  AuthSignUpRequested(this.email, this.password);
 }
+
+class AuthSignOutRequested extends AuthEvent {}
+
+class AuthCheckRequested extends AuthEvent {}
