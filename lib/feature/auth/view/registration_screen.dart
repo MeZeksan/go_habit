@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
+import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -43,8 +44,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             );
           } else if (state is app_auth.AuthAuthenticated) {
-            // После успешной регистрации вернуться на предыдущий экран
-            Navigator.pop(context);
+            // После успешной регистрации переходим на экран приветствия
+            // и очищаем стек навигации
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+              (route) => false, // Удаляем все предыдущие экраны
+            );
           }
         },
         child: SafeArea(
@@ -89,6 +95,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         formKey: _formKey,
                         emailController: _emailController,
                         passwordController: _passwordController,
+                        isRegistration: true,
                       ),
                       const SizedBox(height: 16),
                       AuthNavigationButton(

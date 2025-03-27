@@ -8,6 +8,7 @@ class SignButton extends StatelessWidget {
     required GlobalKey<FormState> formKey,
     required TextEditingController emailController,
     required TextEditingController passwordController,
+    this.isRegistration = false, // По умолчанию считаем, что это вход
   })  : _formKey = formKey,
         _emailController = emailController,
         _passwordController = passwordController;
@@ -15,6 +16,7 @@ class SignButton extends StatelessWidget {
   final GlobalKey<FormState> _formKey;
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
+  final bool isRegistration;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +27,23 @@ class SignButton extends StatelessWidget {
               ? null
               : () {
                   if (_formKey.currentState!.validate()) {
-                    context.read<app_auth.AuthBloc>().add(
-                          app_auth.AuthSignUpRequested(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                          ),
-                        );
+                    if (isRegistration) {
+                      // Для экрана регистрации
+                      context.read<app_auth.AuthBloc>().add(
+                            app_auth.AuthSignUpRequested(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
+                    } else {
+                      // Для экрана входа
+                      context.read<app_auth.AuthBloc>().add(
+                            app_auth.AuthSignInRequested(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
+                    }
                   }
                 },
           style: ElevatedButton.styleFrom(
@@ -41,9 +54,9 @@ class SignButton extends StatelessWidget {
           ),
           child: state is app_auth.AuthLoading
               ? const CircularProgressIndicator()
-              : const Text(
-                  'Зарегистрироваться',
-                  style: TextStyle(fontSize: 16),
+              : Text(
+                  isRegistration ? 'Зарегистрироваться' : 'Войти',
+                  style: const TextStyle(fontSize: 16),
                 ),
         );
       },

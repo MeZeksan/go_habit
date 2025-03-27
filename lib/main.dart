@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/auth_screen.dart';
 import 'package:go_habit/feature/auth/widget/auth_scope.dart';
+import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/environment/env_config.dart';
 
@@ -42,7 +43,8 @@ class MainApp extends StatelessWidget {
                 ),
               );
             } else if (state is app_auth.AuthAuthenticated) {
-              return Text('Hello');
+              // Если пользователь аутентифицирован, перенаправляем на экран приветствия
+              return const WelcomeScreen();
             } else {
               return const AuthScreen();
             }
