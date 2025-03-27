@@ -3,27 +3,68 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../domain/repositories/i_authentication_repository.dart';
 
 class AuthenticationRepository implements IAuthenticationRepository {
+  final _supabase = Supabase.instance.client; //ссылка на клиент _supabase
+
   @override
   Stream<User?> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
+    return _supabase.auth.onAuthStateChange.map((data) {
+      return data.session?.user;
+    });
   }
 
   @override
-  getSignedInUser() {
-    // TODO: implement getSignedInUser
-    throw UnimplementedError();
+  User? getSignedInUser() {
+    return _supabase.auth.currentUser; // AI assistant
   }
 
+  //авторизация пользователя
   @override
-  Future<void> signInWithEmail({required String email}) {
-    // TODO: implement signInWithEmail
-    throw UnimplementedError();
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await _supabase.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+
+      if (response.user == null) {
+        throw Exception('Пользователь не найден');
+      }
+    } on AuthException catch (e) {
+      throw Exception('Ошибка авторизации: ${e.message}');
+    } catch (e) {
+      throw Exception('Неизвестная ошибка: $e');
+    }
   }
 
+  //регистрация пользователя
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> singUp({required String email, required String password}) async {
+    try {
+      final response = await _supabase.auth.signUp(
+        email: email,
+        password: password,
+      );
+
+      if (response.user == null) {
+        throw Exception('Ошибка при создании пользователя');
+      }
+    } on AuthException catch (e) {
+      throw Exception('Ошибка регистрации: ${e.message}');
+    } catch (e) {
+      throw Exception('Неизвестная ошибка: $e');
+    }
+  }
+
+  //выход из системы
+  @override
+  Future<void> signOut() async {
+    try {
+      await _supabase.auth.signOut();
+    } catch (e) {
+      throw Exception('Ошибка выхода из системы: $e');
+    }
   }
 }

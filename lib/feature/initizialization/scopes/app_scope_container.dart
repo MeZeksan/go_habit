@@ -19,7 +19,7 @@ class MockAuthRepository implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signInWithEmail({required String email}) {
+  Future<void> signInWithEmail({required String email, required String password}) {
     debugPrint('Sign in with email $email');
     return Future.delayed(const Duration(seconds: 1));
   }
@@ -27,6 +27,12 @@ class MockAuthRepository implements IAuthenticationRepository {
   @override
   Future<void> signOut() {
     // TODO: implement signOut
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> singUp({required String email, required String password}) {
+    // TODO: implement singUp
     throw UnimplementedError();
   }
 }
@@ -53,7 +59,8 @@ class AppScopeContainer extends ScopeContainer {
                 builder: (context, appScope) => Scaffold(
                         body: Center(
                       child: ElevatedButton(
-                          onPressed: () => appScope.authRepositoryDep.get.signInWithEmail(email: 'fzKl9@example.com'),
+                          onPressed: () => appScope.authRepositoryDep.get
+                              .signInWithEmail(email: 'fzKl9@example.com', password: 'password'),
                           child: const Text('Home')),
                     )),
                 placeholder: Placeholder()),

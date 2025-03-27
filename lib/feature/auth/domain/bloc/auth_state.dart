@@ -1,19 +1,25 @@
 part of 'auth_bloc.dart';
 
+/// Состояния аутентификации
 sealed class AuthState {}
 
+/// Начальное состояние
 class AuthInitial extends AuthState {}
 
-class AuthUserAuthenticated extends AuthState {
-  final User user;
+/// Состояние загрузки
+class AuthLoading extends AuthState {}
 
-  AuthUserAuthenticated(this.user);
+/// Состояние успешной аутентификации
+class AuthAuthenticated extends AuthState {
+  final User user;
+  AuthAuthenticated(this.user);
 }
 
-class AuthUserUnauthenticated extends AuthState {}
+/// Состояние отсутствия аутентификации
+class AuthUnauthenticated extends AuthState {}
 
-class AuthError extends AuthState {
-  final String errorMessage;
-
-  AuthError(this.errorMessage);
+/// Состояние ошибки
+class AuthFailure extends AuthState {
+  final String message;
+  AuthFailure(this.message);
 }

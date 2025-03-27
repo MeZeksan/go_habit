@@ -1,57 +1,81 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/auth/data/repositories/authentication_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../repositories/i_authentication_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+/// Bloc для управления аутентификацией
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final IAuthenticationRepository _authenticationRepository;
-  StreamSubscription<User?>? _userSubscription;
+  final AuthenticationRepository _authRepository;
 
-  AuthBloc(this._authenticationRepository) : super(AuthInitial()) {
-    on<AuthEvent>((event, emit) {
-      switch (event) {
-        case AuthInitialCheckRequested():
-          _onInitialAuthChecked(event, emit);
-        case AuthOnCurrentUserChanged():
-          _onCurrentUserChanged(event, emit);
-        case AuthLogoutButtonPressed():
-          _onLogoutButtonPressed(event, emit);
-        case AuthErrorOccurred():
-          _onAuthErrorOccurred(event, emit);
+  AuthBloc(this._authRepository) : super(AuthInitial()) {
+    // Проверка текущего состояния аутентификации
+    on<AuthCheckRequested>((event, emit) async {
+      final user = _authRepository.getSignedInUser();
+      if (user != null) {
+        emit(AuthAuthenticated(user));
+      } else {
+        emit(AuthUnauthenticated());
       }
     });
 
-    _startUserSubscription();
-  }
+    // Вход в систему
+    on<AuthSignInRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await _authRepository.signInWithEmail(
+          email: event.email,
+          password: event.password,
+        );
+        final user = _authRepository.getSignedInUser();
+        if (user != null) {
+          emit(AuthAuthenticated(user));
+        } else {
+          emit(AuthFailure('Ошибка авторизации'));
+        }
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
 
-  Future<void> _onInitialAuthChecked(AuthInitialCheckRequested event, Emitter<AuthState> emit) async {
-    User? signedInUser = _authenticationRepository.getSignedInUser();
-    signedInUser != null ? emit(AuthUserAuthenticated(signedInUser)) : emit(AuthUserUnauthenticated());
-  }
+    // Регистрация
+    on<AuthSignUpRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await _authRepository.singUp(
+          email: event.email,
+          password: event.password,
+        );
+        final user = _authRepository.getSignedInUser();
+        if (user != null) {
+          emit(AuthAuthenticated(user));
+        } else {
+          emit(AuthFailure('Ошибка регистрации'));
+        }
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
 
-  Future<void> _onLogoutButtonPressed(AuthLogoutButtonPressed event, Emitter<AuthState> emit) async {
-    await _authenticationRepository.signOut();
-  }
+    // Выход из системы
+    on<AuthSignOutRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await _authRepository.signOut();
+        emit(AuthUnauthenticated());
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
 
-  Future<void> _onCurrentUserChanged(AuthOnCurrentUserChanged event, Emitter<AuthState> emit) async =>
-      event.user != null ? emit(AuthUserAuthenticated(event.user!)) : emit(AuthUserUnauthenticated());
-
-  void _startUserSubscription() => _userSubscription =
-      _authenticationRepository.getCurrentUser().listen((user) => add(AuthOnCurrentUserChanged(user)))
-        ..onError((error) {
-          add(AuthErrorOccurred(error.toString())); // Обработка ошибок
-        });
-
-  void _onAuthErrorOccurred(AuthErrorOccurred event, Emitter<AuthState> emit) => emit(AuthError(event.errorMessage));
-
-  @override
-  Future<void> close() {
-    _userSubscription?.cancel();
-    return super.close();
+    // Подписка на изменения состояния аутентификации
+    _authRepository.getCurrentUser().listen((user) {
+      if (user != null) {
+        emit(AuthAuthenticated(user));
+      } else {
+        emit(AuthUnauthenticated());
+      }
+    });
   }
 }
