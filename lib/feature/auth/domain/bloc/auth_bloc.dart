@@ -7,29 +7,77 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+/// Bloc для управления аутентификацией
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthenticationRepository _authRepository;
 
   AuthBloc(this._authRepository) : super(AuthInitial()) {
-    on<AuthSignInRequested>(_onSignInRequested);
-    on<AuthSignUpRequested>(_onSignUpRequested);
-    on<AuthSignOutRequested>(_onSignOutRequested);
-    on<AuthCheckRequested>(_onCheckRequested);
-  }
-  void _onSignInRequested(AuthSignInRequested event, Emitter<AuthState> emit) {
-    emit(AuthLoading());
-  }
+    // Проверка текущего состояния аутентификации
+    on<AuthCheckRequested>((event, emit) async {
+      final user = _authRepository.getSignedInUser();
+      if (user != null) {
+        emit(AuthAuthenticated(user));
+      } else {
+        emit(AuthUnauthenticated());
+      }
+    });
 
-  void _onSignUpRequested(AuthSignUpRequested event, Emitter<AuthState> emit) {
-    emit(AuthLoading());
-  }
+    // Вход в систему
+    on<AuthSignInRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await _authRepository.signInWithEmail(
+          email: event.email,
+          password: event.password,
+        );
+        final user = _authRepository.getSignedInUser();
+        if (user != null) {
+          emit(AuthAuthenticated(user));
+        } else {
+          emit(AuthFailure('Ошибка авторизации'));
+        }
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
 
-  void _onSignOutRequested(
-      AuthSignOutRequested event, Emitter<AuthState> emit) {
-    emit(AuthLoading());
-  }
+    // Регистрация
+    on<AuthSignUpRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await _authRepository.singUp(
+          email: event.email,
+          password: event.password,
+        );
+        final user = _authRepository.getSignedInUser();
+        if (user != null) {
+          emit(AuthAuthenticated(user));
+        } else {
+          emit(AuthFailure('Ошибка регистрации'));
+        }
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
 
-  void _onCheckRequested(AuthCheckRequested event, Emitter<AuthState> emit) {
-    emit(AuthLoading());
+    // Выход из системы
+    on<AuthSignOutRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await _authRepository.signOut();
+        emit(AuthUnauthenticated());
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
+    });
+
+    // Подписка на изменения состояния аутентификации
+    _authRepository.getCurrentUser().listen((user) {
+      if (user != null) {
+        emit(AuthAuthenticated(user));
+      } else {
+        emit(AuthUnauthenticated());
+      }
+    });
   }
 }
