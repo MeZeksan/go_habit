@@ -18,13 +18,26 @@ dependencies:
   supabase_flutter: ^2.8.4
   yx_scope: ^1.0.2
   yx_scope_flutter: ^1.0.0
+  uuid: ^4.5.1
+  drift: ^2.26.0
+  drift_flutter: ^0.2.4
+  path_provider: ^2.1.5
+  connectivity_plus: ^6.1.3
+  http: ^1.3.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  yx_scope_linter: any
-  custom_lint: ^0.5.3
+  # flutter_lints: ^5.0.0
+  surf_lint_rules: ^3.1.0
+  drift_dev: ^2.23.1
+  # yx_scope_linter: any
+  # custom_lint: ^0.5.3
+  json_serializable: ^6.8.0
+  json_annotation: ^4.9.0
+  build_runner: ^2.4.13
+  mockito: ^5.4.5
 
 flutter:
   uses-material-design: true
