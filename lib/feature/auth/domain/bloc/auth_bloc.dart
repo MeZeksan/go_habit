@@ -1,13 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_habit/feature/auth/data/repositories/authentication_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../repositories/i_authentication_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 /// Bloc для управления аутентификацией
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthenticationRepository _authRepository;
+  final IAuthenticationRepository _authRepository;
 
   AuthBloc(this._authRepository) : super(AuthInitial()) {
     // Проверка текущего состояния аутентификации

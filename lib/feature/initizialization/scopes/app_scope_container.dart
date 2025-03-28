@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_habit/feature/auth/data/repositories/authentication_repository.dart';
 import 'package:go_habit/feature/auth/domain/repositories/i_authentication_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gotrue/src/types/user.dart';
@@ -19,7 +20,8 @@ class MockAuthRepository implements IAuthenticationRepository {
   }
 
   @override
-  Future<void> signInWithEmail({required String email, required String password}) {
+  Future<void> signInWithEmail(
+      {required String email, required String password}) {
     debugPrint('Sign in with email $email');
     return Future.delayed(const Duration(seconds: 1));
   }
@@ -38,7 +40,8 @@ class MockAuthRepository implements IAuthenticationRepository {
 }
 
 class AppScopeContainer extends ScopeContainer {
-  late final authRepositoryDep = dep<IAuthenticationRepository>(() => MockAuthRepository());
+  late final authRepositoryDep =
+      dep<IAuthenticationRepository>(() => AuthenticationRepository());
 
   late final routerConfigDep = dep<RouterConfig<Object>>(() => GoRouter(
         initialLocation: '/login',
@@ -55,15 +58,18 @@ class AppScopeContainer extends ScopeContainer {
           ),
           GoRoute(
             path: '/home',
-            builder: (context, state) => ScopeBuilder<AppScopeContainer>.withPlaceholder(
-                builder: (context, appScope) => Scaffold(
-                        body: Center(
-                      child: ElevatedButton(
-                          onPressed: () => appScope.authRepositoryDep.get
-                              .signInWithEmail(email: 'fzKl9@example.com', password: 'password'),
-                          child: const Text('Home')),
-                    )),
-                placeholder: Placeholder()),
+            builder: (context, state) =>
+                ScopeBuilder<AppScopeContainer>.withPlaceholder(
+                    builder: (context, appScope) => Scaffold(
+                            body: Center(
+                          child: ElevatedButton(
+                              onPressed: () => appScope.authRepositoryDep.get
+                                  .signInWithEmail(
+                                      email: 'fzKl9@example.com',
+                                      password: 'password'),
+                              child: const Text('Home')),
+                        )),
+                    placeholder: Placeholder()),
           ),
         ],
       ));
