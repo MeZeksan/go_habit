@@ -56,7 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(
+                      const GreetingTextWidget(
                           greetingText: 'С возвращением в Go Habit'),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),

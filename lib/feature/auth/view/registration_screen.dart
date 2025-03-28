@@ -64,7 +64,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(
+                      const GreetingTextWidget(
                           greetingText: 'Создайте аккаунт в Go Habit'),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),

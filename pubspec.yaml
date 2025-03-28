@@ -7,6 +7,8 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
+  flutter_localizations:
+    sdk: flutter
   bloc_concurrency: ^0.3.0
   flutter:
     sdk: flutter
@@ -41,5 +43,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - .env
