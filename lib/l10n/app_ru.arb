@@ -1,10 +1,10 @@
 {
     "@@locale": "ru",
-    "welcome_back": "С возвращением в Go Habit"
-    "don't_have_account": "Нет аккаунта? Зарегистрироваться"
-    "registration": "Регистрация"
-    "create_account": "Создайте аккаунт в Go Habit" 
-    "already_have_account": "Уже есть аккаунт? Войти"
+    "welcome_back": "С возвращением в Go Habit",
+    "don't_have_account": "Нет аккаунта? Зарегистрироваться",
+    "registration": "Регистрация",
+    "create_account": "Создайте аккаунт в Go Habit",
+    "already_have_account": "Уже есть аккаунт? Войти",
     "welcomeMessage": "Добро пожаловать, {email}!",
     "@welcomeMessage": {
         "description": "Приветственное сообщение с email",
@@ -14,7 +14,7 @@
                 "example": "пользователь@example.com"
             }
         }
-    }
+    },
     "appDescriptionTitle": "Приложение Go Habit поможет вам:",
     "habitTrackingFeature": "Отслеживайте ваши привычки и серию их выполнения!",
     "dailyHabitsFeature": "Создавайте и отслеживайте ежедневные привычки для достижения целей",
@@ -24,5 +24,5 @@
     "notificationsFeature": "Настраивайте уведомления, чтобы не забывать о своих привычках",
     "widgetsFeature": "Виджеты для ваших привычек прямо на главном экране!",
     "customWidgetsFeature": "Настраивайте виджеты, которые хотите видеть на главном экране",
-    "startTrackingButton": "Начать отслеживание привычек",
+    "startTrackingButton": "Начать отслеживание привычек"
 }

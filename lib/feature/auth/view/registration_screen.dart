@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/welcome_screen.dart';
+import 'package:go_habit/l10n/app_localizations.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -29,9 +30,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Регистрация'),
+        title: Text(l10n.register),
         centerTitle: true,
       ),
       body: BlocListener<app_auth.AuthBloc, app_auth.AuthState>(
@@ -64,8 +67,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const GreetingTextWidget(
-                          greetingText: 'Создайте аккаунт в Go Habit'),
+                      GreetingTextWidget(greetingText: l10n.createAccount),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),
@@ -99,7 +101,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       const SizedBox(height: 16),
                       AuthNavigationButton(
-                        text: 'Уже есть аккаунт? Войти',
+                        text: l10n.alreadyHaveAccount,
                         onPressed: () {
                           Navigator.pop(context);
                         },

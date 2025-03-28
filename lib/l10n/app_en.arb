@@ -1,12 +1,10 @@
 {
   "@@locale": "en",
-
   "welcome_back": "Welcome back to Go Habit",
   "don_t_have_account": "Don't have an account? Sign Up",
   "registration": "Registration",
   "create_account": "Create a Go Habit account",
   "already_have_account": "Already have an account? Log In",
-
     "welcomeMessage": "Welcome, {email}!",
     "@welcomeMessage": {
         "description": "Welcome message with email",
@@ -16,8 +14,7 @@
                 "example": "user@example.com"
             }
         }
-    }
-    
+    },
     "appDescriptionTitle": "Go Habit app will help you:",
     "habitTrackingFeature": "Track your habits and completion streaks!",
     "dailyHabitsFeature": "Create and track daily habits to achieve goals",
@@ -29,5 +26,3 @@
     "customWidgetsFeature": "Customize widgets you want to see on home screen",
     "startTrackingButton": "Start habit tracking"
 }
-        
-    
