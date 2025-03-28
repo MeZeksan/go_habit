@@ -3,6 +3,8 @@
     "welcome_back": "С возвращением в Go Habit",
     "dont_have_account": "Нет аккаунта? Зарегистрироваться",
     "registration": "Регистрация",
+    "register": "Зарегистрироваться",
+    "sign_in": "Войти",
     "create_account": "Создайте аккаунт в Go Habit",
     "already_have_account": "Уже есть аккаунт? Войти",
     "welcomeMessage": "Добро пожаловать, {email}!",
@@ -24,5 +26,15 @@
     "notifications_feature": "Настраивайте уведомления, чтобы не забывать о своих привычках",
     "widgets_feature": "Виджеты для ваших привычек прямо на главном экране!",
     "customWidgets_feature": "Настраивайте виджеты, которые хотите видеть на главном экране",
-    "start_tracking_button": "Начать отслеживание привычек"
+    "start_tracking_button": "Начать отслеживание привычек",
+    
+    "password_label": "Пароль",
+    "password_required": "Пожалуйста, введите пароль",
+    "password_length": "Пароль должен содержать минимум 6 символов",
+    "confirm_password_label": "Подтвердите пароль",
+    "confirm_password_required": "Пожалуйста, подтвердите пароль",
+    "passwords_dont_match": "Пароли не совпадают",
+    "email_label": "Email",
+    "email_required": "Пожалуйста, введите email",
+    "email_invalid": "Пожалуйста, введите корректный email"
 }

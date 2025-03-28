@@ -16,6 +16,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registration => 'Registration';
 
   @override
+  String get register => 'Register';
+
+  @override
+  String get sign_in => 'Sign In';
+
+  @override
   String get create_account => 'Create a Go Habit account';
 
   @override
@@ -55,4 +61,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get start_tracking_button => 'Start habit tracking';
+
+  @override
+  String get password_label => 'Password';
+
+  @override
+  String get password_required => 'Please enter your password';
+
+  @override
+  String get password_length => 'Password must contain at least 6 characters';
+
+  @override
+  String get confirm_password_label => 'Confirm password';
+
+  @override
+  String get confirm_password_required => 'Please confirm your password';
+
+  @override
+  String get passwords_dont_match => 'Passwords don\'t match';
+
+  @override
+  String get email_label => 'Email';
+
+  @override
+  String get email_required => 'Please enter your email';
+
+  @override
+  String get email_invalid => 'Please enter a valid email';
 }

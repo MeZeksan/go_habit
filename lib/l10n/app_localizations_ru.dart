@@ -16,6 +16,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get registration => 'Регистрация';
 
   @override
+  String get register => 'Зарегистрироваться';
+
+  @override
+  String get sign_in => 'Войти';
+
+  @override
   String get create_account => 'Создайте аккаунт в Go Habit';
 
   @override
@@ -55,4 +61,31 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get start_tracking_button => 'Начать отслеживание привычек';
+
+  @override
+  String get password_label => 'Пароль';
+
+  @override
+  String get password_required => 'Пожалуйста, введите пароль';
+
+  @override
+  String get password_length => 'Пароль должен содержать минимум 6 символов';
+
+  @override
+  String get confirm_password_label => 'Подтвердите пароль';
+
+  @override
+  String get confirm_password_required => 'Пожалуйста, подтвердите пароль';
+
+  @override
+  String get passwords_dont_match => 'Пароли не совпадают';
+
+  @override
+  String get email_label => 'Email';
+
+  @override
+  String get email_required => 'Пожалуйста, введите email';
+
+  @override
+  String get email_invalid => 'Пожалуйста, введите корректный email';
 }

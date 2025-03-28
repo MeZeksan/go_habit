@@ -3,6 +3,8 @@
   "welcome_back": "Welcome back to Go Habit",
   "dont_have_account": "Don't have an account? Sign Up",
   "registration": "Registration",
+  "register": "Register",
+  "sign_in": "Sign In",
   "create_account": "Create a Go Habit account",
   "already_have_account": "Already have an account? Log In",
     "welcomeMessage": "Welcome, {email}!",
@@ -24,5 +26,15 @@
     "notifications_feature": "Customize notifications to remember your habits",
     "widgets_feature": "Habit widgets right on your home screen!",
     "customWidgets_feature": "Customize widgets you want to see on home screen",
-    "start_tracking_button": "Start habit tracking"
+    "start_tracking_button": "Start habit tracking",
+    
+    "password_label": "Password",
+    "password_required": "Please enter your password",
+    "password_length": "Password must contain at least 6 characters",
+    "confirm_password_label": "Confirm password",
+    "confirm_password_required": "Please confirm your password",
+    "passwords_dont_match": "Passwords don't match",
+    "email_label": "Email",
+    "email_required": "Please enter your email",
+    "email_invalid": "Please enter a valid email"
 }

@@ -113,6 +113,18 @@ abstract class AppLocalizations {
   /// **'Registration'**
   String get registration;
 
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @sign_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get sign_in;
+
   /// No description provided for @create_account.
   ///
   /// In en, this message translates to:
@@ -190,6 +202,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start habit tracking'**
   String get start_tracking_button;
+
+  /// No description provided for @password_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password_label;
+
+  /// No description provided for @password_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get password_required;
+
+  /// No description provided for @password_length.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least 6 characters'**
+  String get password_length;
+
+  /// No description provided for @confirm_password_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirm_password_label;
+
+  /// No description provided for @confirm_password_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm your password'**
+  String get confirm_password_required;
+
+  /// No description provided for @passwords_dont_match.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords don\'t match'**
+  String get passwords_dont_match;
+
+  /// No description provided for @email_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email_label;
+
+  /// No description provided for @email_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get email_required;
+
+  /// No description provided for @email_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get email_invalid;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
