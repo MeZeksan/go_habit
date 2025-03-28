@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/auth_screen.dart';
+import 'package:go_habit/l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 //экран заглушка для приветствия пользователя
@@ -10,6 +11,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final User? user = Supabase.instance.client.auth.currentUser;
     final email = user?.email ?? 'пользователь';
 
@@ -59,32 +61,26 @@ class WelcomeScreen extends StatelessWidget {
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.track_changes,
-                      title:
-                          'Отслеживайте ваши привычки и серию их выполнения!',
-                      description:
-                          'Создавайте и отслеживайте ежедневные привычки для достижения целей'),
+                      title: l10n.habit_tracking_feature,
+                      description: l10n.daily_habits_feature),
                   const SizedBox(height: 16),
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.insert_chart,
-                      title: 'Анализ прогресса в виде графиков и кубиков!',
-                      description:
-                          'Визуализируйте свой прогресс и получайте мотивацию'),
+                      title: l10n.analytics_feature,
+                      description: l10n.visualization_feature),
                   const SizedBox(height: 16),
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.notifications_active,
-                      title: 'Получать напоминания и мотивационные фразы!',
-                      description:
-                          'Настраивайте уведомления, чтобы не забывать о своих привычках'),
+                      title: l10n.reminders_feature,
+                      description: l10n.notifications_feature),
                   const SizedBox(height: 16),
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.widgets_rounded,
-                      title:
-                          'Виджеты для ваших привычек прямо на главном экране!',
-                      description:
-                          'Настраивайте виджеты, которые хотите видеть на главном экране'),
+                      title: l10n.widgets_feature,
+                      description: l10n.customWidgets_feature),
                   const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
@@ -95,7 +91,7 @@ class WelcomeScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: const Text('Начать отслеживание привычек'),
+                      child: Text(l10n.start_tracking_button),
                     ),
                   ),
                 ],

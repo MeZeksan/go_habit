@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "welcome_back": "Welcome back to Go Habit",
-  "don_t_have_account": "Don't have an account? Sign Up",
+  "dont_have_account": "Don't have an account? Sign Up",
   "registration": "Registration",
   "create_account": "Create a Go Habit account",
   "already_have_account": "Already have an account? Log In",
@@ -15,14 +15,14 @@
             }
         }
     },
-    "appDescriptionTitle": "Go Habit app will help you:",
-    "habitTrackingFeature": "Track your habits and completion streaks!",
-    "dailyHabitsFeature": "Create and track daily habits to achieve goals",
-    "analyticsFeature": "Progress analysis with charts and cubes!",
-    "visualizationFeature": "Visualize your progress and stay motivated",
-    "remindersFeature": "Get reminders and motivational phrases!",
-    "notificationsFeature": "Customize notifications to remember your habits",
-    "widgetsFeature": "Habit widgets right on your home screen!",
-    "customWidgetsFeature": "Customize widgets you want to see on home screen",
-    "startTrackingButton": "Start habit tracking"
+    "app_description_title": "Go Habit app will help you:",
+    "habit_tracking_feature": "Track your habits and completion streaks!",
+    "daily_habits_feature": "Create and track daily habits to achieve goals",
+    "analytics_feature": "Progress analysis with charts and cubes!",
+    "visualization_feature": "Visualize your progress and stay motivated",
+    "reminders_feature": "Get reminders and motivational phrases!",
+    "notifications_feature": "Customize notifications to remember your habits",
+    "widgets_feature": "Habit widgets right on your home screen!",
+    "customWidgets_feature": "Customize widgets you want to see on home screen",
+    "start_tracking_button": "Start habit tracking"
 }

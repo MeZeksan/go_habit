@@ -1,5 +1,1 @@
-{
-  "ru": [
-    "don_t_have_account"
-  ]
-}
+{}

@@ -30,11 +30,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.register),
+        title: Text(l10n.registration),
         centerTitle: true,
       ),
       body: BlocListener<app_auth.AuthBloc, app_auth.AuthState>(
@@ -67,7 +67,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(greetingText: l10n.createAccount),
+                      GreetingTextWidget(greetingText: l10n.create_account),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),
@@ -101,7 +101,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       const SizedBox(height: 16),
                       AuthNavigationButton(
-                        text: l10n.alreadyHaveAccount,
+                        text: l10n.already_have_account,
                         onPressed: () {
                           Navigator.pop(context);
                         },
