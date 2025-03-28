@@ -1,18 +1,12 @@
-const _homeRoutesKey = '/home_routes/';
-const _searchRoutesKey = '/search_routes/';
-const _addAdRoutesKey = '/add_ad_routes/';
-const _adDetailsRoutesKey = '/ad_details_routes/';
-const _favouritesRoutesKey = '/favourites_routes/';
-const _profileRoutesKey = '/profile_routes/';
-const _commonRoutesKey = '/common_routes/';
-
-const _tasksRoutesKey = '/tasks_routes/';
-const _nofificationsRoutesKey = '/notifications_routes/';
-const _authRoutesKey = '/auth_routes/';
+const _authRoutesKey = '/auth/';
+const _homeRoutesKey = '/home/';
+const _calendarRoutesKey = '/calendar/';
+const _profileRoutesKey = '/profile/';
 
 enum AuthRoutes {
   login(path: '${_authRoutesKey}login'),
-  authRedirect(path: '${_authRoutesKey}redirect');
+  register(path: '${_authRoutesKey}register'),
+  forgotPassword(path: '${_authRoutesKey}forgot-password');
 
   final String path;
 
@@ -22,7 +16,8 @@ enum AuthRoutes {
 }
 
 enum HomeRoutes {
-  home(path: '${_homeRoutesKey}home');
+  home(path: '${_homeRoutesKey}home'),
+  tasks(path: '${_homeRoutesKey}tasks');
 
   final String path;
 
@@ -31,83 +26,23 @@ enum HomeRoutes {
   });
 }
 
-enum SearchRoutes {
-  search(path: '${_searchRoutesKey}search');
+enum CalendarRoutes {
+  calendar(path: '${_calendarRoutesKey}calendar');
 
   final String path;
 
-  const SearchRoutes({
-    required this.path,
-  });
-}
-
-enum AddAdRoutes {
-  ad(path: '${_addAdRoutesKey}ad');
-
-  final String path;
-
-  const AddAdRoutes({
-    required this.path,
-  });
-}
-
-enum FavouritesRoutes {
-  favourites(path: '${_favouritesRoutesKey}favourites');
-
-  final String path;
-
-  const FavouritesRoutes({
+  const CalendarRoutes({
     required this.path,
   });
 }
 
 enum ProfileRoutes {
-  profile(path: '${_profileRoutesKey}profile');
+  profile(path: '${_profileRoutesKey}profile'),
+  settings(path: '${_profileRoutesKey}settings');
 
   final String path;
 
   const ProfileRoutes({
-    required this.path,
-  });
-}
-
-enum TasksRoutes {
-  tasks(path: '${_tasksRoutesKey}tasks'),
-  taskBottomSheet(path: '/task_bottom_sheet');
-
-  final String path;
-
-  const TasksRoutes({
-    required this.path,
-  });
-}
-
-enum NotificationsRoutes {
-  notifications(path: '${_nofificationsRoutesKey}notifications');
-
-  final String path;
-
-  const NotificationsRoutes({
-    required this.path,
-  });
-}
-
-enum AdDetailsRoutes {
-  details(path: '${_adDetailsRoutesKey}details');
-
-  final String path;
-
-  const AdDetailsRoutes({
-    required this.path,
-  });
-}
-
-enum CommonRoutes {
-  confirmDialog(path: '/confirm_dialog');
-
-  final String path;
-
-  const CommonRoutes({
     required this.path,
   });
 }
