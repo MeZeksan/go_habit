@@ -28,6 +28,7 @@ class HabitsPage extends StatelessWidget {
               ),
               onPressed: () {
                 showModalBottomSheet(
+                  useRootNavigator: true,
                   context: context,
                   isScrollControlled: true,
                   shape: const RoundedRectangleBorder(

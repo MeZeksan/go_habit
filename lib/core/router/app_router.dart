@@ -1,24 +1,25 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_habit/feature/auth/view/auth_screen.dart';
+import 'package:go_habit/feature/auth/view/registration_screen.dart';
+import 'package:go_habit/feature/auth/view/welcome_screen.dart';
+import 'package:go_habit/feature/habits/view/habits_page.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/auth/presentation/pages/register_page.dart';
-import '../../features/home/presentation/pages/home_page.dart';
-import '../../features/calendar/presentation/pages/calendar_page.dart';
-import '../../features/profile/presentation/pages/profile_page.dart';
-import '../../features/profile/presentation/pages/settings_page.dart';
-import '../../features/root/presentation/pages/root_page.dart';
+
+import '../../feature/root/view/root_page.dart';
 import 'routes_enum.dart';
 
 part 'routes/auth_routes.dart';
-part 'routes/home_routes.dart';
 part 'routes/calendar_routes.dart';
+part 'routes/home_routes.dart';
+part 'routes/notifications_routes.dart';
 part 'routes/profile_routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'RootNavigatorKey');
-final _authNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'AuthNavigatorKey');
 final _homeRoutesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'HomeRoutesNavigatorKey');
 final _calendarRoutesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'CalendarRoutesNavigatorKey');
+final _notificationRoutesBranchNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'NotificationRoutesBranchNavigatorKey');
 final _profileRoutesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'ProfileRoutesNavigatorKey');
 
 class AppRouter {
@@ -35,7 +36,9 @@ class AppRouter {
           ..._authRoutes,
           _commonBottomNavigationBarShellRoute,
         ],
-        errorBuilder: (_, state) => Placeholder(key: state.pageKey),
+        errorBuilder: (context, state) => Center(
+          child: Text(state.error.toString()),
+        ),
       );
 }
 
@@ -43,6 +46,7 @@ final _commonBottomNavigationBarShellRoute = StatefulShellRoute.indexedStack(
   branches: [
     _homeRoutesBranch,
     _calendarRoutesBranch,
+    _notificationRoutesBranch,
     _profileRoutesBranch,
   ],
   builder: (_, state, navigationShell) => RootPage(
@@ -66,6 +70,15 @@ final _calendarRoutesBranch = StatefulShellBranch(
   initialLocation: CalendarRoutes.calendar.path,
   routes: [
     ..._calendarRoutes,
+  ],
+);
+
+final _notificationRoutesBranch = StatefulShellBranch(
+  observers: [MyRouteObserver()],
+  navigatorKey: _notificationRoutesBranchNavigatorKey,
+  initialLocation: NotificationsRoutes.notifications.path,
+  routes: [
+    ..._notificationRoutes,
   ],
 );
 

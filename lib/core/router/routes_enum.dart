@@ -1,12 +1,14 @@
-const _authRoutesKey = '/auth/';
-const _homeRoutesKey = '/home/';
-const _calendarRoutesKey = '/calendar/';
-const _profileRoutesKey = '/profile/';
+const _authRoutesKey = '/auth_routes/';
+const _homeRoutesKey = '/home_routes/';
+const _calendarRoutesKey = '/calendar_routes/';
+const _notificationRoutesKey = '/notification_routes/';
+const _profileRoutesKey = '/profile_routes/';
 
 enum AuthRoutes {
   login(path: '${_authRoutesKey}login'),
   register(path: '${_authRoutesKey}register'),
-  forgotPassword(path: '${_authRoutesKey}forgot-password');
+  forgotPassword(path: '${_authRoutesKey}forgot-password'),
+  welcome(path: '${_authRoutesKey}welcome');
 
   final String path;
 
@@ -43,6 +45,16 @@ enum ProfileRoutes {
   final String path;
 
   const ProfileRoutes({
+    required this.path,
+  });
+}
+
+enum NotificationsRoutes {
+  notifications(path: '${_notificationRoutesKey}notifications');
+
+  final String path;
+
+  const NotificationsRoutes({
     required this.path,
   });
 }
