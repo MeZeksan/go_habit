@@ -36,5 +36,37 @@
     "passwords_dont_match": "Пароли не совпадают",
     "email_label": "Email",
     "email_required": "Пожалуйста, введите email",
-    "email_invalid": "Пожалуйста, введите корректный email"
+    "email_invalid": "Пожалуйста, введите корректный email",
+    
+    "profile_title": "Профиль",
+    "theme_settings": "Темная тема",
+    "archive": "Архив",
+    "notifications": "Уведомления",
+    "widgets": "Виджеты",
+    "about_app": "О приложении",
+    "rate_us": "Оцените нас",
+    "share_app": "Поделиться приложением",
+    "feedback": "Обратная связь",
+    "privacy_policy": "Политика конфиденциальности",
+    "sign_out": "Выйти",
+    "sign_out_confirmation_title": "Выход",
+    "sign_out_confirmation_message": "Вы уверены, что хотите выйти из аккаунта?",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "app_version": "Версия {major}.{minor}.{patch}",
+    "@app_version": {
+        "description": "Версия приложения с основным, второстепенным и патч номерами",
+        "placeholders": {
+            "major": {
+                "type": "int"
+            },
+            "minor": {
+                "type": "int"
+            },
+            "patch": {
+                "type": "int"
+            }
+        }
+    },
+    "about_app_description": "Go Habit - это приложение, разработанное для формирования и поддержания полезных привычек. Отслеживайте свой прогресс, устанавливайте напоминания и визуализируйте свой путь."
 }

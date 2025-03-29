@@ -88,4 +88,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get email_invalid => 'Please enter a valid email';
+
+  @override
+  String get profile_title => 'Profile';
+
+  @override
+  String get theme_settings => 'Dark theme';
+
+  @override
+  String get archive => 'Archive';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get widgets => 'Widgets';
+
+  @override
+  String get about_app => 'About App';
+
+  @override
+  String get rate_us => 'Rate Us';
+
+  @override
+  String get share_app => 'Share App';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get privacy_policy => 'Privacy Policy';
+
+  @override
+  String get sign_out => 'Sign Out';
+
+  @override
+  String get sign_out_confirmation_title => 'Sign Out';
+
+  @override
+  String get sign_out_confirmation_message => 'Are you sure you want to sign out?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String app_version(int major, int minor, int patch) {
+    return 'Version $major.$minor.$patch';
+  }
+
+  @override
+  String get about_app_description => 'Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.';
 }

@@ -88,4 +88,57 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get email_invalid => 'Пожалуйста, введите корректный email';
+
+  @override
+  String get profile_title => 'Профиль';
+
+  @override
+  String get theme_settings => 'Темная тема';
+
+  @override
+  String get archive => 'Архив';
+
+  @override
+  String get notifications => 'Уведомления';
+
+  @override
+  String get widgets => 'Виджеты';
+
+  @override
+  String get about_app => 'О приложении';
+
+  @override
+  String get rate_us => 'Оцените нас';
+
+  @override
+  String get share_app => 'Поделиться приложением';
+
+  @override
+  String get feedback => 'Обратная связь';
+
+  @override
+  String get privacy_policy => 'Политика конфиденциальности';
+
+  @override
+  String get sign_out => 'Выйти';
+
+  @override
+  String get sign_out_confirmation_title => 'Выход';
+
+  @override
+  String get sign_out_confirmation_message => 'Вы уверены, что хотите выйти из аккаунта?';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get close => 'Закрыть';
+
+  @override
+  String app_version(int major, int minor, int patch) {
+    return 'Версия $major.$minor.$patch';
+  }
+
+  @override
+  String get about_app_description => 'Go Habit - это приложение, разработанное для формирования и поддержания полезных привычек. Отслеживайте свой прогресс, устанавливайте напоминания и визуализируйте свой путь.';
 }

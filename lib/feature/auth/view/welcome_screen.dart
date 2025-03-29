@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/auth_screen.dart';
+import 'package:go_habit/feature/profile/view/profile_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 //экран заглушка для приветствия пользователя
@@ -85,7 +86,24 @@ class WelcomeScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Здесь будет навигация к основному экрану привычек
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              final currentUser =
+                                  Supabase.instance.client.auth.currentUser;
+                              if (currentUser == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Пользователь не найден'),
+                                  ),
+                                );
+                                return const AuthScreen();
+                              }
+                              return const ProfileScreen();
+                            },
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),

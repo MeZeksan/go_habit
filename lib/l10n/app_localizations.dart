@@ -256,6 +256,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid email'**
   String get email_invalid;
+
+  /// No description provided for @profile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile_title;
+
+  /// No description provided for @theme_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme'**
+  String get theme_settings;
+
+  /// No description provided for @archive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @widgets.
+  ///
+  /// In en, this message translates to:
+  /// **'Widgets'**
+  String get widgets;
+
+  /// No description provided for @about_app.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get about_app;
+
+  /// No description provided for @rate_us.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Us'**
+  String get rate_us;
+
+  /// No description provided for @share_app.
+  ///
+  /// In en, this message translates to:
+  /// **'Share App'**
+  String get share_app;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
+
+  /// No description provided for @sign_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get sign_out;
+
+  /// No description provided for @sign_out_confirmation_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get sign_out_confirmation_title;
+
+  /// No description provided for @sign_out_confirmation_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get sign_out_confirmation_message;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// App version with major, minor and patch numbers
+  ///
+  /// In en, this message translates to:
+  /// **'Version {major}.{minor}.{patch}'**
+  String app_version(int major, int minor, int patch);
+
+  /// No description provided for @about_app_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.'**
+  String get about_app_description;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -36,5 +36,37 @@
     "passwords_dont_match": "Passwords don't match",
     "email_label": "Email",
     "email_required": "Please enter your email",
-    "email_invalid": "Please enter a valid email"
+    "email_invalid": "Please enter a valid email",
+    
+    "profile_title": "Profile",
+    "theme_settings": "Dark theme",
+    "archive": "Archive",
+    "notifications": "Notifications",
+    "widgets": "Widgets",
+    "about_app": "About App",
+    "rate_us": "Rate Us",
+    "share_app": "Share App",
+    "feedback": "Feedback",
+    "privacy_policy": "Privacy Policy",
+    "sign_out": "Sign Out",
+    "sign_out_confirmation_title": "Sign Out",
+    "sign_out_confirmation_message": "Are you sure you want to sign out?",
+    "cancel": "Cancel",
+    "close": "Close",
+    "app_version": "Version {major}.{minor}.{patch}",
+    "@app_version": {
+        "description": "App version with major, minor and patch numbers",
+        "placeholders": {
+            "major": {
+                "type": "int"
+            },
+            "minor": {
+                "type": "int"
+            },
+            "patch": {
+                "type": "int"
+            }
+        }
+    },
+    "about_app_description": "Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey."
 }
