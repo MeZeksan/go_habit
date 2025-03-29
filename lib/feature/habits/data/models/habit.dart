@@ -10,13 +10,15 @@ class Habit {
   final String id;
   final String title;
   final String? description;
-  final String? lastCompletedDate;
+  @JsonKey(name: 'last_completed_time')
+  final String? lastCompletedTime;
   @JsonKey(name: 'category_id')
-  final int categoryId;
+  final String categoryId;
   @JsonKey(name: 'created_at')
   final String? createdAt;
   @JsonKey(name: 'updated_at')
   final String? updatedAt;
+  @JsonKey(name: 'is_active')
   final bool isActive;
   final int steps;
   final String? icon;
@@ -32,7 +34,7 @@ class Habit {
     this.updatedAt,
     required this.categoryId,
     this.isActive = true,
-    this.lastCompletedDate,
+    this.lastCompletedTime,
     this.icon,
     this.steps = 0,
     this.syncStatus = SyncStatus.synced,
@@ -46,8 +48,8 @@ class Habit {
     String? id,
     String? title,
     String? description,
-    String? lastCompletedDate,
-    int? categoryId,
+    String? lastCompletedTime,
+    String? categoryId,
     String? createdAt,
     String? updatedAt,
     bool? isActive,
@@ -58,7 +60,7 @@ class Habit {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      lastCompletedDate: lastCompletedDate ?? this.lastCompletedDate,
+      lastCompletedTime: lastCompletedTime ?? lastCompletedTime,
       categoryId: categoryId ?? this.categoryId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -73,7 +75,7 @@ class Habit {
       id: habit.id,
       title: habit.title,
       description: habit.description,
-      lastCompletedDate: habit.lastTimeCompleted.toString(),
+      lastCompletedTime: habit.lastTimeCompleted?.toIso8601String(),
       categoryId: habit.categoryId,
       createdAt: habit.createdAt.toString(),
       updatedAt: habit.updatedAt.toString(),

@@ -45,8 +45,8 @@ void main() {
         createdAt: DateTime.now().toIso8601String(),
         updatedAt: DateTime.now().toIso8601String(),
         isActive: true,
-        lastCompletedDate: DateTime.now().toIso8601String(),
-        categoryId: 1,
+        lastCompletedTime: DateTime.now().toIso8601String(),
+        categoryId: 'health',
         steps: 0);
   });
 
@@ -65,7 +65,7 @@ void main() {
                 isPendingSync: false,
                 isActive: true,
                 syncStatus: 'synced',
-                categoryId: 1,
+                categoryId: 'health',
                 steps: 0,
                 icon: '%'),
             drift.Habit(
@@ -77,7 +77,7 @@ void main() {
                 isPendingSync: false,
                 isActive: true,
                 syncStatus: 'synced',
-                categoryId: 2,
+                categoryId: 'health',
                 steps: 4,
                 icon: '*')
           ],
@@ -207,7 +207,7 @@ void main() {
       expect(capturedArgs[3], testHabit.categoryId);
       expect(capturedArgs[4], testHabit.steps);
       expect(capturedArgs[5], testHabit.isActive);
-      expect((capturedArgs[6] as DateTime).toIso8601String(), testHabit.lastCompletedDate);
+      expect((capturedArgs[6] as DateTime).toIso8601String(), testHabit.lastCompletedTime);
       expect(capturedArgs[7], true);
       expect(capturedArgs[8], 'update');
     });

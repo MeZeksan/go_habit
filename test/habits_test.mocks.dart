@@ -360,7 +360,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
     String? habitId, {
     String? title,
     String? description,
-    int? categoryId,
+    String? categoryId,
     int? steps,
     bool? isActive,
     DateTime? lastTimeCompleted,

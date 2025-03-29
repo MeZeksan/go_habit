@@ -61,7 +61,7 @@ class DriftHabitDataSource implements LocalHabitDataSource {
         categoryId: habit.categoryId,
         steps: habit.steps,
         isActive: habit.isActive,
-        lastTimeCompleted: DateTime.tryParse(habit.lastCompletedDate ?? ''),
+        lastTimeCompleted: DateTime.tryParse(habit.lastCompletedTime ?? ''),
         isPendingSync: true,
         syncStatus: 'update');
   }
@@ -128,7 +128,8 @@ class DriftHabitDataSource implements LocalHabitDataSource {
       id: habit.id,
       title: habit.title,
       description: Value(habit.description),
-      lastTimeCompleted: Value(DateTime.tryParse(habit.lastCompletedDate ?? '')),
+      categoryId: Value(habit.categoryId),
+      lastTimeCompleted: Value(habit.lastCompletedTime == null ? null : DateTime.parse(habit.lastCompletedTime!)),
       createdAt: Value(DateTime.tryParse(habit.createdAt ?? '') ?? DateTime.now()),
       updatedAt: Value(DateTime.tryParse(habit.updatedAt ?? '') ?? DateTime.now()),
       isActive: Value(habit.isActive),

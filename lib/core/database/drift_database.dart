@@ -20,17 +20,18 @@ class AppDatabase extends _$AppDatabase {
   //         await m.createAll();
   //       },
   //       onUpgrade: (Migrator m, int from, int to) async {
-  //         final result = await customSelect("PRAGMA table_info(habits);").get();
-  //         final columnNames = result.map((row) => row.data['name'] as String).toList();
-  //         if (!columnNames.contains("sync_status")) {
-  //           await m.addColumn(habits, habits.syncStatus);
-  //         }
-  //       },
-  //     );
+  // await m.deleteTable('habits');
+  // final result = await customSelect("PRAGMA table_info(habits);").get();
+  // final columnNames = result.map((row) => row.data['name'] as String).toList();
+  // if (!columnNames.contains("sync_status")) {
+  //   await m.addColumn(habits, habits.syncStatus);
+  // }
+  //   },
+  // );
 
   static QueryExecutor _openConnection() {
     return driftDatabase(
-      name: 'my_database',
+      name: 'drift_database',
       native: const DriftNativeOptions(
         // By default, `driftDatabase` from `package:drift_flutter` stores the
         // database files in `getApplicationDocumentsDirectory()`.

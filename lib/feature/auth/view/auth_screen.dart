@@ -4,7 +4,6 @@ import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
-import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -38,13 +37,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 backgroundColor: Colors.red,
               ),
             );
-          } else if (state is app_auth.AuthAuthenticated) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-              (route) => false,
-            );
           }
+          // else if (state is app_auth.AuthAuthenticated) {
+          //   Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          //     (route) => false,
+          //   );
+          // }
         },
         child: SafeArea(
           child: Padding(
