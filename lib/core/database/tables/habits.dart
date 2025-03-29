@@ -9,7 +9,7 @@ class Habits extends Table {
   DateTimeColumn get lastTimeCompleted => dateTime().nullable()();
   DateTimeColumn get createdAt => dateTime().clientDefault(() => DateTime.now())();
   DateTimeColumn get updatedAt => dateTime().clientDefault(() => DateTime.now())();
-  IntColumn get categoryId => integer().withDefault(const Constant(0))();
+  TextColumn get categoryId => text().withDefault(const Constant('health'))();
   BoolColumn get isPendingSync => boolean().withDefault(const Constant(false))();
   IntColumn get steps => integer().withDefault(const Constant(0))();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();

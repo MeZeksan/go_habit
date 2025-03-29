@@ -25,7 +25,7 @@ class HabitsDao extends DatabaseAccessor<AppDatabase> with _$HabitsDaoMixin {
   Future<int> updateHabit(String habitId,
       {String? title,
       String? description,
-      int? categoryId,
+      String? categoryId,
       int? steps,
       bool? isActive,
       DateTime? lastTimeCompleted,

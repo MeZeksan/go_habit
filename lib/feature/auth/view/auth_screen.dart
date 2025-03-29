@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
-import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -37,13 +36,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 backgroundColor: Colors.red,
               ),
             );
-          } else if (state is app_auth.AuthAuthenticated) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-              (route) => false,
-            );
           }
+          // else if (state is app_auth.AuthAuthenticated) {
+          //   Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          //     (route) => false,
+          //   );
+          // }
         },
         child: SafeArea(
           child: Padding(
@@ -56,8 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(
-                          greetingText: 'С возвращением в Go Habit'),
+                      const GreetingTextWidget(greetingText: 'С возвращением в Go Habit'),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),

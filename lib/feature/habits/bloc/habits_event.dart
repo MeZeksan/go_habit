@@ -11,8 +11,8 @@ final class LoadHabits extends HabitsEvent {
 final class AddHabit extends HabitsEvent {
   final String title;
   final String description;
-  final int categoryId;
-  AddHabit(this.title, this.description, this.categoryId);
+  final String categoryKey;
+  AddHabit(this.title, this.description, this.categoryKey);
 }
 
 final class UpdateHabit extends HabitsEvent {

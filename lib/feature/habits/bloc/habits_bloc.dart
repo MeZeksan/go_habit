@@ -60,7 +60,7 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
     }
 
     try {
-      final habit = Habit(title: event.title, description: event.description, categoryId: 1);
+      final habit = Habit(title: event.title, description: event.description, categoryId: event.categoryKey);
       await _habitRepository.addHabit(habit);
       emit(HabitsOperationSuccess(message: 'Habit is added', habits: state.habits));
     } catch (error, stackTrace) {
@@ -95,7 +95,7 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
   Future<void> _onFinishHabit(FinishHabit event, Emitter<HabitsState> emit) async {
     try {
       final finishedHabit = state.habits.firstWhere((element) => element.id == event.id).copyWith(
-            lastCompletedDate: DateTime.now().toIso8601String(),
+            lastCompletedTime: DateTime.now().toIso8601String(),
           );
       await _habitRepository.updateHabit(finishedHabit);
       emit(HabitsOperationSuccess(message: 'Habit is finished', habits: state.habits));
