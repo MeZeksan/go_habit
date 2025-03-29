@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
@@ -57,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       GreetingTextWidget(
-                          greetingText: 'С возвращением в Go Habit'),
+                          greetingText: context.l10n.welcome_back),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),
@@ -79,7 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       const SizedBox(height: 16),
                       AuthNavigationButton(
-                        text: 'Нет аккаунта? Зарегистрироваться',
+                        text: context.l10n.dont_have_account,
                         onPressed: () {
                           Navigator.push(
                             context,
