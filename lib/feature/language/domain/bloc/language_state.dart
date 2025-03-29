@@ -1,7 +1,16 @@
 part of 'language_bloc.dart';
 
-abstract class LanguageState {}
+abstract class LanguageState {
+  final String languageCode;
 
-class LanguageInitial extends LanguageState {}
+  const LanguageState(this.languageCode);
+}
 
-class LanguageChanged extends LanguageState {}
+class LanguageInitial extends LanguageState {
+  const LanguageInitial()
+      : super('en'); // Устанавливаем английский как язык по умолчанию
+}
+
+class LanguageChanged extends LanguageState {
+  const LanguageChanged(String languageCode) : super(languageCode);
+}

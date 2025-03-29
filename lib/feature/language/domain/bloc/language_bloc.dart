@@ -3,8 +3,11 @@ part 'language_event.dart';
 part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  LanguageBloc() : super(LanguageInitial());
+  LanguageBloc() : super(const LanguageInitial()) {
+    on<ChangeLanguage>(_onChangeLanguage);
+  }
 
-  @override
-  LanguageState get initialState => LanguageInitial();
+  void _onChangeLanguage(ChangeLanguage event, Emitter<LanguageState> emit) {
+    emit(LanguageChanged(event.languageCode));
+  }
 }
