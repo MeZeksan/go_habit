@@ -68,5 +68,36 @@
             }
         }
     },
-    "about_app_description": "Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey."
+    "about_app_description": "Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.",
+
+    "privacy_policy_last_updated": "Last updated: {date}",
+    "@privacy_policy_last_updated": {
+        "description": "Last update date of the privacy policy",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "March 29, 2024"
+            }
+        }
+    },
+    "privacy_policy_section1_title": "1. Information Collection",
+    "privacy_policy_section1_content": "Go Habit app collects the following information:\n• Account information (email)\n• Habit and activity data\n• Device information (for diagnostics)",
+    "privacy_policy_section2_title": "2. Information Usage",
+    "privacy_policy_section2_content": "We use the collected information for:\n• Providing core app functionality\n• Improving user experience\n• Sending notifications (only with your permission)",
+    "privacy_policy_section3_title": "3. Data Security",
+    "privacy_policy_section3_content": "We implement modern security measures to protect your personal data. All data is stored in encrypted form and is not shared with third parties without your consent.",
+    "privacy_policy_section4_title": "4. Cookies",
+    "privacy_policy_section4_content": "Our app does not use cookies in the traditional sense. However, we store local data on your device for optimal app performance.",
+    "privacy_policy_section5_title": "5. Consent",
+    "privacy_policy_section5_content": "By using the Go Habit app, you agree to our privacy policy. If you have any questions, please contact us at support@gohabit.app",
+    "privacy_policy_copyright": "© {year} Go Habit. All rights reserved.",
+    "@privacy_policy_copyright": {
+        "description": "Copyright text with year",
+        "placeholders": {
+            "year": {
+                "type": "String",
+                "example": "2024"
+            }
+        }
+    }
 }

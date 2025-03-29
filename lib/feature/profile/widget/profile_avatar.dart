@@ -21,7 +21,7 @@ class ProfileAvatar extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.green, width: 2),
           ),
-          child: Center(
+          child: const Center(
             child: Icon(
               Icons.pets,
               size: 60,

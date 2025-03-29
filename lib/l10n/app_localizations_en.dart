@@ -141,4 +141,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get about_app_description => 'Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.';
+
+  @override
+  String privacy_policy_last_updated(String date) {
+    return 'Last updated: $date';
+  }
+
+  @override
+  String get privacy_policy_section1_title => '1. Information Collection';
+
+  @override
+  String get privacy_policy_section1_content => 'Go Habit app collects the following information:\n• Account information (email)\n• Habit and activity data\n• Device information (for diagnostics)';
+
+  @override
+  String get privacy_policy_section2_title => '2. Information Usage';
+
+  @override
+  String get privacy_policy_section2_content => 'We use the collected information for:\n• Providing core app functionality\n• Improving user experience\n• Sending notifications (only with your permission)';
+
+  @override
+  String get privacy_policy_section3_title => '3. Data Security';
+
+  @override
+  String get privacy_policy_section3_content => 'We implement modern security measures to protect your personal data. All data is stored in encrypted form and is not shared with third parties without your consent.';
+
+  @override
+  String get privacy_policy_section4_title => '4. Cookies';
+
+  @override
+  String get privacy_policy_section4_content => 'Our app does not use cookies in the traditional sense. However, we store local data on your device for optimal app performance.';
+
+  @override
+  String get privacy_policy_section5_title => '5. Consent';
+
+  @override
+  String get privacy_policy_section5_content => 'By using the Go Habit app, you agree to our privacy policy. If you have any questions, please contact us at support@gohabit.app';
+
+  @override
+  String privacy_policy_copyright(String year) {
+    return '© $year Go Habit. All rights reserved.';
+  }
 }

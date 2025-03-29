@@ -21,7 +21,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              "Дата последнего обновления: 29 марта 2024",
+              context.l10n.privacy_policy_last_updated('29 марта 2025'),
               style: const TextStyle(
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -29,41 +29,30 @@ class PrivacyPolicyScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             _PolicySection(
-              title: "1. Сбор информации",
-              content: "Приложение Go Habit собирает следующую информацию:\n"
-                  "• Информацию об аккаунте (email)\n"
-                  "• Данные о привычках и активности\n"
-                  "• Информацию о устройстве (для диагностики)",
+              title: context.l10n.privacy_policy_section1_title,
+              content: context.l10n.privacy_policy_section1_content,
             ),
             _PolicySection(
-              title: "2. Использование информации",
-              content: "Мы используем собранную информацию для:\n"
-                  "• Предоставления основных функций приложения\n"
-                  "• Улучшения пользовательского опыта\n"
-                  "• Отправки уведомлений (только с вашего разрешения)",
+              title: context.l10n.privacy_policy_section2_title,
+              content: context.l10n.privacy_policy_section2_content,
             ),
             _PolicySection(
-              title: "3. Безопасность данных",
-              content:
-                  "Мы применяем современные меры безопасности для защиты ваших персональных данных. "
-                  "Все данные хранятся в зашифрованном виде и не передаются третьим лицам без вашего согласия.",
+              title: context.l10n.privacy_policy_section3_title,
+              content: context.l10n.privacy_policy_section3_content,
             ),
             _PolicySection(
-              title: "4. Файлы cookie",
-              content:
-                  "Наше приложение не использует файлы cookie в традиционном понимании. "
-                  "Однако мы сохраняем локальные данные на вашем устройстве для оптимальной работы приложения.",
+              title: context.l10n.privacy_policy_section4_title,
+              content: context.l10n.privacy_policy_section4_content,
             ),
             _PolicySection(
-              title: "5. Согласие",
-              content:
-                  "Используя приложение Go Habit, вы соглашаетесь с нашей политикой конфиденциальности. "
-                  "Если у вас есть вопросы, свяжитесь с нами по адресу support@gohabit.app",
+              title: context.l10n.privacy_policy_section5_title,
+              content: context.l10n.privacy_policy_section5_content,
             ),
             const SizedBox(height: 32),
             Center(
               child: Text(
-                "© 2025 Go Habit. Все права защищены.",
+                context.l10n
+                    .privacy_policy_copyright(DateTime.now().year.toString()),
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey[600],

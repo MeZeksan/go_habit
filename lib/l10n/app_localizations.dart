@@ -358,6 +358,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.'**
   String get about_app_description;
+
+  /// Last update date of the privacy policy
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: {date}'**
+  String privacy_policy_last_updated(String date);
+
+  /// No description provided for @privacy_policy_section1_title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Information Collection'**
+  String get privacy_policy_section1_title;
+
+  /// No description provided for @privacy_policy_section1_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Habit app collects the following information:\n• Account information (email)\n• Habit and activity data\n• Device information (for diagnostics)'**
+  String get privacy_policy_section1_content;
+
+  /// No description provided for @privacy_policy_section2_title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Information Usage'**
+  String get privacy_policy_section2_title;
+
+  /// No description provided for @privacy_policy_section2_content.
+  ///
+  /// In en, this message translates to:
+  /// **'We use the collected information for:\n• Providing core app functionality\n• Improving user experience\n• Sending notifications (only with your permission)'**
+  String get privacy_policy_section2_content;
+
+  /// No description provided for @privacy_policy_section3_title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Data Security'**
+  String get privacy_policy_section3_title;
+
+  /// No description provided for @privacy_policy_section3_content.
+  ///
+  /// In en, this message translates to:
+  /// **'We implement modern security measures to protect your personal data. All data is stored in encrypted form and is not shared with third parties without your consent.'**
+  String get privacy_policy_section3_content;
+
+  /// No description provided for @privacy_policy_section4_title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Cookies'**
+  String get privacy_policy_section4_title;
+
+  /// No description provided for @privacy_policy_section4_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Our app does not use cookies in the traditional sense. However, we store local data on your device for optimal app performance.'**
+  String get privacy_policy_section4_content;
+
+  /// No description provided for @privacy_policy_section5_title.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Consent'**
+  String get privacy_policy_section5_title;
+
+  /// No description provided for @privacy_policy_section5_content.
+  ///
+  /// In en, this message translates to:
+  /// **'By using the Go Habit app, you agree to our privacy policy. If you have any questions, please contact us at support@gohabit.app'**
+  String get privacy_policy_section5_content;
+
+  /// Copyright text with year
+  ///
+  /// In en, this message translates to:
+  /// **'© {year} Go Habit. All rights reserved.'**
+  String privacy_policy_copyright(String year);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
