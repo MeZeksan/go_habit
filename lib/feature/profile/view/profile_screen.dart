@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
+import 'package:go_habit/feature/language/widget/language_widget.dart';
 import 'package:go_habit/feature/profile/domain/bloc/profile_bloc.dart';
 import 'package:go_habit/feature/profile/widget/profile_avatar.dart';
 import 'package:go_habit/feature/profile/widget/settings_section.dart';
@@ -31,6 +32,9 @@ class ProfileScreen extends StatelessWidget {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(context.l10n.profile_title),
+                actions: const [
+                  LanguageWidget(),
+                ],
               ),
               body: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
