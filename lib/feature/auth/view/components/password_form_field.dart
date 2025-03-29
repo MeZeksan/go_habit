@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_habit/l10n/app_localizations.dart';
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
@@ -16,10 +17,12 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return TextFormField(
       controller: _controller,
       decoration: InputDecoration(
-        labelText: 'Пароль',
+        labelText: localizations.password_label,
         border: const OutlineInputBorder(),
         prefixIcon: const Icon(Icons.lock),
         suffixIcon: IconButton(
@@ -32,10 +35,10 @@ class PasswordFormField extends StatelessWidget {
       obscureText: !_isPasswordVisible,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Пожалуйста, введите пароль';
+          return localizations.password_required;
         }
         if (value.length < 6) {
-          return 'Пароль должен содержать минимум 6 символов';
+          return localizations.password_length;
         }
         return null;
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 
 class SignButton extends StatelessWidget {
@@ -55,7 +56,7 @@ class SignButton extends StatelessWidget {
           child: state is app_auth.AuthLoading
               ? const CircularProgressIndicator()
               : Text(
-                  isRegistration ? 'Зарегистрироваться' : 'Войти',
+                  isRegistration ? context.l10n.register : context.l10n.sign_in,
                   style: const TextStyle(fontSize: 16),
                 ),
         );
