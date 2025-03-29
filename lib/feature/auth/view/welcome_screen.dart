@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/auth_screen.dart';
-import 'package:go_habit/l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 //экран заглушка для приветствия пользователя
@@ -11,7 +11,6 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     final User? user = Supabase.instance.client.auth.currentUser;
     final email = user?.email ?? 'пользователь';
 
@@ -61,26 +60,26 @@ class WelcomeScreen extends StatelessWidget {
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.track_changes,
-                      title: l10n.habit_tracking_feature,
-                      description: l10n.daily_habits_feature),
+                      title: context.l10n.habit_tracking_feature,
+                      description: context.l10n.daily_habits_feature),
                   const SizedBox(height: 16),
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.insert_chart,
-                      title: l10n.analytics_feature,
-                      description: l10n.visualization_feature),
+                      title: context.l10n.analytics_feature,
+                      description: context.l10n.visualization_feature),
                   const SizedBox(height: 16),
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.notifications_active,
-                      title: l10n.reminders_feature,
-                      description: l10n.notifications_feature),
+                      title: context.l10n.reminders_feature,
+                      description: context.l10n.notifications_feature),
                   const SizedBox(height: 16),
                   FeatureCardWidget(
                       context: context,
                       icon: Icons.widgets_rounded,
-                      title: l10n.widgets_feature,
-                      description: l10n.customWidgets_feature),
+                      title: context.l10n.widgets_feature,
+                      description: context.l10n.customWidgets_feature),
                   const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
@@ -91,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: Text(l10n.start_tracking_button),
+                      child: Text(context.l10n.start_tracking_button),
                     ),
                   ),
                 ],

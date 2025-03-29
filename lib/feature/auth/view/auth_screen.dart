@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
 import 'package:go_habit/feature/auth/view/welcome_screen.dart';
-import 'package:go_habit/l10n/app_localizations.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -28,7 +28,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: BlocListener<app_auth.AuthBloc, app_auth.AuthState>(
         listener: (context, state) {
@@ -58,7 +57,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(greetingText: l10n.welcome_back),
+                      GreetingTextWidget(
+                          greetingText: context.l10n.welcome_back),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),
@@ -80,7 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       const SizedBox(height: 16),
                       AuthNavigationButton(
-                        text: l10n.dont_have_account,
+                        text: context.l10n.dont_have_account,
                         onPressed: () {
                           Navigator.push(
                             context,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
-import 'package:go_habit/l10n/app_localizations.dart';
 
 class SignButton extends StatelessWidget {
   const SignButton({
@@ -21,7 +21,6 @@ class SignButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     return BlocBuilder<app_auth.AuthBloc, app_auth.AuthState>(
       builder: (context, state) {
         return ElevatedButton(
@@ -57,7 +56,7 @@ class SignButton extends StatelessWidget {
           child: state is app_auth.AuthLoading
               ? const CircularProgressIndicator()
               : Text(
-                  isRegistration ? l10n.register : l10n.sign_in,
+                  isRegistration ? context.l10n.register : context.l10n.sign_in,
                   style: const TextStyle(fontSize: 16),
                 ),
         );
