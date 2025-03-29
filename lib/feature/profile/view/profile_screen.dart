@@ -2,79 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
+import 'package:go_habit/feature/profile/domain/bloc/profile_bloc.dart';
+import 'package:go_habit/feature/profile/widget/profile_avatar.dart';
+import 'package:go_habit/feature/profile/widget/settings_section.dart';
 import 'package:go_habit/feature/profile/view/privacy_policy_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Проверка на пользователя до отрисовки экрана
-    final authState = context.watch<app_auth.AuthBloc>().state;
-    User? authUser;
-
-    if (authState is app_auth.AuthAuthenticated) {
-      authUser = authState.user;
-    } else {
-      authUser = Supabase.instance.client.auth.currentUser;
-    }
-
-    // Если пользователя нет вообще, показываем заглушку
-    final String email = authUser?.email ?? 'Пользователь';
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n.profile_title),
-      ),
-      body: _ProfileContent(email: email),
+    return BlocProvider(
+      create: (context) => ProfileBloc(
+        authBloc: context.read<app_auth.AuthBloc>(),
+      )..add(LoadProfile()),
+      child: const ProfileContent(),
     );
   }
 }
 
-class _ProfileContent extends StatelessWidget {
-  final String email;
-
-  const _ProfileContent({required this.email});
+class ProfileContent extends StatelessWidget {
+  const ProfileContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Placeholder для маскота
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.green, width: 2),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.pets,
-                size: 60,
-                color: Colors.green,
-              ),
+    return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+      final String email = state is ProfileLoaded ? state.email : 'Загрузка...';
+
+      return BlocListener<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          if (state is ProfileError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(context.l10n.profile_title),
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ProfileAvatar(email: email),
+                const SizedBox(height: 24),
+                const SettingsSection(),
+              ],
             ),
           ),
-          const SizedBox(height: 16),
-
-          // Email пользователя
-          Text(
-            email,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 24),
-
-          // Настройки
-          const _SettingsSection(),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }
 
@@ -225,9 +205,7 @@ class _SettingsSection extends StatelessWidget {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              context
-                  .read<app_auth.AuthBloc>()
-                  .add(app_auth.AuthSignOutRequested());
+              context.read<ProfileBloc>().add(SignOut());
             },
             child: Text(context.l10n.sign_out),
           ),
