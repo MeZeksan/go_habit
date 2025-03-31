@@ -7,6 +7,7 @@ import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 import 'package:go_habit/feature/habits/view/habits_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../feature/profile/view/profile_screen.dart';
 import '../../feature/root/view/root_page.dart';
 import 'routes_enum.dart';
 

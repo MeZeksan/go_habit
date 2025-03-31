@@ -5,7 +5,9 @@ final _profileRoutes = [
     parentNavigatorKey: _profileRoutesNavigatorKey,
     path: ProfileRoutes.profile.path,
     name: ProfileRoutes.profile.name,
-    builder: (_, state) => const Placeholder(),
+    builder: (_, state) => ProfileScreen(
+      key: state.pageKey,
+    ),
   ),
   GoRoute(
     path: ProfileRoutes.settings.path,

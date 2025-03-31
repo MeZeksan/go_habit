@@ -8,6 +8,7 @@ import 'package:go_habit/feature/habits/domain/repositories/habit_repository.dar
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:yx_scope/yx_scope.dart';
 
+import '../../../core/router/app_router.dart';
 import '../../habits/data/data_sources/local/local_habit_data_source.dart';
 import '../../habits/data/data_sources/remote/remote_habit_data_source.dart';
 
@@ -23,6 +24,8 @@ class AppScopeContainer extends ScopeContainer {
 
   late final habitRepositoryDep = dep<HabitRepository>(
       () => HabitsRepositoryImplementation(localHabitDataSource.get, remoteHabitDataSource.get, const AppConnect()));
+
+  late final routerConfig = dep(() => AppRouter().routerConfig);
 }
 
 class AppScopeHolder extends ScopeHolder<AppScopeContainer> {

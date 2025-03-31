@@ -3,8 +3,6 @@ import 'package:go_habit/feature/initizialization/scopes/app_scope_container.dar
 import 'package:go_habit/feature/initizialization/widget/material_context.dart';
 import 'package:go_habit/feature/language/widget/language_scope.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
-import 'package:go_habit/feature/language/domain/bloc/language_bloc.dart';
-import 'dart:ui' as ui;
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -26,7 +24,6 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     _appScopeHolder.drop();
-    _languageBloc.close();
     super.dispose();
   }
 
@@ -34,7 +31,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return ScopeProvider(
       holder: _appScopeHolder,
-      child: const LanguageScope(MaterialContext()),
+      child: const LanguageScope(child: MaterialContext()),
     );
   }
 }
