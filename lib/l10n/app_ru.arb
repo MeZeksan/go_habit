@@ -36,5 +36,68 @@
     "passwords_dont_match": "Пароли не совпадают",
     "email_label": "Email",
     "email_required": "Пожалуйста, введите email",
-    "email_invalid": "Пожалуйста, введите корректный email"
+    "email_invalid": "Пожалуйста, введите корректный email",
+    
+    "profile_title": "Профиль",
+    "theme_settings": "Темная тема",
+    "archive": "Архив",
+    "notifications": "Уведомления",
+    "widgets": "Виджеты",
+    "about_app": "О приложении",
+    "rate_us": "Оцените нас",
+    "share_app": "Поделиться приложением",
+    "feedback": "Обратная связь",
+    "privacy_policy": "Политика конфиденциальности",
+    "sign_out": "Выйти",
+    "sign_out_confirmation_title": "Выход",
+    "sign_out_confirmation_message": "Вы уверены, что хотите выйти из аккаунта?",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "app_version": "Версия {major}.{minor}.{patch}",
+    "@app_version": {
+        "description": "Версия приложения с основным, второстепенным и патч номерами",
+        "placeholders": {
+            "major": {
+                "type": "int"
+            },
+            "minor": {
+                "type": "int"
+            },
+            "patch": {
+                "type": "int"
+            }
+        }
+    },
+    "about_app_description": "Go Habit - это приложение, разработанное для формирования и поддержания полезных привычек. Отслеживайте свой прогресс, устанавливайте напоминания и визуализируйте свой путь.",
+
+    "privacy_policy_last_updated": "Дата последнего обновления: {date}",
+    "@privacy_policy_last_updated": {
+        "description": "Дата последнего обновления политики конфиденциальности",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "29 марта 2024"
+            }
+        }
+    },
+    "privacy_policy_section1_title": "1. Сбор информации",
+    "privacy_policy_section1_content": "Приложение Go Habit собирает следующую информацию:\n• Информацию об аккаунте (email)\n• Данные о привычках и активности\n• Информацию о устройстве (для диагностики)",
+    "privacy_policy_section2_title": "2. Использование информации",
+    "privacy_policy_section2_content": "Мы используем собранную информацию для:\n• Предоставления основных функций приложения\n• Улучшения пользовательского опыта\n• Отправки уведомлений (только с вашего разрешения)",
+    "privacy_policy_section3_title": "3. Безопасность данных",
+    "privacy_policy_section3_content": "Мы применяем современные меры безопасности для защиты ваших персональных данных. Все данные хранятся в зашифрованном виде и не передаются третьим лицам без вашего согласия.",
+    "privacy_policy_section4_title": "4. Файлы cookie",
+    "privacy_policy_section4_content": "Наше приложение не использует файлы cookie в традиционном понимании. Однако мы сохраняем локальные данные на вашем устройстве для оптимальной работы приложения.",
+    "privacy_policy_section5_title": "5. Согласие",
+    "privacy_policy_section5_content": "Используя приложение Go Habit, вы соглашаетесь с нашей политикой конфиденциальности. Если у вас есть вопросы, свяжитесь с нами по адресу support@gohabit.app",
+    "privacy_policy_copyright": "© {year} Go Habit. Все права защищены.",
+    "@privacy_policy_copyright": {
+        "description": "Текст копирайта с годом",
+        "placeholders": {
+            "year": {
+                "type": "String",
+                "example": "2024"
+            }
+        }
+    }
 }

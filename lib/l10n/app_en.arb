@@ -36,5 +36,68 @@
     "passwords_dont_match": "Passwords don't match",
     "email_label": "Email",
     "email_required": "Please enter your email",
-    "email_invalid": "Please enter a valid email"
+    "email_invalid": "Please enter a valid email",
+    
+    "profile_title": "Profile",
+    "theme_settings": "Dark theme",
+    "archive": "Archive",
+    "notifications": "Notifications",
+    "widgets": "Widgets",
+    "about_app": "About App",
+    "rate_us": "Rate Us",
+    "share_app": "Share App",
+    "feedback": "Feedback",
+    "privacy_policy": "Privacy Policy",
+    "sign_out": "Sign Out",
+    "sign_out_confirmation_title": "Sign Out",
+    "sign_out_confirmation_message": "Are you sure you want to sign out?",
+    "cancel": "Cancel",
+    "close": "Close",
+    "app_version": "Version {major}.{minor}.{patch}",
+    "@app_version": {
+        "description": "App version with major, minor and patch numbers",
+        "placeholders": {
+            "major": {
+                "type": "int"
+            },
+            "minor": {
+                "type": "int"
+            },
+            "patch": {
+                "type": "int"
+            }
+        }
+    },
+    "about_app_description": "Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.",
+
+    "privacy_policy_last_updated": "Last updated: {date}",
+    "@privacy_policy_last_updated": {
+        "description": "Last update date of the privacy policy",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "March 29, 2024"
+            }
+        }
+    },
+    "privacy_policy_section1_title": "1. Information Collection",
+    "privacy_policy_section1_content": "Go Habit app collects the following information:\n• Account information (email)\n• Habit and activity data\n• Device information (for diagnostics)",
+    "privacy_policy_section2_title": "2. Information Usage",
+    "privacy_policy_section2_content": "We use the collected information for:\n• Providing core app functionality\n• Improving user experience\n• Sending notifications (only with your permission)",
+    "privacy_policy_section3_title": "3. Data Security",
+    "privacy_policy_section3_content": "We implement modern security measures to protect your personal data. All data is stored in encrypted form and is not shared with third parties without your consent.",
+    "privacy_policy_section4_title": "4. Cookies",
+    "privacy_policy_section4_content": "Our app does not use cookies in the traditional sense. However, we store local data on your device for optimal app performance.",
+    "privacy_policy_section5_title": "5. Consent",
+    "privacy_policy_section5_content": "By using the Go Habit app, you agree to our privacy policy. If you have any questions, please contact us at support@gohabit.app",
+    "privacy_policy_copyright": "© {year} Go Habit. All rights reserved.",
+    "@privacy_policy_copyright": {
+        "description": "Copyright text with year",
+        "placeholders": {
+            "year": {
+                "type": "String",
+                "example": "2024"
+            }
+        }
+    }
 }
