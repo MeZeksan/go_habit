@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_habit/feature/auth/widget/auth_scope.dart';
 import 'package:go_habit/feature/initizialization/scopes/app_scope_container.dart';
-import 'package:go_habit/l10n/app_localizations.dart';
+import 'package:go_habit/feature/initizialization/widget/material_context.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
-
-import '../../../core/theme/app_theme.dart';
-import '../../habits/widget/habits_scope.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -16,11 +11,12 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final _appScopeHolder = AppScopeHolder();
+  late final AppScopeHolder _appScopeHolder;
 
   @override
   void initState() {
     super.initState();
+    _appScopeHolder = AppScopeHolder();
     _appScopeHolder.create();
   }
 
@@ -34,34 +30,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return ScopeProvider(
       holder: _appScopeHolder,
-      // Scope-виджеты поддерживают работу со Scope-интерфейсами.
-      child: ScopeBuilder<AppScopeContainer>.withPlaceholder(
-        builder: (context, appScope) {
-          return AuthScope(
-            child: HabitsScope(
-              child: MaterialApp.router(
-                routerConfig: appScope.routerConfigDep.get.routerConfig,
-                title: 'Go Habit',
-                theme: AppTheme.defaultTheme.lightTheme,
-                darkTheme: AppTheme.defaultTheme.darkTheme,
-                themeMode: ThemeMode.system,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'),
-                  Locale('ru'),
-                ],
-              ),
-            ),
-          );
-        },
-        // Этот виджет будет отображаться, пока [appScopeHolder] инициализируется
-        placeholder: const Center(child: CircularProgressIndicator()),
-      ),
+      child: const MaterialContext(),
     );
   }
 }

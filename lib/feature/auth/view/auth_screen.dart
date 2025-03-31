@@ -6,6 +6,8 @@ import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import '../domain/bloc/auth_bloc.dart';
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -31,14 +33,14 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       body: BlocListener<app_auth.AuthBloc, app_auth.AuthState>(
         listener: (context, state) {
-          if (state is app_auth.AuthFailure) {
+          if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.errorMessage),
                 backgroundColor: Colors.red,
               ),
             );
-          } else if (state is app_auth.AuthAuthenticated) {
+          } else if (state is AuthUserAuthenticated) {
             context.goNamed('home');
           }
         },

@@ -41,6 +41,7 @@ class RootPage extends StatelessWidget {
 
   void _bottomNavListener(_, BottomNavigationState state) {
     final index = state.currentPageIndex;
+    debugPrint('${state.currentPageIndex}');
 
     if (index == navigationShell.currentIndex) {
       return;

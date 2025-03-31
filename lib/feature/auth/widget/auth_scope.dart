@@ -4,6 +4,7 @@ import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 import '../../initizialization/scopes/app_scope_container.dart';
+import '../domain/bloc/auth_bloc.dart';
 
 class AuthScope extends StatelessWidget {
   final Widget child;
@@ -12,13 +13,11 @@ class AuthScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //withPlaceholder добавляет проверку на null
-    return ScopeBuilder<AppScopeContainer>.withPlaceholder(
-        builder: (context, scope) {
+    return ScopeBuilder<AppScopeContainer>.withPlaceholder(builder: (context, scope) {
       return BlocProvider<app_auth.AuthBloc>(
         create: (context) => app_auth.AuthBloc(
           scope.authRepositoryDep.get,
-        )..add(app_auth.AuthCheckRequested()),
+        )..add(AuthInitialCheckRequested()),
         child: child,
       );
     });

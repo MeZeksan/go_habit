@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../auth/domain/bloc/auth_bloc.dart';
 import '../bloc/habits_bloc.dart';
 import 'components/habit_list.dart';
 import 'components/modal_bottom_sheet.dart';
@@ -16,6 +17,18 @@ class HabitsPage extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              context.read<AuthBloc>().add(
+                    AuthLogoutButtonPressed(),
+                  );
+            },
+          ),
+          const SizedBox(width: 8),
           DecoratedBox(
             decoration: const BoxDecoration(
               color: Colors.blue,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
+import 'package:go_habit/core/router/routes_enum.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
-import 'package:go_habit/feature/auth/view/welcome_screen.dart';
+import 'package:go_router/go_router.dart';
+
+import '../domain/bloc/auth_bloc.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -37,21 +40,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
       body: BlocListener<app_auth.AuthBloc, app_auth.AuthState>(
         listener: (context, state) {
-          if (state is app_auth.AuthFailure) {
+          if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.errorMessage),
                 backgroundColor: Colors.red,
               ),
             );
-          } else if (state is app_auth.AuthAuthenticated) {
-            // После успешной регистрации переходим на экран приветствия
-            // и очищаем стек навигации
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-              (route) => false, // Удаляем все предыдущие экраны
-            );
+          } else if (state is AuthUserAuthenticated) {
+            context.goNamed(HomeRoutes.home.name);
           }
         },
         child: SafeArea(
@@ -65,8 +62,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(
-                          greetingText: context.l10n.create_account),
+                      GreetingTextWidget(greetingText: context.l10n.create_account),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),
@@ -86,8 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         isPasswordVisible: _isConfirmPasswordVisible,
                         onToggleVisibility: () {
                           setState(() {
-                            _isConfirmPasswordVisible =
-                                !_isConfirmPasswordVisible;
+                            _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
                           });
                         },
                       ),
