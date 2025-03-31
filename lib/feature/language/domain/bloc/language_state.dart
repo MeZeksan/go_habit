@@ -1,16 +1,19 @@
 part of 'language_bloc.dart';
 
-abstract class LanguageState {
-  final String languageCode;
+class LanguageState {
+  final String currentLocale;
 
-  const LanguageState(this.languageCode);
-}
+  const LanguageState({required this.currentLocale});
 
-class LanguageInitial extends LanguageState {
-  const LanguageInitial()
-      : super('en'); // Устанавливаем английский как язык по умолчанию
-}
+  // Начальное состояние с локалью по умолчанию
+  factory LanguageState.initial() {
+    return const LanguageState(currentLocale: 'en');
+  }
 
-class LanguageChanged extends LanguageState {
-  const LanguageChanged(String languageCode) : super(languageCode);
+  // Копирование состояния с новыми параметрами
+  LanguageState copyWith({String? currentLocale}) {
+    return LanguageState(
+      currentLocale: currentLocale ?? this.currentLocale,
+    );
+  }
 }

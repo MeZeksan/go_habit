@@ -9,8 +9,8 @@ class LanguageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageBloc, LanguageState>(
       builder: (context, state) {
-        String flagEmogi = state.languageCode == 'ru' ? '🇷🇺' : '🇬🇧';
-        String languageName = state.languageCode == 'ru' ? 'РУ' : 'EN';
+        String flagEmogi = state.currentLocale == 'ru' ? '🇷🇺' : '🇬🇧';
+        String languageName = state.currentLocale == 'ru' ? 'РУ' : 'EN';
 
         return PopupMenuButton<String>(
           offset: const Offset(0, 50), // Позиция выпадающего меню

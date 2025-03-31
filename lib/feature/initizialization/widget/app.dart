@@ -61,7 +61,7 @@ class _AppState extends State<App> {
                           ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                       useMaterial3: true,
                     ),
-                    locale: Locale(languageState.languageCode),
+                    locale: Locale(languageState.currentLocale),
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
                       GlobalMaterialLocalizations.delegate,
