@@ -18,8 +18,7 @@ enum AuthRoutes {
 }
 
 enum HomeRoutes {
-  home(path: '${_homeRoutesKey}home'),
-  tasks(path: '${_homeRoutesKey}tasks');
+  home(path: '${_homeRoutesKey}home');
 
   final String path;
 

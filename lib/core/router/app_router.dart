@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_habit/feature/auth/view/auth_screen.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
+import 'package:go_habit/feature/auth/view/splash_screen.dart';
 import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 import 'package:go_habit/feature/habits/view/habits_page.dart';
 import 'package:go_router/go_router.dart';
@@ -23,16 +24,20 @@ final _notificationRoutesBranchNavigatorKey =
 final _profileRoutesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'ProfileRoutesNavigatorKey');
 
 class AppRouter {
-  final String initialLocation;
+  // final String initialLocation;
 
-  AppRouter({required this.initialLocation});
+  AppRouter();
 
   GoRouter get routerConfig => GoRouter(
         observers: [MyRouteObserver()],
         navigatorKey: rootNavigatorKey,
         debugLogDiagnostics: kDebugMode,
-        initialLocation: initialLocation,
+        initialLocation: '/',
         routes: [
+          GoRoute(
+            path: '/',
+            builder: (_, state) => SplashScreen(key: state.pageKey),
+          ),
           ..._authRoutes,
           _commonBottomNavigationBarShellRoute,
         ],
