@@ -5,6 +5,6 @@ final _calendarRoutes = [
     parentNavigatorKey: _calendarRoutesNavigatorKey,
     path: CalendarRoutes.calendar.path,
     name: CalendarRoutes.calendar.name,
-    builder: (_, state) => CalendarPage(key: state.pageKey),
+    builder: (_, state) => HabitsPage(key: state.pageKey),
   ),
 ];

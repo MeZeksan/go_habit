@@ -4,6 +4,9 @@ import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
+import 'package:go_router/go_router.dart';
+
+import '../domain/bloc/auth_bloc.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -30,21 +33,16 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       body: BlocListener<app_auth.AuthBloc, app_auth.AuthState>(
         listener: (context, state) {
-          if (state is app_auth.AuthFailure) {
+          if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.errorMessage),
                 backgroundColor: Colors.red,
               ),
             );
+          } else if (state is AuthUserAuthenticated) {
+            context.goNamed('home');
           }
-          // else if (state is app_auth.AuthAuthenticated) {
-          //   Navigator.pushAndRemoveUntil(
-          //     context,
-          //     MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-          //     (route) => false,
-          //   );
-          // }
         },
         child: SafeArea(
           child: Padding(
@@ -57,8 +55,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GreetingTextWidget(
-                          greetingText: context.l10n.welcome_back),
+                      GreetingTextWidget(greetingText: context.l10n.welcome_back),
                       const SizedBox(height: 40),
                       EmailFieldWidget(emailController: _emailController),
                       const SizedBox(height: 20),

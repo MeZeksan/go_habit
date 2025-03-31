@@ -1,12 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../auth/domain/bloc/auth_bloc.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final app_auth.AuthBloc authBloc;
+  final AuthBloc authBloc;
 
   ProfileBloc({required this.authBloc}) : super(ProfileInitial()) {
     on<LoadProfile>(_onLoadProfile);
@@ -22,7 +23,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final authState = authBloc.state;
       User? authUser;
 
-      if (authState is app_auth.AuthAuthenticated) {
+      if (authState is AuthUserAuthenticated) {
         authUser = authState.user;
       } else {
         authUser = Supabase.instance.client.auth.currentUser;
@@ -38,7 +39,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   void _onSignOut(SignOut event, Emitter<ProfileState> emit) {
-    authBloc.add(app_auth.AuthSignOutRequested());
+    authBloc.add(AuthLogoutButtonPressed());
     emit(ProfileSignOutInitiated());
   }
 }

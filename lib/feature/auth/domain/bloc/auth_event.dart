@@ -6,22 +6,21 @@ class AuthSignInRequested extends AuthEvent {
   final String email;
   final String password;
 
-  AuthSignInRequested({
-    required this.email,
-    required this.password,
-  });
+  AuthSignInRequested({required this.email, required this.password});
 }
 
-class AuthSignUpRequested extends AuthEvent {
-  final String email;
-  final String password;
+class AuthInitialCheckRequested extends AuthEvent {}
 
-  AuthSignUpRequested({
-    required this.email,
-    required this.password,
-  });
+class AuthOnCurrentUserChanged extends AuthEvent {
+  final User? user;
+
+  AuthOnCurrentUserChanged(this.user);
 }
 
-class AuthSignOutRequested extends AuthEvent {}
+class AuthLogoutButtonPressed extends AuthEvent {}
 
-class AuthCheckRequested extends AuthEvent {}
+class AuthErrorOccurred extends AuthEvent {
+  final String errorMessage;
+
+  AuthErrorOccurred(this.errorMessage);
+}

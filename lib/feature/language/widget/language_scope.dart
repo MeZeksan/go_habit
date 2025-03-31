@@ -1,9 +1,10 @@
 // language_scope.dart
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/language/data/repository/language_repository_implementation.dart';
 import 'package:go_habit/feature/language/domain/bloc/language_bloc.dart';
-import 'dart:ui' as ui;
 
 class LanguageScope extends StatefulWidget {
   final Widget child;
@@ -13,8 +14,7 @@ class LanguageScope extends StatefulWidget {
   @override
   State<LanguageScope> createState() => _LanguageScopeState();
 
-  static LanguageBloc of(BuildContext context) =>
-      BlocProvider.of<LanguageBloc>(context);
+  static LanguageBloc of(BuildContext context) => BlocProvider.of<LanguageBloc>(context);
 }
 
 class _LanguageScopeState extends State<LanguageScope> {
