@@ -1,3 +1,4 @@
+// language_bloc.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/language/data/repository/language_repository_implementation.dart';
 part 'language_event.dart';
@@ -5,10 +6,16 @@ part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final LanguageRepositoryImplementation _repository;
+  final String _deviceLocale; // Добавлено: храним deviceLocale
 
-  LanguageBloc(this._repository) : super(LanguageState.initial()) {
+  LanguageBloc(this._repository,
+      {required String deviceLocale}) // Изменено: обязательный параметр
+      : _deviceLocale = deviceLocale,
+        super(LanguageState.initial(deviceLocale)) {
+    // Используем deviceLocale для initial
     on<LoadLanguage>(_onLoadLanguage);
     on<ChangeLanguage>(_onChangeLanguage);
+    add(LoadLanguage()); // Автоматически запускаем загрузку при создании
   }
 
   Future<void> _onLoadLanguage(
@@ -16,9 +23,10 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     Emitter<LanguageState> emit,
   ) async {
     final savedLocale = await _repository.getLocale();
-    if (savedLocale != null) {
-      emit(state.copyWith(currentLocale: savedLocale));
-    }
+    // Используем сохраненную локаль или дефолтную устройственную
+    emit(state.copyWith(
+      currentLocale: savedLocale ?? _deviceLocale,
+    ));
   }
 
   Future<void> _onChangeLanguage(

@@ -6,8 +6,9 @@ class LanguageState {
   const LanguageState({required this.currentLocale});
 
   // Начальное состояние с локалью по умолчанию
-  factory LanguageState.initial() {
-    return const LanguageState(currentLocale: 'en');
+  factory LanguageState.initial(String deviceLocale) {
+    // Изменено: принимает deviceLocale
+    return LanguageState(currentLocale: deviceLocale);
   }
 
   // Копирование состояния с новыми параметрами

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_habit/feature/auth/widget/auth_scope.dart';
 import 'package:go_habit/feature/initizialization/scopes/app_scope_container.dart';
+import 'package:go_habit/feature/language/data/repository/language_repository_implementation.dart';
 import 'package:go_habit/l10n/app_localizations.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 import 'package:go_habit/feature/language/domain/bloc/language_bloc.dart';
@@ -22,17 +23,21 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final _appScopeHolder = AppScopeHolder();
   late final LanguageBloc _languageBloc;
+  late final String _deviceLocale;
 
   @override
   void initState() {
     super.initState();
     _appScopeHolder.create();
 
-    // Инициализация языкового блока с проверкой текущей локали устройства
-    final deviceLocale = ui.window.locale.languageCode;
-    final initialLanguage =
-        ['en', 'ru'].contains(deviceLocale) ? deviceLocale : 'en';
-    _languageBloc = LanguageBloc()..add(ChangeLanguage(initialLanguage));
+    // Определяем deviceLocale
+    final rawLocale = ui.window.locale.languageCode;
+    _deviceLocale = ['en', 'ru'].contains(rawLocale) ? rawLocale : 'en';
+    // Инициализируем bloc с deviceLocale
+    _languageBloc = LanguageBloc(
+      LanguageRepositoryImplementation(),
+      deviceLocale: _deviceLocale, // Передаем deviceLocale в bloc
+    );
   }
 
   @override
