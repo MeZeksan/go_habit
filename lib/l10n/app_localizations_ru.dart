@@ -88,4 +88,97 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get email_invalid => 'Пожалуйста, введите корректный email';
+
+  @override
+  String get profile_title => 'Профиль';
+
+  @override
+  String get theme_settings => 'Темная тема';
+
+  @override
+  String get archive => 'Архив';
+
+  @override
+  String get notifications => 'Уведомления';
+
+  @override
+  String get widgets => 'Виджеты';
+
+  @override
+  String get about_app => 'О приложении';
+
+  @override
+  String get rate_us => 'Оцените нас';
+
+  @override
+  String get share_app => 'Поделиться приложением';
+
+  @override
+  String get feedback => 'Обратная связь';
+
+  @override
+  String get privacy_policy => 'Политика конфиденциальности';
+
+  @override
+  String get sign_out => 'Выйти';
+
+  @override
+  String get sign_out_confirmation_title => 'Выход';
+
+  @override
+  String get sign_out_confirmation_message => 'Вы уверены, что хотите выйти из аккаунта?';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get close => 'Закрыть';
+
+  @override
+  String app_version(int major, int minor, int patch) {
+    return 'Версия $major.$minor.$patch';
+  }
+
+  @override
+  String get about_app_description => 'Go Habit - это приложение, разработанное для формирования и поддержания полезных привычек. Отслеживайте свой прогресс, устанавливайте напоминания и визуализируйте свой путь.';
+
+  @override
+  String privacy_policy_last_updated(String date) {
+    return 'Дата последнего обновления: $date';
+  }
+
+  @override
+  String get privacy_policy_section1_title => '1. Сбор информации';
+
+  @override
+  String get privacy_policy_section1_content => 'Приложение Go Habit собирает следующую информацию:\n• Информацию об аккаунте (email)\n• Данные о привычках и активности\n• Информацию о устройстве (для диагностики)';
+
+  @override
+  String get privacy_policy_section2_title => '2. Использование информации';
+
+  @override
+  String get privacy_policy_section2_content => 'Мы используем собранную информацию для:\n• Предоставления основных функций приложения\n• Улучшения пользовательского опыта\n• Отправки уведомлений (только с вашего разрешения)';
+
+  @override
+  String get privacy_policy_section3_title => '3. Безопасность данных';
+
+  @override
+  String get privacy_policy_section3_content => 'Мы применяем современные меры безопасности для защиты ваших персональных данных. Все данные хранятся в зашифрованном виде и не передаются третьим лицам без вашего согласия.';
+
+  @override
+  String get privacy_policy_section4_title => '4. Файлы cookie';
+
+  @override
+  String get privacy_policy_section4_content => 'Наше приложение не использует файлы cookie в традиционном понимании. Однако мы сохраняем локальные данные на вашем устройстве для оптимальной работы приложения.';
+
+  @override
+  String get privacy_policy_section5_title => '5. Согласие';
+
+  @override
+  String get privacy_policy_section5_content => 'Используя приложение Go Habit, вы соглашаетесь с нашей политикой конфиденциальности. Если у вас есть вопросы, свяжитесь с нами по адресу support@gohabit.app';
+
+  @override
+  String privacy_policy_copyright(String year) {
+    return '© $year Go Habit. Все права защищены.';
+  }
 }

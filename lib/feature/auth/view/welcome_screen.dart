@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
+import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
+import 'package:go_habit/feature/auth/view/auth_screen.dart';
+import 'package:go_habit/feature/profile/view/profile_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 //экран заглушка для приветствия пользователя
@@ -10,7 +13,6 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = Supabase.instance.client.auth.currentUser;
     final email = user?.email ?? 'пользователь';
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Go Habit'),

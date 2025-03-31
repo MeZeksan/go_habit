@@ -256,6 +256,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid email'**
   String get email_invalid;
+
+  /// No description provided for @profile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile_title;
+
+  /// No description provided for @theme_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme'**
+  String get theme_settings;
+
+  /// No description provided for @archive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @widgets.
+  ///
+  /// In en, this message translates to:
+  /// **'Widgets'**
+  String get widgets;
+
+  /// No description provided for @about_app.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get about_app;
+
+  /// No description provided for @rate_us.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Us'**
+  String get rate_us;
+
+  /// No description provided for @share_app.
+  ///
+  /// In en, this message translates to:
+  /// **'Share App'**
+  String get share_app;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @privacy_policy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy;
+
+  /// No description provided for @sign_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get sign_out;
+
+  /// No description provided for @sign_out_confirmation_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get sign_out_confirmation_title;
+
+  /// No description provided for @sign_out_confirmation_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get sign_out_confirmation_message;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// App version with major, minor and patch numbers
+  ///
+  /// In en, this message translates to:
+  /// **'Version {major}.{minor}.{patch}'**
+  String app_version(int major, int minor, int patch);
+
+  /// No description provided for @about_app_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Habit is an app designed to help you build and maintain good habits. Track your progress, set reminders, and visualize your journey.'**
+  String get about_app_description;
+
+  /// Last update date of the privacy policy
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: {date}'**
+  String privacy_policy_last_updated(String date);
+
+  /// No description provided for @privacy_policy_section1_title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Information Collection'**
+  String get privacy_policy_section1_title;
+
+  /// No description provided for @privacy_policy_section1_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Habit app collects the following information:\n• Account information (email)\n• Habit and activity data\n• Device information (for diagnostics)'**
+  String get privacy_policy_section1_content;
+
+  /// No description provided for @privacy_policy_section2_title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Information Usage'**
+  String get privacy_policy_section2_title;
+
+  /// No description provided for @privacy_policy_section2_content.
+  ///
+  /// In en, this message translates to:
+  /// **'We use the collected information for:\n• Providing core app functionality\n• Improving user experience\n• Sending notifications (only with your permission)'**
+  String get privacy_policy_section2_content;
+
+  /// No description provided for @privacy_policy_section3_title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Data Security'**
+  String get privacy_policy_section3_title;
+
+  /// No description provided for @privacy_policy_section3_content.
+  ///
+  /// In en, this message translates to:
+  /// **'We implement modern security measures to protect your personal data. All data is stored in encrypted form and is not shared with third parties without your consent.'**
+  String get privacy_policy_section3_content;
+
+  /// No description provided for @privacy_policy_section4_title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Cookies'**
+  String get privacy_policy_section4_title;
+
+  /// No description provided for @privacy_policy_section4_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Our app does not use cookies in the traditional sense. However, we store local data on your device for optimal app performance.'**
+  String get privacy_policy_section4_content;
+
+  /// No description provided for @privacy_policy_section5_title.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Consent'**
+  String get privacy_policy_section5_title;
+
+  /// No description provided for @privacy_policy_section5_content.
+  ///
+  /// In en, this message translates to:
+  /// **'By using the Go Habit app, you agree to our privacy policy. If you have any questions, please contact us at support@gohabit.app'**
+  String get privacy_policy_section5_content;
+
+  /// Copyright text with year
+  ///
+  /// In en, this message translates to:
+  /// **'© {year} Go Habit. All rights reserved.'**
+  String privacy_policy_copyright(String year);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
