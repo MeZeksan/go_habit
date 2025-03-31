@@ -29,6 +29,7 @@ class HabitList extends StatelessWidget {
         }
       },
       child: ListView.builder(
+        padding: const EdgeInsets.only(bottom: 120),
         itemCount: habits.length,
         itemBuilder: (context, index) {
           return HabitCard(habit: habits[index]);
