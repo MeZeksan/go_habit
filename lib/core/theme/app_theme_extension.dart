@@ -12,13 +12,13 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
   });
 
   factory AppThemeExtension.lightThemeExtension() => AppThemeExtension(
-        commonColors: _commonColors,
+        commonColors: const CommonColors(),
         commonTextStyles: _commonTextStyles,
         durations: _durations,
       );
 
   factory AppThemeExtension.darkThemeExtension() => AppThemeExtension(
-        commonColors: _commonColors,
+        commonColors: const CommonColors(),
         commonTextStyles: _commonTextStyles,
         durations: _durations,
       );

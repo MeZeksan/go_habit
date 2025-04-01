@@ -19,28 +19,41 @@ const _durations = AnimationDurations();
 final _lightThemeData = ThemeData(
   appBarTheme: _appBarThemes.light,
   useMaterial3: true,
-  primaryColor: _commonColors.green100,
+  primaryColor: _commonColors.lightPrimary,
   extensions: [
     AppThemeExtension.lightThemeExtension(),
   ],
-  cardColor: _commonColors.white,
+  cardColor: _commonColors.lightSurface,
   elevatedButtonTheme: _buttonStyles.elevatedButtonThemeData,
   radioTheme: _buttonStyles.radioButtonTheme,
   textButtonTheme: _buttonStyles.textButtonThemeData,
-  scaffoldBackgroundColor: _commonColors.neutralgrey3,
+  scaffoldBackgroundColor: _commonColors.lightBackground,
   floatingActionButtonTheme: _buttonStyles.floatingActionButtonTheme,
+  dividerColor: _commonColors.lightDivider,
+  textTheme: TextTheme(
+    bodyLarge: TextStyle(color: _commonColors.lightText),
+    bodyMedium: TextStyle(color: _commonColors.lightText),
+    titleLarge: TextStyle(color: _commonColors.lightText),
+  ),
 );
 
 final _darkThemeData = ThemeData(
   useMaterial3: true,
-  primaryColor: _commonColors.green100,
+  primaryColor: _commonColors.darkPrimary,
   extensions: [
     AppThemeExtension.darkThemeExtension(),
   ],
-  cardColor: _commonColors.black,
+  cardColor: _commonColors.darkSurface,
   elevatedButtonTheme: _buttonStyles.elevatedButtonThemeData,
   radioTheme: _buttonStyles.radioButtonTheme,
-  scaffoldBackgroundColor: _commonColors.black,
+  scaffoldBackgroundColor: _commonColors.darkBackground,
+  dividerColor: _commonColors.darkDivider,
+  appBarTheme: _appBarThemes.dark,
+  textTheme: TextTheme(
+    bodyLarge: TextStyle(color: _commonColors.darkText),
+    bodyMedium: TextStyle(color: _commonColors.darkText),
+    titleLarge: TextStyle(color: _commonColors.darkText),
+  ),
 );
 
 /// {@template app_theme}
@@ -72,7 +85,8 @@ final class AppTheme with Diagnosticable {
     seed: Colors.blue,
   );
 
-  static AppThemeExtension themeExtension(BuildContext context) => Theme.of(context).extension<AppThemeExtension>()!;
+  static AppThemeExtension themeExtension(BuildContext context) =>
+      Theme.of(context).extension<AppThemeExtension>()!;
 
   /// The [ThemeData] for this [AppTheme].
   /// This is computed based on the [themeMode].
@@ -83,7 +97,9 @@ final class AppTheme with Diagnosticable {
       case ThemeMode.dark:
         return darkTheme;
       case ThemeMode.system:
-        return PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme;
+        return PlatformDispatcher.instance.platformBrightness == Brightness.dark
+            ? darkTheme
+            : lightTheme;
     }
   }
 
@@ -98,7 +114,8 @@ final class AppTheme with Diagnosticable {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is AppTheme && seed == other.seed && themeMode == other.themeMode;
+      identical(this, other) ||
+      other is AppTheme && seed == other.seed && themeMode == other.themeMode;
 
   @override
   int get hashCode => Object.hash(seed, themeMode);

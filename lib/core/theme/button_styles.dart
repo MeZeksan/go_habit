@@ -3,7 +3,7 @@ part of 'app_theme.dart';
 class _ButtonStyles {
   final elevatedButtonThemeData = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: _commonColors.green100,
+      backgroundColor: _commonColors.lightPrimary,
       foregroundColor: _commonColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -17,22 +17,22 @@ class _ButtonStyles {
   final textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(
       textStyle: _commonTextStyles.body,
-      foregroundColor: _commonColors.green100,
+      foregroundColor: _commonColors.lightPrimary,
     ),
   );
 
   final radioButtonTheme = RadioThemeData(
     fillColor: WidgetStateProperty.resolveWith<Color>((states) {
       if (states.contains(WidgetState.selected)) {
-        return _commonColors.green100;
+        return _commonColors.lightPrimary;
       }
-      return _commonColors.green10;
+      return _commonColors.lightSecondary;
     }),
   );
 
   final floatingActionButtonTheme = FloatingActionButtonThemeData(
-      backgroundColor: _commonColors.green100,
-      foregroundColor: _commonColors.white,
-      elevation: 1,
-    );
+    backgroundColor: _commonColors.lightPrimary,
+    foregroundColor: _commonColors.white,
+    elevation: 1,
+  );
 }
