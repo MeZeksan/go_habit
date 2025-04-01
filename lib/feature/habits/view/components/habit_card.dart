@@ -88,11 +88,13 @@ class HabitCard extends StatelessWidget {
                     DateTime.now().subtract(const Duration(days: 2))
                   ]),
                 ),
-                Switch(
-                  value: habit.isActive,
-                  onChanged: (value) {},
-                  // onChanged: (value) => context.read<HabitsBloc>().add(ToggleHabitActivation(habit.id, value)),
-                  activeColor: randomColor,
+                Expanded(
+                  child: Switch(
+                    value: habit.isActive,
+                    onChanged: (value) {},
+                    // onChanged: (value) => context.read<HabitsBloc>().add(ToggleHabitActivation(habit.id, value)),
+                    activeColor: randomColor,
+                  ),
                 ),
               ],
             ),
