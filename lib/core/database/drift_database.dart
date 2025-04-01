@@ -3,11 +3,12 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'dao/habits_dao.dart';
+import 'tables/habit_categories.dart';
 import 'tables/habits.dart';
 
 part 'drift_database.g.dart';
 
-@DriftDatabase(tables: [Habits], daos: [HabitsDao])
+@DriftDatabase(tables: [Habits, HabitCategories], daos: [HabitsDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

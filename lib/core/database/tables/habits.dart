@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
 
+import 'habit_categories.dart';
+
 @DataClassName('Habit')
 class Habits extends Table {
   TextColumn get id => text()();
@@ -9,7 +11,9 @@ class Habits extends Table {
   DateTimeColumn get lastTimeCompleted => dateTime().nullable()();
   DateTimeColumn get createdAt => dateTime().clientDefault(() => DateTime.now())();
   DateTimeColumn get updatedAt => dateTime().clientDefault(() => DateTime.now())();
-  TextColumn get categoryId => text().withDefault(const Constant('health'))();
+
+  TextColumn get categoryId => text().references(HabitCategories, #id)(); // Внешний ключ
+
   BoolColumn get isPendingSync => boolean().withDefault(const Constant(false))();
   IntColumn get steps => integer().withDefault(const Constant(0))();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();

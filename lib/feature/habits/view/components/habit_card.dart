@@ -4,19 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
 
+import '../../../categories/domain/models/habit_category.dart';
 import '../../bloc/habits_bloc.dart';
 
 class HabitCard extends StatelessWidget {
   final Habit habit;
+  final HabitCategory habitCategory;
 
-  const HabitCard({super.key, required this.habit});
+  const HabitCard({super.key, required this.habit, required this.habitCategory});
 
   @override
   Widget build(BuildContext context) {
-    final randomColor = getRandomColor();
+    final cardColor = hexToColor(habitCategory.color);
     return Dismissible(
       key: ValueKey(habit.id),
       direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) async {
+        return await _showConfirmDialog(context);
+      },
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        color: Colors.red,
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
       onDismissed: (direction) {
         context.read<HabitsBloc>().add(DeleteHabit(habit.id));
       },
@@ -33,7 +44,10 @@ class HabitCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(habit.icon ?? '', style: const TextStyle(fontSize: 24, color: Colors.white)),
+                Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(color: Colors.black87.withValues(alpha: 0.5), shape: BoxShape.circle),
+                    child: Text(habit.icon ?? '', style: const TextStyle(fontSize: 48, color: Colors.white))),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -67,7 +81,7 @@ class HabitCard extends StatelessWidget {
                                   .inDays ==
                               0
                           ? Colors.grey
-                          : randomColor,
+                          : cardColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Icon(Icons.check, color: Colors.black),
@@ -76,28 +90,52 @@ class HabitCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
+            SizedBox(
+              height: 100,
+              child: HabitGridPainterWidget(color: cardColor, completedDates: [
+                DateTime.now(),
+                DateTime.now().subtract(const Duration(days: 1)),
+                DateTime.now().subtract(const Duration(days: 2))
+              ]),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 100,
-                  child: HabitGridPainterWidget(color: randomColor, completedDates: [
-                    DateTime.now(),
-                    DateTime.now().subtract(const Duration(days: 1)),
-                    DateTime.now().subtract(const Duration(days: 2))
-                  ]),
-                ),
-                Expanded(
-                  child: Switch(
-                    value: habit.isActive,
-                    onChanged: (value) {},
-                    // onChanged: (value) => context.read<HabitsBloc>().add(ToggleHabitActivation(habit.id, value)),
-                    activeColor: randomColor,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        getCategoryIcon(habitCategory.id),
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        habitCategory.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                Switch(
+                  value: habit.isActive,
+                  onChanged: (value) {},
+                  // onChanged: (value) => context.read<HabitsBloc>().add(ToggleHabitActivation(habit.id, value)),
+                  activeColor: cardColor,
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),
@@ -177,4 +215,58 @@ class HabitGridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(HabitGridPainter oldDelegate) => oldDelegate.data != data;
+}
+
+Color hexToColor(String hexString) {
+  // Удаляем возможный префикс '#'
+  final buffer = StringBuffer();
+  if (hexString.length == 6 || hexString.length == 7) {
+    buffer.write('ff'); // Добавляем непрозрачность (alpha) по умолчанию
+  }
+  buffer.write(hexString.replaceFirst('#', ''));
+
+  // Преобразуем в целое число и создаем Color
+  return Color(int.parse(buffer.toString(), radix: 16));
+}
+
+Future<bool> _showConfirmDialog(BuildContext context) async {
+  return await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Удалить привычку?'),
+          content: const Text('Вы уверены, что хотите удалить эту привычку?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Отмена'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Удалить', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      ) ??
+      false;
+}
+
+IconData getCategoryIcon(String categoryId) {
+  switch (categoryId) {
+    case 'art':
+      return Icons.brush; // Иконка творчества
+    case 'education':
+      return Icons.school; // Иконка обучения
+    case 'health':
+      return Icons.fitness_center; // Иконка здоровья
+    case 'money':
+      return Icons.attach_money; // Иконка финансов
+    case 'selv-development':
+      return Icons.self_improvement; // Саморазвитие
+    case 'sport':
+      return Icons.sports_soccer; // Иконка спорта
+    case 'work':
+      return Icons.work; // Иконка работы
+    default:
+      return Icons.category; // Иконка по умолчанию
+  }
 }

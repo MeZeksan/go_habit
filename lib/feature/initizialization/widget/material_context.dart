@@ -8,6 +8,7 @@ import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../categories/widget/habit_categories_scope.dart';
 import '../../habits/widget/habits_scope.dart';
 
 class MaterialContext extends StatelessWidget {
@@ -16,32 +17,34 @@ class MaterialContext extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthScope(
-      child: HabitsScope(
-        child: ScopeBuilder<AppScopeContainer>.withPlaceholder(
-          // Shows this widget while [appScopeHolder] is loading
-          placeholder: const Center(child: CircularProgressIndicator()),
-          builder: (context, scope) => BlocBuilder<LanguageBloc, LanguageState>(
-            builder: (context, state) {
-              return MaterialApp.router(
-                routerConfig: scope.routerConfig.get,
-                title: 'Go Habit',
-                theme: AppTheme.defaultTheme.lightTheme,
-                darkTheme: AppTheme.defaultTheme.darkTheme,
-                themeMode: ThemeMode.system,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en'),
-                  Locale('ru'),
-                ],
-                locale: Locale(state.currentLocale),
-                // builder: (context, child) => AuthScope(child: HabitsScope(child: child!)),
-              );
-            },
+      child: HabitCategoriesScope(
+        child: HabitsScope(
+          child: ScopeBuilder<AppScopeContainer>.withPlaceholder(
+            // Shows this widget while [appScopeHolder] is loading
+            placeholder: const Center(child: CircularProgressIndicator()),
+            builder: (context, scope) => BlocBuilder<LanguageBloc, LanguageState>(
+              builder: (context, state) {
+                return MaterialApp.router(
+                  routerConfig: scope.routerConfig.get,
+                  title: 'Go Habit',
+                  theme: AppTheme.defaultTheme.lightTheme,
+                  darkTheme: AppTheme.defaultTheme.darkTheme,
+                  themeMode: ThemeMode.system,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('en'),
+                    Locale('ru'),
+                  ],
+                  locale: Locale(state.currentLocale),
+                  // builder: (context, child) => AuthScope(child: HabitsScope(child: child!)),
+                );
+              },
+            ),
           ),
         ),
       ),

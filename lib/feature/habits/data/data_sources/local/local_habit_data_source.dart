@@ -26,11 +26,12 @@ class DriftHabitDataSource implements LocalHabitDataSource {
   @override
   Future<void> saveHabit(entity.Habit habit) async {
     await _habitsDao.addHabit(HabitsCompanion(
-      id: Value(habit.id),
-      title: Value(habit.title),
-      description: Value(habit.description),
-      isActive: Value(habit.isActive),
-    ));
+        id: Value(habit.id),
+        title: Value(habit.title),
+        description: Value(habit.description),
+        categoryId: Value(habit.categoryId),
+        isActive: Value(habit.isActive),
+        icon: Value(habit.icon ?? '🎯')));
   }
 
   @override
@@ -128,7 +129,7 @@ class DriftHabitDataSource implements LocalHabitDataSource {
       id: habit.id,
       title: habit.title,
       description: Value(habit.description),
-      categoryId: Value(habit.categoryId),
+      categoryId: habit.categoryId,
       lastTimeCompleted: Value(habit.lastCompletedTime == null ? null : DateTime.parse(habit.lastCompletedTime!)),
       createdAt: Value(DateTime.tryParse(habit.createdAt ?? '') ?? DateTime.now()),
       updatedAt: Value(DateTime.tryParse(habit.updatedAt ?? '') ?? DateTime.now()),

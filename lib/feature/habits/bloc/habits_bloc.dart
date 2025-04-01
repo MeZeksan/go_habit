@@ -54,13 +54,14 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
   }
 
   Future<void> _onAddHabit(AddHabit event, Emitter<HabitsState> emit) async {
-    if (event.title.isEmpty || event.description.isEmpty) {
-      emit(HabitsOperationFailure(error: 'Please enter title and description', habits: state.habits));
+    if (event.title.isEmpty || event.description.isEmpty || event.emojiIcon.isEmpty) {
+      emit(HabitsOperationFailure(error: 'Please fiill the properties', habits: state.habits));
       return;
     }
 
     try {
-      final habit = Habit(title: event.title, description: event.description, categoryId: event.categoryKey);
+      final habit = Habit(
+          title: event.title, description: event.description, categoryId: event.categoryKey, icon: event.emojiIcon);
       await _habitRepository.addHabit(habit);
       emit(HabitsOperationSuccess(message: 'Habit is added', habits: state.habits));
     } catch (error, stackTrace) {
