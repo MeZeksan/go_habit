@@ -99,8 +99,9 @@ class _FakeDatabaseConnectionUser_5 extends _i1.SmartFake
         );
 }
 
-class _Fake$HabitsTable_6 extends _i1.SmartFake implements _i2.$HabitsTable {
-  _Fake$HabitsTable_6(
+class _Fake$HabitCategoriesTable_6 extends _i1.SmartFake
+    implements _i2.$HabitCategoriesTable {
+  _Fake$HabitCategoriesTable_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -109,8 +110,8 @@ class _Fake$HabitsTable_6 extends _i1.SmartFake implements _i2.$HabitsTable {
         );
 }
 
-class _FakeFuture_7<T1> extends _i1.SmartFake implements _i5.Future<T1> {
-  _FakeFuture_7(
+class _Fake$HabitsTable_7 extends _i1.SmartFake implements _i2.$HabitsTable {
+  _Fake$HabitsTable_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -119,9 +120,19 @@ class _FakeFuture_7<T1> extends _i1.SmartFake implements _i5.Future<T1> {
         );
 }
 
-class _FakeInsertStatement_8<T1 extends _i3.Table, D1> extends _i1.SmartFake
+class _FakeFuture_8<T1> extends _i1.SmartFake implements _i5.Future<T1> {
+  _FakeFuture_8(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeInsertStatement_9<T1 extends _i3.Table, D1> extends _i1.SmartFake
     implements _i3.InsertStatement<T1, D1> {
-  _FakeInsertStatement_8(
+  _FakeInsertStatement_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -130,9 +141,9 @@ class _FakeInsertStatement_8<T1 extends _i3.Table, D1> extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateStatement_9<T extends _i3.Table, D> extends _i1.SmartFake
+class _FakeUpdateStatement_10<T extends _i3.Table, D> extends _i1.SmartFake
     implements _i3.UpdateStatement<T, D> {
-  _FakeUpdateStatement_9(
+  _FakeUpdateStatement_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -141,9 +152,9 @@ class _FakeUpdateStatement_9<T extends _i3.Table, D> extends _i1.SmartFake
         );
 }
 
-class _FakeSimpleSelectStatement_10<T1 extends _i3.HasResultSet, D>
+class _FakeSimpleSelectStatement_11<T1 extends _i3.HasResultSet, D>
     extends _i1.SmartFake implements _i3.SimpleSelectStatement<T1, D> {
-  _FakeSimpleSelectStatement_10(
+  _FakeSimpleSelectStatement_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -152,9 +163,9 @@ class _FakeSimpleSelectStatement_10<T1 extends _i3.HasResultSet, D>
         );
 }
 
-class _FakeJoinedSelectStatement_11<FirstT extends _i3.HasResultSet, FirstD>
+class _FakeJoinedSelectStatement_12<FirstT extends _i3.HasResultSet, FirstD>
     extends _i1.SmartFake implements _i3.JoinedSelectStatement<FirstT, FirstD> {
-  _FakeJoinedSelectStatement_11(
+  _FakeJoinedSelectStatement_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -163,9 +174,9 @@ class _FakeJoinedSelectStatement_11<FirstT extends _i3.HasResultSet, FirstD>
         );
 }
 
-class _FakeBaseSelectStatement_12<Row> extends _i1.SmartFake
+class _FakeBaseSelectStatement_13<Row> extends _i1.SmartFake
     implements _i3.BaseSelectStatement<Row> {
-  _FakeBaseSelectStatement_12(
+  _FakeBaseSelectStatement_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -174,9 +185,9 @@ class _FakeBaseSelectStatement_12<Row> extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteStatement_13<T1 extends _i3.Table, D1> extends _i1.SmartFake
+class _FakeDeleteStatement_14<T1 extends _i3.Table, D1> extends _i1.SmartFake
     implements _i3.DeleteStatement<T1, D1> {
-  _FakeDeleteStatement_13(
+  _FakeDeleteStatement_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -185,8 +196,8 @@ class _FakeDeleteStatement_13<T1 extends _i3.Table, D1> extends _i1.SmartFake
         );
 }
 
-class _FakeSelectable_14<T> extends _i1.SmartFake implements _i3.Selectable<T> {
-  _FakeSelectable_14(
+class _FakeSelectable_15<T> extends _i1.SmartFake implements _i3.Selectable<T> {
+  _FakeSelectable_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -195,9 +206,9 @@ class _FakeSelectable_14<T> extends _i1.SmartFake implements _i3.Selectable<T> {
         );
 }
 
-class _FakeGenerationContext_15 extends _i1.SmartFake
+class _FakeGenerationContext_16 extends _i1.SmartFake
     implements _i3.GenerationContext {
-  _FakeGenerationContext_15(
+  _FakeGenerationContext_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -206,8 +217,8 @@ class _FakeGenerationContext_15 extends _i1.SmartFake
         );
 }
 
-class _FakeHabit_16 extends _i1.SmartFake implements _i6.Habit {
-  _FakeHabit_16(
+class _FakeHabit_17 extends _i1.SmartFake implements _i6.Habit {
+  _FakeHabit_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -312,13 +323,26 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
       ) as _i3.DatabaseConnectionUser);
 
   @override
+  _i2.$HabitCategoriesTable get habitCategories => (super.noSuchMethod(
+        Invocation.getter(#habitCategories),
+        returnValue: _Fake$HabitCategoriesTable_6(
+          this,
+          Invocation.getter(#habitCategories),
+        ),
+        returnValueForMissingStub: _Fake$HabitCategoriesTable_6(
+          this,
+          Invocation.getter(#habitCategories),
+        ),
+      ) as _i2.$HabitCategoriesTable);
+
+  @override
   _i2.$HabitsTable get habits => (super.noSuchMethod(
         Invocation.getter(#habits),
-        returnValue: _Fake$HabitsTable_6(
+        returnValue: _Fake$HabitsTable_7(
           this,
           Invocation.getter(#habits),
         ),
-        returnValueForMissingStub: _Fake$HabitsTable_6(
+        returnValueForMissingStub: _Fake$HabitsTable_7(
           this,
           Invocation.getter(#habits),
         ),
@@ -531,7 +555,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #doWhenOpened,
@@ -548,7 +572,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #doWhenOpened,
@@ -565,14 +589,14 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           #into,
           [table],
         ),
-        returnValue: _FakeInsertStatement_8<T, D>(
+        returnValue: _FakeInsertStatement_9<T, D>(
           this,
           Invocation.method(
             #into,
             [table],
           ),
         ),
-        returnValueForMissingStub: _FakeInsertStatement_8<T, D>(
+        returnValueForMissingStub: _FakeInsertStatement_9<T, D>(
           this,
           Invocation.method(
             #into,
@@ -589,14 +613,14 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           #update,
           [table],
         ),
-        returnValue: _FakeUpdateStatement_9<Tbl, R>(
+        returnValue: _FakeUpdateStatement_10<Tbl, R>(
           this,
           Invocation.method(
             #update,
             [table],
           ),
         ),
-        returnValueForMissingStub: _FakeUpdateStatement_9<Tbl, R>(
+        returnValueForMissingStub: _FakeUpdateStatement_10<Tbl, R>(
           this,
           Invocation.method(
             #update,
@@ -616,7 +640,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           [table],
           {#distinct: distinct},
         ),
-        returnValue: _FakeSimpleSelectStatement_10<T, R>(
+        returnValue: _FakeSimpleSelectStatement_11<T, R>(
           this,
           Invocation.method(
             #select,
@@ -624,7 +648,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             {#distinct: distinct},
           ),
         ),
-        returnValueForMissingStub: _FakeSimpleSelectStatement_10<T, R>(
+        returnValueForMissingStub: _FakeSimpleSelectStatement_11<T, R>(
           this,
           Invocation.method(
             #select,
@@ -645,7 +669,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           [table],
           {#distinct: distinct},
         ),
-        returnValue: _FakeJoinedSelectStatement_11<T, R>(
+        returnValue: _FakeJoinedSelectStatement_12<T, R>(
           this,
           Invocation.method(
             #selectOnly,
@@ -653,7 +677,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             {#distinct: distinct},
           ),
         ),
-        returnValueForMissingStub: _FakeJoinedSelectStatement_11<T, R>(
+        returnValueForMissingStub: _FakeJoinedSelectStatement_12<T, R>(
           this,
           Invocation.method(
             #selectOnly,
@@ -671,14 +695,14 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           #selectExpressions,
           [columns],
         ),
-        returnValue: _FakeBaseSelectStatement_12<_i3.TypedResult>(
+        returnValue: _FakeBaseSelectStatement_13<_i3.TypedResult>(
           this,
           Invocation.method(
             #selectExpressions,
             [columns],
           ),
         ),
-        returnValueForMissingStub: _FakeBaseSelectStatement_12<_i3.TypedResult>(
+        returnValueForMissingStub: _FakeBaseSelectStatement_13<_i3.TypedResult>(
           this,
           Invocation.method(
             #selectExpressions,
@@ -695,14 +719,14 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           #delete,
           [table],
         ),
-        returnValue: _FakeDeleteStatement_13<T, D>(
+        returnValue: _FakeDeleteStatement_14<T, D>(
           this,
           Invocation.method(
             #delete,
             [table],
           ),
         ),
-        returnValueForMissingStub: _FakeDeleteStatement_13<T, D>(
+        returnValueForMissingStub: _FakeDeleteStatement_14<T, D>(
           this,
           Invocation.method(
             #delete,
@@ -788,7 +812,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             #readsFrom: readsFrom,
           },
         ),
-        returnValue: _FakeSelectable_14<_i3.QueryRow>(
+        returnValue: _FakeSelectable_15<_i3.QueryRow>(
           this,
           Invocation.method(
             #customSelect,
@@ -799,7 +823,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             },
           ),
         ),
-        returnValueForMissingStub: _FakeSelectable_14<_i3.QueryRow>(
+        returnValueForMissingStub: _FakeSelectable_15<_i3.QueryRow>(
           this,
           Invocation.method(
             #customSelect,
@@ -827,7 +851,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             #readsFrom: readsFrom,
           },
         ),
-        returnValue: _FakeSelectable_14<_i3.QueryRow>(
+        returnValue: _FakeSelectable_15<_i3.QueryRow>(
           this,
           Invocation.method(
             #customSelectQuery,
@@ -838,7 +862,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             },
           ),
         ),
-        returnValueForMissingStub: _FakeSelectable_14<_i3.QueryRow>(
+        returnValueForMissingStub: _FakeSelectable_15<_i3.QueryRow>(
           this,
           Invocation.method(
             #customSelectQuery,
@@ -890,7 +914,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #transaction,
@@ -909,7 +933,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #transaction,
@@ -936,7 +960,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #exclusively,
@@ -953,7 +977,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #exclusively,
@@ -995,7 +1019,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #runWithInterceptor,
@@ -1014,7 +1038,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
               ),
               (T v) => _i5.Future<T>.value(v),
             ) ??
-            _FakeFuture_7<T>(
+            _FakeFuture_8<T>(
               this,
               Invocation.method(
                 #runWithInterceptor,
@@ -1039,7 +1063,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             #startIndex: startIndex,
           },
         ),
-        returnValue: _FakeGenerationContext_15(
+        returnValue: _FakeGenerationContext_16(
           this,
           Invocation.method(
             #$write,
@@ -1050,7 +1074,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             },
           ),
         ),
-        returnValueForMissingStub: _FakeGenerationContext_15(
+        returnValueForMissingStub: _FakeGenerationContext_16(
           this,
           Invocation.method(
             #$write,
@@ -1078,7 +1102,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
           ],
           {#startIndex: startIndex},
         ),
-        returnValue: _FakeGenerationContext_15(
+        returnValue: _FakeGenerationContext_16(
           this,
           Invocation.method(
             #$writeInsertable,
@@ -1089,7 +1113,7 @@ class MockHabitsDao extends _i1.Mock implements _i7.HabitsDao {
             {#startIndex: startIndex},
           ),
         ),
-        returnValueForMissingStub: _FakeGenerationContext_15(
+        returnValueForMissingStub: _FakeGenerationContext_16(
           this,
           Invocation.method(
             #$writeInsertable,
@@ -1170,14 +1194,14 @@ class MockRemoteHabitDataSource extends _i1.Mock
           #getHabitById,
           [id],
         ),
-        returnValue: _i5.Future<_i6.Habit>.value(_FakeHabit_16(
+        returnValue: _i5.Future<_i6.Habit>.value(_FakeHabit_17(
           this,
           Invocation.method(
             #getHabitById,
             [id],
           ),
         )),
-        returnValueForMissingStub: _i5.Future<_i6.Habit>.value(_FakeHabit_16(
+        returnValueForMissingStub: _i5.Future<_i6.Habit>.value(_FakeHabit_17(
           this,
           Invocation.method(
             #getHabitById,

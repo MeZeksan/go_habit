@@ -12,7 +12,8 @@ final class AddHabit extends HabitsEvent {
   final String title;
   final String description;
   final String categoryKey;
-  AddHabit(this.title, this.description, this.categoryKey);
+  final String emojiIcon;
+  AddHabit({required this.title, required this.description, required this.categoryKey, required this.emojiIcon});
 }
 
 final class UpdateHabit extends HabitsEvent {

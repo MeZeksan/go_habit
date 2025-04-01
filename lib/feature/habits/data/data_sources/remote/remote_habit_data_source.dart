@@ -48,7 +48,7 @@ class SupabaseHabitDataSource implements RemoteHabitDataSource {
       habitJson['user_id'] = _supabaseClient.auth.currentUser!.id;
       habitJson['created_at'] = DateTime.now().toIso8601String();
       habitJson['updated_at'] = DateTime.now().toIso8601String();
-      habitJson['icon'] = '🌟';
+      // habitJson['icon'] = '🌟';
 
       await _supabaseClient.from('habit').insert(habitJson);
     } on PostgrestException catch (e) {
@@ -66,7 +66,7 @@ class SupabaseHabitDataSource implements RemoteHabitDataSource {
       habitJson['user_id'] = _supabaseClient.auth.currentUser!.id;
       habitJson['updated_at'] = DateTime.now().toIso8601String();
       habitJson['last_completed_time'] = habit.lastCompletedTime;
-      habitJson['icon'] = '🌟';
+      // habitJson['icon'] = '🌟';
 
       await _supabaseClient.from('habit').update(habitJson).eq('id', habit.id);
     } on PostgrestException catch (e) {
