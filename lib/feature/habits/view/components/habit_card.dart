@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
@@ -11,6 +13,7 @@ class HabitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final randomColor = getRandomColor();
     return Dismissible(
       key: ValueKey(habit.id),
       direction: DismissDirection.endToStart,
@@ -22,6 +25,7 @@ class HabitCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.black87,
+          // color: const Color(0xBB000000),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -63,7 +67,7 @@ class HabitCard extends StatelessWidget {
                                   .inDays ==
                               0
                           ? Colors.grey
-                          : Colors.yellow,
+                          : randomColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Icon(Icons.check, color: Colors.black),
@@ -78,7 +82,7 @@ class HabitCard extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 100,
-                  child: HabitGridPainterWidget(completedDates: [
+                  child: HabitGridPainterWidget(color: randomColor, completedDates: [
                     DateTime.now(),
                     DateTime.now().subtract(const Duration(days: 1)),
                     DateTime.now().subtract(const Duration(days: 2))
@@ -88,7 +92,7 @@ class HabitCard extends StatelessWidget {
                   value: habit.isActive,
                   onChanged: (value) {},
                   // onChanged: (value) => context.read<HabitsBloc>().add(ToggleHabitActivation(habit.id, value)),
-                  activeColor: Colors.yellow,
+                  activeColor: randomColor,
                 ),
               ],
             ),
@@ -99,17 +103,27 @@ class HabitCard extends StatelessWidget {
   }
 }
 
+Color getRandomColor() {
+  final Random random = Random();
+  int red = random.nextInt(156) + 100; // Диапазон 100-255
+  int green = random.nextInt(156) + 100; // Диапазон 100-255
+  int blue = random.nextInt(156) + 100; // Диапазон 100-255
+
+  return Color.fromARGB(255, red, green, blue);
+}
+
 class HabitGridPainterWidget extends StatelessWidget {
+  final Color color;
   final List<DateTime> completedDates;
 
-  const HabitGridPainterWidget({super.key, required this.completedDates});
+  const HabitGridPainterWidget({super.key, required this.color, required this.completedDates});
 
   @override
   Widget build(BuildContext context) {
     List<List<bool>> data = _generateData();
     return CustomPaint(
       size: const Size(300, 50),
-      painter: HabitGridPainter(data),
+      painter: HabitGridPainter(color: color, data: data),
     );
   }
 
@@ -133,9 +147,10 @@ class HabitGridPainter extends CustomPainter {
   final int cols = 20;
   final double spacing = 4.0;
   final double squareSize = 10.0;
+  final Color color;
   final List<List<bool>> data;
 
-  HabitGridPainter(this.data);
+  HabitGridPainter({required this.color, required this.data});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -143,7 +158,7 @@ class HabitGridPainter extends CustomPainter {
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
-        paint.color = data[row][col] ? Colors.yellow : Colors.grey.shade800;
+        paint.color = data[row][col] ? color : color.withOpacity(0.2);
         final double x = col * (squareSize + spacing);
         final double y = row * (squareSize + spacing);
 
