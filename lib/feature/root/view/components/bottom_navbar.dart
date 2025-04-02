@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_habit/core/extension/theme_extension.dart';
-
-import '../../../../core/resources/assets.gen.dart';
-import '../../widget/bottom_navigation_scope.dart';
+import 'package:go_habit/core/resources/assets.gen.dart';
+import 'package:go_habit/feature/root/widget/bottom_navigation_scope.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;

@@ -1,4 +1,4 @@
-import 'environment.dart';
+import 'package:go_habit/core/environment/environment.dart';
 
 /// Application configuration
 class Config {

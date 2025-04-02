@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/categories/bloc/habit_category_bloc.dart';
 import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
+import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
-
-import '../../../categories/bloc/habit_category_bloc.dart';
-import '../../bloc/habits_bloc.dart';
-import 'habit_card.dart';
+import 'package:go_habit/feature/habits/view/components/habit_card.dart';
 
 class HabitList extends StatelessWidget {
   final List<Habit> habits;
-  const HabitList({super.key, required this.habits});
+  const HabitList({required this.habits, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-// import 'package:bloc_test/bloc_test.dart';
+// ignore_for_file: all, avoid_dynamic_calls
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_habit/core/app_connect/src/app_connect.dart';
 import 'package:go_habit/core/database/dao/habits_dao.dart';
@@ -44,10 +44,8 @@ void main() {
         description: 'description',
         createdAt: DateTime.now().toIso8601String(),
         updatedAt: DateTime.now().toIso8601String(),
-        isActive: true,
         lastCompletedTime: DateTime.now().toIso8601String(),
-        categoryId: 'health',
-        steps: 0);
+        categoryId: 'health');
   });
 
   //Group for Local Datasource
@@ -110,11 +108,11 @@ void main() {
 
       await localDatasource.saveHabit(testHabit);
 
-      var captured = verify(habitsDao.addHabit(captureAny)).captured;
+      final captured = verify(habitsDao.addHabit(captureAny)).captured;
 
       expect(captured.length, 1);
 
-      drift.HabitsCompanion capturedHabit = captured.first;
+      final capturedHabit = captured.first as drift.HabitsCompanion;
       expect(capturedHabit.id.value, '1');
       expect(capturedHabit.title.value, 'title');
       expect(capturedHabit.description.value, 'description');
@@ -130,11 +128,11 @@ void main() {
         try {
           await localDatasource.saveHabit(testHabit);
 
-          var captured = verify(habitsDao.addHabit(captureAny)).captured;
+          final captured = verify(habitsDao.addHabit(captureAny)).captured;
 
           expect(captured.length, 1);
 
-          drift.HabitsCompanion capturedHabit = captured.first;
+          final capturedHabit = captured.first as drift.HabitsCompanion;
           expect(capturedHabit.id.value, '1');
           expect(capturedHabit.title.value, 'title');
           expect(capturedHabit.description.value, 'description');
@@ -152,7 +150,7 @@ void main() {
 
       await localDatasource.deleteHabit('1');
 
-      String captured = verify(habitsDao.deleteHabit(captureAny)).captured.first;
+      final captured = verify(habitsDao.deleteHabit(captureAny)).captured.first as String;
       expect(captured, '1');
     });
 
@@ -163,7 +161,7 @@ void main() {
 
       try {
         await localDatasource.deleteHabit('1');
-        String captured = verify(habitsDao.deleteHabit(captureAny)).captured.first;
+        final captured = verify(habitsDao.deleteHabit(captureAny)).captured.first as String;
         expect(captured, '1');
         fail('Ожидалось исключение, но оно не было выброшено');
       } catch (e) {
@@ -400,7 +398,7 @@ void main() {
         when(appConnect.hasConnect()).thenAnswer((_) async => true);
 
         // Первый вызов вернет `oldLocalHabit`, второй вызов - `newLocalHabit`
-        int getHabitsCallCount = 0;
+        var getHabitsCallCount = 0;
         when(localDataSource.getHabits()).thenAnswer((_) async {
           if (getHabitsCallCount == 0) {
             getHabitsCallCount++;
@@ -445,7 +443,7 @@ void main() {
         final remoteHabit = testHabit.copyWith(id: '3');
 
         when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        int getHabitsCallCount = 0;
+        var getHabitsCallCount = 0;
         when(localDataSource.getHabits()).thenAnswer((_) async {
           if (getHabitsCallCount == 0) {
             getHabitsCallCount++;
@@ -470,7 +468,7 @@ void main() {
         final localHabit = testHabit.copyWith(id: '4');
 
         when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        int getHabitsCallCount = 0;
+        var getHabitsCallCount = 0;
         when(localDataSource.getHabits()).thenAnswer((_) async {
           if (getHabitsCallCount == 0) {
             getHabitsCallCount++;
@@ -504,7 +502,7 @@ void main() {
         final verificationOnLocalMarkAsSynced = verify(localDataSource.markHabitAsSynced(captureAny));
 
         expect(verificationOnLocalSave.callCount, 1);
-        expect(verificationOnLocalSave.captured.first.id, testHabit.id);
+        expect(verificationOnLocalSave.captured.first.id as String, testHabit.id);
 
         expect(verificationOnRemoteAdd.callCount, 1);
         expect(verificationOnRemoteAdd.captured.first.id, testHabit.id);

@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
 import 'package:go_habit/feature/categories/domain/repositories/habit_category_repository.dart';
 import 'package:meta/meta.dart';
-
-import '../domain/models/habit_category.dart';
 
 part 'habit_category_event.dart';
 part 'habit_category_state.dart';

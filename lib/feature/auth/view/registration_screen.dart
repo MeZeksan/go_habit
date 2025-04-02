@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/core/router/routes_enum.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
+import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_router/go_router.dart';
-
-import '../domain/bloc/auth_bloc.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -53,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24),
             child: Center(
               child: SingleChildScrollView(
                 child: Form(

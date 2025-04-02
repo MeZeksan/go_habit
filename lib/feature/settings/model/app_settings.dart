@@ -1,8 +1,7 @@
 import 'dart:ui' show Locale;
 
 import 'package:flutter/foundation.dart';
-
-import '../../../core/theme/app_theme.dart';
+import 'package:go_habit/core/theme/app_theme.dart';
 
 /// {@template app_settings}
 /// Application settings

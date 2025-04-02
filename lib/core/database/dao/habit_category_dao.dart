@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
-
-import '../drift_database.dart';
-import '../tables/habit_categories.dart';
+import 'package:go_habit/core/database/drift_database.dart';
+import 'package:go_habit/core/database/tables/habit_categories.dart';
 
 part 'habit_category_dao.g.dart';
 
@@ -11,12 +10,12 @@ class HabitCategoryDao extends DatabaseAccessor<AppDatabase> with _$HabitCategor
 
   // Получить все категории
   Future<List<HabitCategory>> getAllCategories() async {
-    return await select(habitCategories).get();
+    return select(habitCategories).get();
   }
 
   // Найти категорию по ID
   Future<HabitCategory?> getCategoryById(String id) async {
-    return await (select(habitCategories)..where((c) => c.id.equals(id))).getSingleOrNull();
+    return (select(habitCategories)..where((c) => c.id.equals(id))).getSingleOrNull();
   }
 
   // Добавить/обновить категорию

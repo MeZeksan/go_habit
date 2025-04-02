@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../../../auth/domain/bloc/auth_bloc.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
@@ -30,7 +29,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
 
       // Если пользователя нет вообще, используем заглушку
-      final String email = authUser?.email ?? 'Пользователь';
+      final email = authUser?.email ?? 'Пользователь';
 
       emit(ProfileLoaded(email: email));
     } catch (e) {
