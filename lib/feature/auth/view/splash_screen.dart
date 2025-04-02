@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/router/routes_enum.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/router/routes_enum.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

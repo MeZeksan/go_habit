@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../theme/app_theme.dart';
+import 'package:go_habit/core/theme/app_theme.dart';
 
 extension ThemeExtension on BuildContext {
   AppThemeExtension get theme => AppTheme.themeExtension(this);

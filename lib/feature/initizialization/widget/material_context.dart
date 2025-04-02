@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_habit/core/theme/app_theme.dart';
 import 'package:go_habit/feature/auth/widget/auth_scope.dart';
+import 'package:go_habit/feature/categories/widget/habit_categories_scope.dart';
+import 'package:go_habit/feature/habits/widget/habits_scope.dart';
 import 'package:go_habit/feature/initizialization/scopes/app_scope_container.dart';
 import 'package:go_habit/feature/language/domain/bloc/language_bloc.dart';
+import 'package:go_habit/l10n/app_localizations.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
-
-import '../../../core/theme/app_theme.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../categories/widget/habit_categories_scope.dart';
-import '../../habits/widget/habits_scope.dart';
 
 class MaterialContext extends StatelessWidget {
   const MaterialContext({super.key});
@@ -29,7 +28,6 @@ class MaterialContext extends StatelessWidget {
                   title: 'Go Habit',
                   theme: AppTheme.defaultTheme.lightTheme,
                   darkTheme: AppTheme.defaultTheme.darkTheme,
-                  themeMode: ThemeMode.system,
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,

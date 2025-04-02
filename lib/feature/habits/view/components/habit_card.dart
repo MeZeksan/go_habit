@@ -2,16 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
+import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
-
-import '../../../categories/domain/models/habit_category.dart';
-import '../../bloc/habits_bloc.dart';
 
 class HabitCard extends StatelessWidget {
   final Habit habit;
   final HabitCategory habitCategory;
 
-  const HabitCard({super.key, required this.habit, required this.habitCategory});
+  const HabitCard({required this.habit, required this.habitCategory, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class HabitCard extends StatelessWidget {
       key: ValueKey(habit.id),
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction) async {
-        return await _showConfirmDialog(context);
+        return _showConfirmDialog(context);
       },
       background: Container(
         alignment: Alignment.centerRight,
@@ -144,10 +143,10 @@ class HabitCard extends StatelessWidget {
 }
 
 Color getRandomColor() {
-  final Random random = Random();
-  int red = random.nextInt(156) + 100; // Диапазон 100-255
-  int green = random.nextInt(156) + 100; // Диапазон 100-255
-  int blue = random.nextInt(156) + 100; // Диапазон 100-255
+  final random = Random();
+  final red = random.nextInt(156) + 100; // Диапазон 100-255
+  final green = random.nextInt(156) + 100; // Диапазон 100-255
+  final blue = random.nextInt(156) + 100; // Диапазон 100-255
 
   return Color.fromARGB(255, red, green, blue);
 }
@@ -156,11 +155,11 @@ class HabitGridPainterWidget extends StatelessWidget {
   final Color color;
   final List<DateTime> completedDates;
 
-  const HabitGridPainterWidget({super.key, required this.color, required this.completedDates});
+  const HabitGridPainterWidget({required this.color, required this.completedDates, super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<List<bool>> data = _generateData();
+    final data = _generateData();
     return CustomPaint(
       size: const Size(300, 50),
       painter: HabitGridPainter(color: color, data: data),
@@ -168,13 +167,13 @@ class HabitGridPainterWidget extends StatelessWidget {
   }
 
   List<List<bool>> _generateData() {
-    DateTime today = DateTime.now();
-    List<List<bool>> grid = List.generate(7, (_) => List.generate(20, (_) => false));
-    for (var date in completedDates) {
-      int dayDiff = today.difference(date).inDays;
+    final today = DateTime.now();
+    final grid = List<List<bool>>.generate(7, (_) => List.generate(20, (_) => false));
+    for (final date in completedDates) {
+      final dayDiff = today.difference(date).inDays;
       if (dayDiff >= 0 && dayDiff < 20) {
-        int row = date.weekday % 7;
-        int col = 19 - dayDiff;
+        final row = date.weekday % 7;
+        final col = 19 - dayDiff;
         grid[row][col] = true;
       }
     }
@@ -185,8 +184,8 @@ class HabitGridPainterWidget extends StatelessWidget {
 class HabitGridPainter extends CustomPainter {
   final int rows = 7;
   final int cols = 20;
-  final double spacing = 4.0;
-  final double squareSize = 10.0;
+  final double spacing = 4;
+  final double squareSize = 10;
   final Color color;
   final List<List<bool>> data;
 
@@ -194,13 +193,13 @@ class HabitGridPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()..style = PaintingStyle.fill;
+    final paint = Paint()..style = PaintingStyle.fill;
 
-    for (int row = 0; row < rows; row++) {
-      for (int col = 0; col < cols; col++) {
+    for (var row = 0; row < rows; row++) {
+      for (var col = 0; col < cols; col++) {
         paint.color = data[row][col] ? color : color.withOpacity(0.2);
-        final double x = col * (squareSize + spacing);
-        final double y = row * (squareSize + spacing);
+        final x = col * (squareSize + spacing);
+        final y = row * (squareSize + spacing);
 
         canvas.drawRRect(
           RRect.fromRectAndRadius(

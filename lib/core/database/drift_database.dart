@@ -1,10 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:go_habit/core/database/dao/habits_dao.dart';
+import 'package:go_habit/core/database/tables/habit_categories.dart';
+import 'package:go_habit/core/database/tables/habits.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'dao/habits_dao.dart';
-import 'tables/habit_categories.dart';
-import 'tables/habits.dart';
 
 part 'drift_database.g.dart';
 

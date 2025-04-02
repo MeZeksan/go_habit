@@ -1,9 +1,8 @@
+import 'package:go_habit/core/app_connect/src/app_connect.dart';
 import 'package:go_habit/feature/categories/data/data_sources/local/local_habit_category_datasource.dart';
 import 'package:go_habit/feature/categories/data/data_sources/remote/remote_habit_category_datasource.dart';
 import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
-
-import '../../../../core/app_connect/src/app_connect.dart';
-import '../../domain/repositories/habit_category_repository.dart';
+import 'package:go_habit/feature/categories/domain/repositories/habit_category_repository.dart';
 
 class HabitCategoryRepositoryImplementation implements HabitCategoryRepository {
   final LocalHabitCategoryDatasource _localHabitCategoryDatasource;

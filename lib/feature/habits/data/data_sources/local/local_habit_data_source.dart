@@ -1,9 +1,8 @@
 import 'package:drift/drift.dart';
-
-import '../../../../../core/database/dao/habits_dao.dart';
-import '../../../../../core/database/drift_database.dart';
-import '../../../domain/enums/sync_status.dart';
-import '../../models/habit.dart' as entity;
+import 'package:go_habit/core/database/dao/habits_dao.dart';
+import 'package:go_habit/core/database/drift_database.dart';
+import 'package:go_habit/feature/habits/data/models/habit.dart' as entity;
+import 'package:go_habit/feature/habits/domain/enums/sync_status.dart';
 
 abstract interface class LocalHabitDataSource {
   Future<List<entity.Habit>> getHabits();
@@ -69,7 +68,7 @@ class DriftHabitDataSource implements LocalHabitDataSource {
 
   @override
   Stream<List<entity.Habit>> habitsStream() =>
-      _habitsDao.watchHabits().map((event) => event.map((e) => entity.Habit.fromDriftModel(e)).toList());
+      _habitsDao.watchHabits().map((event) => event.map(entity.Habit.fromDriftModel).toList());
 
   @override
   Future<void> saveAllHabits(List<entity.Habit> habits) async {
@@ -98,7 +97,7 @@ class DriftHabitDataSource implements LocalHabitDataSource {
     );
     final result = [...pendingForAdd, ...pendingForUpdate, ...pendingForDelete];
 
-    return result.map((e) => entity.Habit.fromDriftModel(e)).toList();
+    return result.map(entity.Habit.fromDriftModel).toList();
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
-
-import '../drift_database.dart';
-import '../tables/habits.dart';
+import 'package:go_habit/core/database/drift_database.dart';
+import 'package:go_habit/core/database/tables/habits.dart';
 
 part 'habits_dao.g.dart';
 
@@ -19,7 +18,7 @@ class HabitsDao extends DatabaseAccessor<AppDatabase> with _$HabitsDaoMixin {
   Future<Habit?> getHabitById(String id) => (select(habits)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
 
   Future<int> addHabit(HabitsCompanion entry) async {
-    return await habits.insert().insert(entry);
+    return habits.insert().insert(entry);
   }
 
   Future<int> updateHabit(String habitId,
@@ -54,6 +53,6 @@ class HabitsDao extends DatabaseAccessor<AppDatabase> with _$HabitsDaoMixin {
       (select(habits)..where((tbl) => tbl.syncStatus.equals(syncStatus) & tbl.isPendingSync.equals(isPending))).get();
 
   Future<void> deleteAllHabits() async {
-    await (delete(habits)).go();
+    await delete(habits).go();
   }
 }

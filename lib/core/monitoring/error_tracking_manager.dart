@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../utils/logger.dart';
+import 'package:go_habit/core/utils/logger.dart';
 
 /// {@template error_tracking_manager}
 /// A class which is responsible for enabling error tracking.

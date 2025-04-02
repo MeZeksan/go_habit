@@ -27,10 +27,10 @@ class LoggingOptions {
   ///   Defaults to `false`.
   /// - [level]: The minimum log level that will be displayed.
   ///   Defaults to [LogLevel.info].
-  /// - [chunkSize]: The maximum size of a log message chunk. Defaults to 1024.
-  /// - [coloredOutput]: Whether to use colored text for the console output.
-  ///   Defaults to `false`.
-  /// - [formatter]: An optional custom formatter for log messages.
+  // / - [chunkSize]: The maximum size of a log message chunk. Defaults to 1024.
+  // / - [coloredOutput]: Whether to use colored text for the console output.
+  // /   Defaults to `false`.
+  // / - [formatter]: An optional custom formatter for log messages.
   ///   If not provided, a default formatter is used.
   const LoggingOptions({
     this.level = LogLevel.info,

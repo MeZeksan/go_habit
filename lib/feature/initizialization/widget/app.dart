@@ -35,3 +35,5 @@ class _AppState extends State<App> {
     );
   }
 }
+
+Future<void> loadError() => Future.error(Exception('Ooo'));

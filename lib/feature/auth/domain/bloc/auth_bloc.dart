@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/auth/domain/repositories/i_authentication_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../repositories/i_authentication_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -37,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onInitialAuthChecked(AuthInitialCheckRequested event, Emitter<AuthState> emit) async {
-    User? signedInUser = _authenticationRepository.getSignedInUser();
+    final signedInUser = _authenticationRepository.getSignedInUser();
     signedInUser != null ? emit(AuthUserAuthenticated(signedInUser)) : emit(AuthUserUnauthenticated());
   }
 
