@@ -1,9 +1,9 @@
-name: Example-ci
+name: CI
 
 on:
   push:
     branches:
-      - main
+      - ci/cd
 
 jobs:
   flutter-analyze:
