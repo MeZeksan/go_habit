@@ -3,20 +3,86 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
+import 'package:go_habit/feature/habit_stats/bloc/habit_stats_bloc.dart';
 import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
+import 'package:go_habit/feature/habits/view/components/habit_stats_grid.dart';
 
-class HabitCard extends StatelessWidget {
+class HabitCard extends StatefulWidget {
   final Habit habit;
   final HabitCategory habitCategory;
 
   const HabitCard({required this.habit, required this.habitCategory, super.key});
 
   @override
+  State<HabitCard> createState() => _HabitCardState();
+}
+
+class _HabitCardState extends State<HabitCard> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _opacityAnimation;
+  late Animation<Color?> _colorAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _opacityAnimation = Tween<double>(
+      begin: widget.habit.isActive ? 1.0 : 0.5,
+      end: widget.habit.isActive ? 1.0 : 0.5,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+
+    _colorAnimation = ColorTween(
+      begin: widget.habit.isActive ? Colors.white : Colors.grey,
+      end: widget.habit.isActive ? Colors.white : Colors.grey,
+    ).animate(_animationController);
+
+    _animationController.forward();
+  }
+
+  @override
+  void didUpdateWidget(covariant HabitCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.habit.isActive != widget.habit.isActive) {
+      _opacityAnimation = Tween<double>(
+        begin: oldWidget.habit.isActive ? 1.0 : 0.5,
+        end: widget.habit.isActive ? 1.0 : 0.5,
+      ).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ));
+
+      _colorAnimation = ColorTween(
+        begin: oldWidget.habit.isActive ? Colors.white : Colors.grey,
+        end: widget.habit.isActive ? Colors.white : Colors.grey,
+      ).animate(_animationController);
+
+      _animationController
+        ..reset()
+        ..forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final cardColor = hexToColor(habitCategory.color);
+    final cardColor = hexToColor(widget.habitCategory.color);
+    final isActive = widget.habit.isActive;
+
     return Dismissible(
-      key: ValueKey(habit.id),
+      key: ValueKey(widget.habit.id),
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction) async {
         return _showConfirmDialog(context);
@@ -28,115 +94,174 @@ class HabitCard extends StatelessWidget {
         child: const Icon(Icons.delete, color: Colors.white),
       ),
       onDismissed: (direction) {
-        context.read<HabitsBloc>().add(DeleteHabit(habit.id));
+        context.read<HabitsBloc>().add(DeleteHabit(widget.habit.id));
       },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.black87,
-          // color: const Color(0xBB000000),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: Colors.black87.withValues(alpha: 0.5), shape: BoxShape.circle),
-                    child: Text(habit.icon ?? '', style: const TextStyle(fontSize: 48, color: Colors.white))),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        habit.title,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        habit.description ?? '',
-                        style: const TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
+      child: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return Opacity(
+            opacity: _opacityAnimation.value,
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.black87,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: isActive ? Colors.transparent : Colors.grey.withOpacity(0.5),
                 ),
-                InkWell(
-                  onTap: DateTime.parse(habit.lastCompletedTime ?? '2023-03-31T00:00:00.000')
-                              .difference(DateTime.now())
-                              .inDays ==
-                          0
-                      ? null
-                      : () => context.read<HabitsBloc>().add(FinishHabit(habit.id)),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: DateTime.parse(habit.lastCompletedTime ?? '2023-03-31T00:00:00.000')
-                                  .difference(DateTime.now())
-                                  .inDays ==
-                              0
-                          ? Colors.grey
-                          : cardColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(Icons.check, color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 100,
-              child: HabitGridPainterWidget(color: cardColor, completedDates: [
-                DateTime.now(),
-                DateTime.now().subtract(const Duration(days: 1)),
-                DateTime.now().subtract(const Duration(days: 2))
-              ]),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              // crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: cardColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Icon(
-                        getCategoryIcon(habitCategory.id),
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        habitCategory.name,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.black87.withValues(alpha: 0.5),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          widget.habit.icon ?? '',
+                          style: TextStyle(
+                            fontSize: 48,
+                            color: _colorAnimation.value,
+                          ),
                         ),
                       ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              widget.habit.title,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: _colorAnimation.value,
+                                decoration: isActive ? null : TextDecoration.lineThrough,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              widget.habit.description ?? '',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: _colorAnimation.value,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (isActive)
+                        InkWell(
+                          onTap: DateTime.parse(widget.habit.lastCompletedTime ?? '2023-03-31T00:00:00.000')
+                                      .difference(DateTime.now())
+                                      .inDays ==
+                                  0
+                              ? () {
+                                  context.read<HabitsBloc>().add(UnFinishHabit(widget.habit.id));
+                                }
+                              : () {
+                                  context.read<HabitsBloc>().add(FinishHabit(widget.habit.id));
+                                },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: DateTime.now()
+                                          .difference(DateTime.parse(
+                                              widget.habit.lastCompletedTime ?? '2023-03-31T00:00:00.000'))
+                                          .inDays ==
+                                      0
+                                  ? Colors.grey
+                                  : cardColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.check, color: Colors.black),
+                          ),
+                        ),
                     ],
                   ),
-                ),
-                Switch(
-                  value: habit.isActive,
-                  onChanged: (value) {},
-                  // onChanged: (value) => context.read<HabitsBloc>().add(ToggleHabitActivation(habit.id, value)),
-                  activeColor: cardColor,
-                ),
-              ],
-            )
-          ],
-        ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 70,
+                    child: isActive
+                        ? BlocBuilder<HabitStatsBloc, HabitStatsState>(
+                            builder: (context, state) {
+                              switch (state) {
+                                case HabitStatsLoaded(:final completions):
+                                  return HabitGridPainterWidget(
+                                    color: cardColor,
+                                    completedDates: completions
+                                        .where((c) => c.habitId == widget.habit.id)
+                                        .map((c) => c.dateComplete)
+                                        .toList(),
+                                  );
+                                case _:
+                                  return const Center(
+                                    child: CircularProgressIndicator.adaptive(
+                                      backgroundColor: Colors.white,
+                                    ),
+                                  );
+                              }
+                            },
+                          )
+                        : Container(
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Привычка неактивна',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: cardColor.withOpacity(isActive ? 1.0 : 0.5),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              getCategoryIcon(widget.habitCategory.id),
+                              color: _colorAnimation.value,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              widget.habitCategory.name,
+                              style: TextStyle(
+                                color: _colorAnimation.value,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Switch(
+                        value: widget.habit.isActive,
+                        onChanged: (value) {
+                          context.read<HabitsBloc>().add(ToggleActiveHabit(widget.habit.id));
+                        },
+                        activeColor: cardColor,
+                        inactiveThumbColor: Colors.grey,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -149,71 +274,6 @@ Color getRandomColor() {
   final blue = random.nextInt(156) + 100; // Диапазон 100-255
 
   return Color.fromARGB(255, red, green, blue);
-}
-
-class HabitGridPainterWidget extends StatelessWidget {
-  final Color color;
-  final List<DateTime> completedDates;
-
-  const HabitGridPainterWidget({required this.color, required this.completedDates, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final data = _generateData();
-    return CustomPaint(
-      size: const Size(300, 50),
-      painter: HabitGridPainter(color: color, data: data),
-    );
-  }
-
-  List<List<bool>> _generateData() {
-    final today = DateTime.now();
-    final grid = List<List<bool>>.generate(7, (_) => List.generate(20, (_) => false));
-    for (final date in completedDates) {
-      final dayDiff = today.difference(date).inDays;
-      if (dayDiff >= 0 && dayDiff < 20) {
-        final row = date.weekday % 7;
-        final col = 19 - dayDiff;
-        grid[row][col] = true;
-      }
-    }
-    return grid;
-  }
-}
-
-class HabitGridPainter extends CustomPainter {
-  final int rows = 7;
-  final int cols = 20;
-  final double spacing = 4;
-  final double squareSize = 10;
-  final Color color;
-  final List<List<bool>> data;
-
-  HabitGridPainter({required this.color, required this.data});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..style = PaintingStyle.fill;
-
-    for (var row = 0; row < rows; row++) {
-      for (var col = 0; col < cols; col++) {
-        paint.color = data[row][col] ? color : color.withOpacity(0.2);
-        final x = col * (squareSize + spacing);
-        final y = row * (squareSize + spacing);
-
-        canvas.drawRRect(
-          RRect.fromRectAndRadius(
-            Rect.fromLTWH(x, y, squareSize, squareSize),
-            Radius.circular(squareSize / 3), // Меньший радиус скругления
-          ),
-          paint,
-        );
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(HabitGridPainter oldDelegate) => oldDelegate.data != data;
 }
 
 Color hexToColor(String hexString) {

@@ -15,12 +15,12 @@ class HabitList extends StatelessWidget {
     return BlocListener<HabitsBloc, HabitsState>(
       listenWhen: (previous, current) => previous is HabitsLoadSuccess,
       listener: (context, state) {
-        if (state is HabitsOperationSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(state.message),
-            backgroundColor: Colors.green,
-          ));
-        }
+        // if (state is HabitsOperationSuccess) {
+        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text(state.message),
+        //     backgroundColor: Colors.green,
+        //   ));
+        // }
 
         if (state is HabitsOperationFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

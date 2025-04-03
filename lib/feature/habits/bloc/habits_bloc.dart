@@ -27,6 +27,10 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
           await _onDeleteHabit(event, emit);
         case FinishHabit():
           await _onFinishHabit(event, emit);
+        case UnFinishHabit():
+          await _onUnFinishHabit(event, emit);
+        case ToggleActiveHabit():
+          await _onToggleHabitActive(event, emit);
       }
     });
 
@@ -37,10 +41,21 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
     add(InitializeHabits());
   }
 
+  Future<void> _onToggleHabitActive(ToggleActiveHabit event, Emitter<HabitsState> emit) async {
+    try {
+      final habit = state.habits.firstWhere((element) => element.id == event.id);
+      final toggleHabit = habit.copyWith(isActive: !habit.isActive);
+      await _habitRepository.updateHabit(toggleHabit);
+      emit(HabitsOperationSuccess(message: 'Habit is toggled', habits: state.habits));
+    } catch (error) {
+      emit(HabitsOperationFailure(error: error.toString(), habits: state.habits));
+    }
+  }
+
   Future<void> _onInitializeHabits(InitializeHabits event, Emitter<HabitsState> emit) async {
     try {
       final habits = await _habitRepository.getHabits();
-      for (var element in habits) {
+      for (final element in habits) {
         debugPrint(element.toString());
       }
       emit(HabitsLoadSuccess(habits));
@@ -100,6 +115,18 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
           );
       await _habitRepository.updateHabit(finishedHabit);
       emit(HabitsOperationSuccess(message: 'Habit is finished', habits: state.habits));
+    } catch (error) {
+      emit(HabitsOperationFailure(error: error.toString(), habits: state.habits));
+    }
+  }
+
+  Future<void> _onUnFinishHabit(UnFinishHabit event, Emitter<HabitsState> emit) async {
+    try {
+      final finishedHabit = state.habits
+          .firstWhere((element) => element.id == event.id)
+          .copyWith(lastCompletedTime: '2023-03-31T00:00:00.000');
+      await _habitRepository.updateHabit(finishedHabit);
+      emit(HabitsOperationSuccess(message: 'Habit is unfinished', habits: state.habits));
     } catch (error) {
       emit(HabitsOperationFailure(error: error.toString(), habits: state.habits));
     }

@@ -28,6 +28,7 @@ class MaterialContext extends StatelessWidget {
                   title: 'Go Habit',
                   theme: AppTheme.defaultTheme.lightTheme,
                   darkTheme: AppTheme.defaultTheme.darkTheme,
+                  // themeMode: mmm,
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
