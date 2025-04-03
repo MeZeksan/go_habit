@@ -32,6 +32,7 @@ dependencies:
   percent_indicator: ^4.2.4
   lottie: ^3.0.0
   animated_text_kit: ^4.2.2
+  dio: ^5.8.0+1
 
 
 dev_dependencies:
