@@ -28,6 +28,7 @@ class HabitsPage extends StatelessWidget {
               ),
               onPressed: () {
                 showModalBottomSheet(
+                  backgroundColor: context.themeOf.scaffoldBackgroundColor,
                   useRootNavigator: true,
                   context: context,
                   isScrollControlled: true,
