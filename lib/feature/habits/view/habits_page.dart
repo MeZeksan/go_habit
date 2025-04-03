@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/theme_extension.dart';
 import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
 import 'package:go_habit/feature/habits/view/components/habit_list.dart';
 import 'package:go_habit/feature/habits/view/components/modal_bottom_sheet.dart';
@@ -16,8 +17,8 @@ class HabitsPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           DecoratedBox(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
+            decoration: BoxDecoration(
+              color: context.themeOf.primaryColor,
               shape: BoxShape.circle,
             ),
             child: IconButton(
@@ -31,7 +32,8 @@ class HabitsPage extends StatelessWidget {
                   context: context,
                   isScrollControlled: true,
                   shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(24)),
                   ),
                   builder: (_) => const AddHabitBottomSheet(),
                 );
@@ -43,8 +45,10 @@ class HabitsPage extends StatelessWidget {
       ),
       body: BlocBuilder<HabitsBloc, HabitsState>(builder: (context, state) {
         return switch (state) {
-          HabitsInitial() => const Center(child: CircularProgressIndicator.adaptive()),
-          HabitsLoading() => const Center(child: CircularProgressIndicator.adaptive()),
+          HabitsInitial() =>
+            const Center(child: CircularProgressIndicator.adaptive()),
+          HabitsLoading() =>
+            const Center(child: CircularProgressIndicator.adaptive()),
           HabitsLoadSuccess(habits: final habits) => HabitList(habits: habits),
           HabitsOperationSuccess(habits: final habits) ||
           HabitsOperationFailure(habits: final habits) =>

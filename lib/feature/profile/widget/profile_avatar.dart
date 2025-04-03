@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_habit/core/extension/theme_extension.dart';
 
 class ProfileAvatar extends StatelessWidget {
   final String email;
@@ -48,11 +49,7 @@ class ProfileAvatar extends StatelessWidget {
         // Email пользователя
         Text(
           email,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
+          style: context.themeOf.textTheme.headlineSmall,
         ),
       ],
     );

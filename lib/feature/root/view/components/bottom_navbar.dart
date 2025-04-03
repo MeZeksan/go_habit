@@ -12,15 +12,8 @@ class BottomNavBar extends StatelessWidget {
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
     return Container(
       margin: const EdgeInsets.all(40),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-            color: context.theme.commonColors.neutralgrey10.withOpacity(.2),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       height: 40 + bottomPadding,
       child: Row(
@@ -29,7 +22,7 @@ class BottomNavBar extends StatelessWidget {
           Expanded(
             child: Material(
               borderRadius: const BorderRadius.all(Radius.circular(40)),
-              color: context.theme.commonColors.white,
+              color: context.themeOf.cardColor,
               child: SizedBox(
                 height: 64,
                 child: Row(
@@ -63,7 +56,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           Material(
             borderRadius: const BorderRadius.all(Radius.circular(40)),
-            color: context.theme.commonColors.white,
+            color: context.themeOf.scaffoldBackgroundColor,
             child: SizedBox(
               height: 64,
               child: Padding(
@@ -107,7 +100,9 @@ class _NavBarItem extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? colors.green10 : colors.neutralgrey3,
+          color: isSelected
+              ? context.themeOf.dividerColor
+              : context.themeOf.cardColor,
         ),
         padding: const EdgeInsets.all(12),
         child: index == 2
@@ -115,13 +110,15 @@ class _NavBarItem extends StatelessWidget {
                 count: 2,
                 child: asset.svg(
                   colorFilter: ColorFilter.mode(
-                    isSelected ? colors.green100 : colors.darkGrey30,
+                    isSelected
+                        ? context.themeOf.primaryColor
+                        : colors.darkGrey30,
                     BlendMode.srcIn,
                   ),
                 ))
             : asset.svg(
                 colorFilter: ColorFilter.mode(
-                  isSelected ? colors.green100 : colors.darkGrey30,
+                  isSelected ? context.themeOf.primaryColor : colors.darkGrey30,
                   BlendMode.srcIn,
                 ),
               ),
