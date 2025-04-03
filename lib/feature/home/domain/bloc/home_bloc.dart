@@ -1,46 +1,40 @@
-/*
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
-import 'package:go_habit/feature/habits/data/models/habit.dart';
+import 'package:go_habit/feature/home/domain/models/quote_model.dart';
+import 'package:go_habit/feature/home/domain/repositories/quote_repository.dart';
 
 part 'home_event.dart';
-
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final HabitsBloc _habitsBloc;
+  final QuoteRepository _quoteRepository;
 
-  HomeBloc(this._habitsBloc) : super(HomeInitial()) {
+  HomeBloc(this._quoteRepository) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
       switch (event) {
         case InitializeHome():
-          await _onInitializeHome(event, emit);
-        case RefreshHabits():
-          await _onRefreshHabits(event, emit);
+          await _onInitialize(event, emit);
+        case TigerClicked():
+          await _onTigerClicked(event, emit);
       }
     });
 
-    _habitsBloc.stream.listen((state) {
-      if (state is HabitsLoadSuccess) {
-        add(RefreshHabits(state.habits));
-      }
-    });
+    add(InitializeHome());
   }
 
-  Future<void> _onInitializeHome(
-      InitializeHome event, Emitter<HomeState> emit) async {
-    emit(HomeLoading());
+  Future<void> _onInitialize(InitializeHome event, Emitter<HomeState> emit) async {
     try {
-      _habitsBloc.add(InitializeHabits());
-      emit(HomeLoadSuccess());
+      final quote = await _quoteRepository.getQuote();
+      emit(HomeLoadSuccess(quote: quote));
     } catch (error) {
       emit(HomeOperationFailure(error: error.toString()));
     }
   }
 
-  Future<void> _onRefreshHabits(
-      RefreshHabits event, Emitter<HomeState> emit) async {
-    emit(HomeLoadSuccess());
+  Future<void> _onTigerClicked(TigerClicked event, Emitter<HomeState> emit) async {
+    try {
+      emit(HomeLoading(quote: (state as HomeLoadSuccess).quote));
+      final quote = await _quoteRepository.getQuote();
+      emit(HomeLoadSuccess(quote: quote));
+    } catch (error) {}
   }
 }
-*/
