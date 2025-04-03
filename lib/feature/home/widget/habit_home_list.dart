@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:go_habit/feature/categories/bloc/habit_category_bloc.dart';
 import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
 import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class HabitHomeList extends StatelessWidget {
   const HabitHomeList({super.key});
@@ -26,8 +26,7 @@ class HabitHomeList extends StatelessWidget {
         return BlocBuilder<HabitCategoryBloc, HabitCategoryState>(
           builder: (context, categoryState) {
             switch (categoryState) {
-              case HabitCategoryLoaded(:final categories) ||
-                    HabitCategoryError(:final categories):
+              case HabitCategoryLoaded(:final categories) || HabitCategoryError(:final categories):
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -75,18 +74,26 @@ class _HabitListItem extends StatefulWidget {
 }
 
 class _HabitListItemState extends State<_HabitListItem> {
-  double _progress = 0.0;
+  double _progress = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    final completedDate = DateTime.tryParse(widget.habit.lastCompletedTime ?? '2000-01-01');
+    debugPrint('Difference: ${completedDate!.difference(DateTime.now()).inHours}');
+    _progress = DateTime.now().difference(completedDate).inHours > 24 ? 0.0 : 1.0;
+  }
 
   Color _getColorFromHex(String hexColor) {
     hexColor = hexColor.replaceAll('#', '');
     if (hexColor.length == 6) {
-      hexColor = 'FF' + hexColor;
+      hexColor = 'FF$hexColor';
     }
     return Color(int.parse(hexColor, radix: 16));
   }
 
   IconData _getCategoryIcon(String categoryId, HabitCategoryState state) {
-    if (state is HabitCategoryError) {
+    if (state is HabitCategoryError || state is HabitCategoryLoaded) {
       switch (categoryId) {
         case 'art':
           return Icons.brush;
@@ -116,24 +123,9 @@ class _HabitListItemState extends State<_HabitListItem> {
 
     final habitsBloc = context.read<HabitsBloc>();
 
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (!mounted) return;
+    if (!mounted) return;
 
-      final updatedHabit = widget.habit.copyWith(
-        isActive: false,
-        lastCompletedTime: DateTime.now().toIso8601String(),
-        updatedAt: DateTime.now().toIso8601String(),
-      );
-
-      habitsBloc.add(
-        UpdateHabit(
-          updatedHabit.id,
-          updatedHabit.title,
-          updatedHabit.description ?? '',
-          int.parse(updatedHabit.categoryId),
-        ),
-      );
-    });
+    habitsBloc.add(FinishHabit(widget.habit.id));
   }
 
   @override
@@ -141,7 +133,7 @@ class _HabitListItemState extends State<_HabitListItem> {
     final cardColor = _getColorFromHex(widget.category.color);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -149,7 +141,6 @@ class _HabitListItemState extends State<_HabitListItem> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: Colors.black.withValues(alpha: 0.1),
-            width: 1,
           ),
         ),
         child: Column(
@@ -189,11 +180,8 @@ class _HabitListItemState extends State<_HabitListItem> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: cardColor.withValues(alpha: 0.3),
-                      shape: BoxShape.circle),
-                  child: Text(widget.habit.icon ?? '🎯',
-                      style: const TextStyle(fontSize: 48)),
+                  decoration: BoxDecoration(color: cardColor.withValues(alpha: 0.3), shape: BoxShape.circle),
+                  child: Text(widget.habit.icon ?? '🎯', style: const TextStyle(fontSize: 48)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -204,33 +192,28 @@ class _HabitListItemState extends State<_HabitListItem> {
                       Text(
                         widget.habit.title,
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: cardColor.withValues(alpha: 0.8)),
+                            fontSize: 18, fontWeight: FontWeight.w600, color: cardColor.withValues(alpha: 0.8)),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         widget.habit.description ?? '',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: cardColor.withValues(alpha: 0.6)),
+                        style: TextStyle(fontSize: 14, color: cardColor.withValues(alpha: 0.6)),
                       ),
                       const SizedBox(height: 8),
                       LinearPercentIndicator(
-                        lineHeight: 8.0,
+                        lineHeight: 8,
                         percent: _progress,
                         backgroundColor: Colors.white.withValues(alpha: .5),
                         progressColor: cardColor.withValues(alpha: 0.9),
                         barRadius: const Radius.circular(4),
                         padding: EdgeInsets.zero,
                         animation: true,
-                        animationDuration: 500,
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                  padding: const EdgeInsets.only(left: 8),
                   child: InkWell(
                     onTap: _completeHabit,
                     child: Container(
