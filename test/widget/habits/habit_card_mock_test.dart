@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 
 /// Мок-версия карточки привычки без зависимостей BLoC для тестирования
 class MockHabitCard extends StatelessWidget {

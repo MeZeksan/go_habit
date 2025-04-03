@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 
 /// Создает обертку MaterialApp с темой для тестирования виджетов
 /// Использует тему, соответствующую теме приложения
@@ -27,6 +28,7 @@ Widget makeTestableWidget({
 
 /// Настройка экранов для golden тестов
 Future<void> setupGoldenTest(WidgetTester tester, {Size? size}) async {
+  await loadAppFonts(); // Загрузка шрифтов для корректного отображения символов
   tester.binding.window.physicalSizeTestValue = size ?? const Size(400, 300);
   tester.binding.window.devicePixelRatioTestValue = 1.0;
 

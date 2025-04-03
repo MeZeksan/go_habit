@@ -49,7 +49,7 @@ void main() {
       title: 'Читать книгу',
       description: '30 минут чтения каждый день',
       categoryId: 'education',
-      icon: '📚',
+      icon: 'V',
       lastCompletedTime: DateHelper.getStableYesterdayIso(),
     );
 
@@ -90,7 +90,7 @@ void main() {
       description: '10 минут медитации',
       categoryId: 'selv-development',
       isActive: false,
-      icon: '🧘',
+      icon: 'Z',
       lastCompletedTime: DateHelper.getStableTwoDaysAgoIso(),
     );
 
@@ -131,7 +131,7 @@ void main() {
       title: 'Пробежка',
       description: '5 км каждый день',
       categoryId: 'sport',
-      icon: '🏃',
+      icon: 'J',
       lastCompletedTime: DateHelper.getStableTodayIso(),
     );
 
