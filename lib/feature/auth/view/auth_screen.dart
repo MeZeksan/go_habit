@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
+import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
 import 'package:go_habit/feature/auth/view/components/components.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
 import 'package:go_router/go_router.dart';
-
-import '../domain/bloc/auth_bloc.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -46,7 +45,7 @@ class _AuthScreenState extends State<AuthScreen> {
         },
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24),
             child: Center(
               child: SingleChildScrollView(
                 child: Form(
@@ -73,7 +72,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         formKey: _formKey,
                         emailController: _emailController,
                         passwordController: _passwordController,
-                        isRegistration: false,
                       ),
                       const SizedBox(height: 16),
                       AuthNavigationButton(

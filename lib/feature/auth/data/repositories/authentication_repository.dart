@@ -1,6 +1,5 @@
+import 'package:go_habit/feature/auth/domain/repositories/i_authentication_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../../domain/repositories/i_authentication_repository.dart';
 
 class AuthenticationRepository implements IAuthenticationRepository {
   final _supabase = Supabase.instance.client; //ссылка на клиент _supabase

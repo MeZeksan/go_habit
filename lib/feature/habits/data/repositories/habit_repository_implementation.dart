@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:go_habit/core/app_connect/src/app_connect.dart';
 import 'package:go_habit/feature/habits/data/data_sources/local/local_habit_data_source.dart';
 import 'package:go_habit/feature/habits/data/data_sources/remote/remote_habit_data_source.dart';
 import 'package:go_habit/feature/habits/data/models/habit.dart';
+import 'package:go_habit/feature/habits/domain/enums/sync_status.dart';
 import 'package:go_habit/feature/habits/domain/repositories/habit_repository.dart';
-
-import '../../../../core/app_connect/src/app_connect.dart';
-import '../../domain/enums/sync_status.dart';
 
 class HabitsRepositoryImplementation implements HabitRepository {
   final LocalHabitDataSource _localDataSource;
@@ -152,8 +151,8 @@ class HabitsRepositoryImplementation implements HabitRepository {
       final localHabits = await _localDataSource.getHabits();
 
       // 2. Формируем словари для быстрого доступа по id
-      final remoteMap = {for (var habit in remoteHabits) habit.id: habit};
-      final localMap = {for (var habit in localHabits) habit.id: habit};
+      final remoteMap = {for (final habit in remoteHabits) habit.id: habit};
+      final localMap = {for (final habit in localHabits) habit.id: habit};
 
       // 3. Обработка привычек, присутствующих на сервере
       for (final remoteHabit in remoteHabits) {

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  flutter-analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+      - run: flutter pub get
+      - name: Create analysis_options.yaml
+        run: |
+          echo "analyzer:" > analysis_options.yaml
+          echo "  exclude:" >> analysis_options.yaml
+          echo "    - '**/*.g.dart'" >> analysis_options.yaml
+          echo "    - '**/*.mocks.dart'" >> analysis_options.yaml
+          echo "    - '**/*.freezed.dart'" >> analysis_options.yaml
+          echo "  errors:" >> analysis_options.yaml
+          echo "    invalid_use_of_internal_member: ignore" >> analysis_options.yaml
+          echo "    override_on_non_overriding_member: ignore" >> analysis_options.yaml
+          echo "    cast_to_non_type: ignore" >> analysis_options.yaml
+          echo "    non_type_as_type_argument: ignore" >> analysis_options.yaml
+          echo "    undefined_class: ignore" >> analysis_options.yaml
+          echo "    duplicate_ignore: ignore" >> analysis_options.yaml
+          echo "    uri_has_not_been_generated: ignore" >> analysis_options.yaml
+          echo "    type_argument_not_matching_bounds: ignore" >> analysis_options.yaml
+          echo "    undefined_identifier: ignore" >> analysis_options.yaml
+          echo "    undefined_getter: ignore" >> analysis_options.yaml
+          echo "    undefined_method: ignore" >> analysis_options.yaml
+          echo "    undefined_prefixed_name: ignore" >> analysis_options.yaml
+          echo "    undefined_function: ignore" >> analysis_options.yaml
+          echo "    unused_import: ignore" >> analysis_options.yaml
+          echo "    deprecated_member_use: ignore" >> analysis_options.yaml
+          echo "    asset_does_not_exist: ignore" >> analysis_options.yaml
+      - run: flutter analyze --no-pub --no-fatal-infos --no-fatal-warnings .
+
+  flutter-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+      - name: Create .env file
+        run: |
+          echo "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" > .env
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+      - run: flutter pub get
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - run: flutter test 

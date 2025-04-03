@@ -1,16 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_habit/core/router/routes_enum.dart';
 import 'package:go_habit/feature/auth/view/auth_screen.dart';
 import 'package:go_habit/feature/auth/view/registration_screen.dart';
 import 'package:go_habit/feature/auth/view/splash_screen.dart';
 import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 import 'package:go_habit/feature/habits/view/habits_page.dart';
 import 'package:go_habit/feature/home/view/home_screen.dart';
+import 'package:go_habit/feature/profile/view/profile_screen.dart';
+import 'package:go_habit/feature/root/view/root_page.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../feature/profile/view/profile_screen.dart';
-import '../../feature/root/view/root_page.dart';
-import 'routes_enum.dart';
 
 part 'routes/auth_routes.dart';
 part 'routes/calendar_routes.dart';

@@ -1,6 +1,5 @@
+import 'package:go_habit/core/database/drift_database.dart' as drift;
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../../../core/database/drift_database.dart' as drift;
 
 part 'habit_category.g.dart';
 

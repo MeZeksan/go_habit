@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/habits_bloc.dart';
-import 'components/habit_list.dart';
-import 'components/modal_bottom_sheet.dart';
+import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
+import 'package:go_habit/feature/habits/view/components/habit_list.dart';
+import 'package:go_habit/feature/habits/view/components/modal_bottom_sheet.dart';
 
 class HabitsPage extends StatelessWidget {
   const HabitsPage({super.key});
