@@ -5,6 +5,7 @@ import 'package:go_habit/feature/auth/view/registration_screen.dart';
 import 'package:go_habit/feature/auth/view/splash_screen.dart';
 import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 import 'package:go_habit/feature/habits/view/habits_page.dart';
+import 'package:go_habit/feature/home/view/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../feature/profile/view/profile_screen.dart';
