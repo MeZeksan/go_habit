@@ -49,3 +49,5 @@ app.*.map.json
 .env
 lib/core/resources/assets.gen.dart
 test/habits_test.mocks.dart
+
+test/widget/habits/failures
