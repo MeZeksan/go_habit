@@ -1,11 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-enum ThemeMode {
-  light,
-  dark,
-  system,
-}
 
 class ThemeState {
   final ThemeMode themeMode;
@@ -32,8 +27,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   /// Если текущая тема темная, переключает на светлую
   Future<void> toggleTheme() async {
     final currentTheme = state.themeMode;
-    final newTheme =
-        currentTheme == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+    final newTheme = currentTheme == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
     await setThemeMode(newTheme);
   }
 

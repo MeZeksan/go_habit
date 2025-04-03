@@ -26,8 +26,7 @@ class HabitHomeList extends StatelessWidget {
         return BlocBuilder<HabitCategoryBloc, HabitCategoryState>(
           builder: (context, categoryState) {
             switch (categoryState) {
-              case HabitCategoryLoaded(:final categories) ||
-                    HabitCategoryError(:final categories):
+              case HabitCategoryLoaded(:final categories) || HabitCategoryError(:final categories):
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -80,12 +79,9 @@ class _HabitListItemState extends State<_HabitListItem> {
   @override
   void initState() {
     super.initState();
-    final completedDate =
-        DateTime.tryParse(widget.habit.lastCompletedTime ?? '2000-01-01');
-    debugPrint(
-        'Difference: ${completedDate!.difference(DateTime.now()).inHours}');
-    _progress =
-        DateTime.now().difference(completedDate).inHours > 24 ? 0.0 : 1.0;
+    final completedDate = DateTime.tryParse(widget.habit.lastCompletedTime ?? '2000-01-01');
+    debugPrint('Difference: ${completedDate!.difference(DateTime.now()).inHours}');
+    _progress = DateTime.now().difference(completedDate).inHours > 24 ? 0.0 : 1.0;
   }
 
   Color _getColorFromHex(String hexColor) {
@@ -184,11 +180,8 @@ class _HabitListItemState extends State<_HabitListItem> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: cardColor.withValues(alpha: 0.3),
-                      shape: BoxShape.circle),
-                  child: Text(widget.habit.icon ?? '🎯',
-                      style: const TextStyle(fontSize: 48)),
+                  decoration: BoxDecoration(color: cardColor.withValues(alpha: 0.3), shape: BoxShape.circle),
+                  child: Text(widget.habit.icon ?? '🎯', style: const TextStyle(fontSize: 48)),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -199,16 +192,12 @@ class _HabitListItemState extends State<_HabitListItem> {
                       Text(
                         widget.habit.title,
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: cardColor.withValues(alpha: 0.8)),
+                            fontSize: 18, fontWeight: FontWeight.w600, color: cardColor.withValues(alpha: 0.8)),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         widget.habit.description ?? '',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: cardColor.withValues(alpha: 0.6)),
+                        style: TextStyle(fontSize: 14, color: cardColor.withValues(alpha: 0.6)),
                       ),
                       const SizedBox(height: 8),
                       LinearPercentIndicator(

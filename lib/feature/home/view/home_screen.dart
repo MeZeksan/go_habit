@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:go_habit/feature/home/widget/habit_home_list.dart';
-import 'package:lottie/lottie.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/home/widget/habit_home_list.dart';
+import 'package:go_habit/feature/theme/theme_cubit.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,9 +12,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late final Future<LottieComposition> _composition;
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late final AnimationController _textAnimationController;
   late final Animation<double> _fadeAnimation;
   late final Animation<double> _firstBubbleAnimation;
@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    _composition = AssetLottie('animation/tiger_orange.json').load();
 
     _textAnimationController = AnimationController(
       duration: const Duration(milliseconds: 2000),
@@ -29,24 +28,24 @@ class _HomeScreenState extends State<HomeScreen>
     );
 
     _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
+      begin: 0,
+      end: 1,
     ).animate(CurvedAnimation(
       parent: _textAnimationController,
-      curve: const Interval(0.5, 1.0, curve: Curves.easeInOut),
+      curve: const Interval(0.5, 1, curve: Curves.easeInOut),
     ));
 
     _firstBubbleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
+      begin: 0,
+      end: 1,
     ).animate(CurvedAnimation(
       parent: _textAnimationController,
-      curve: const Interval(0.0, 0.3, curve: Curves.easeInOut),
+      curve: const Interval(0, 0.3, curve: Curves.easeInOut),
     ));
 
     _secondBubbleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
+      begin: 0,
+      end: 1,
     ).animate(CurvedAnimation(
       parent: _textAnimationController,
       curve: const Interval(0.2, 0.5, curve: Curves.easeInOut),
@@ -70,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen>
         slivers: [
           SliverAppBar(
             pinned: true,
-            floating: false,
             title: const Text(
               'Go Habit',
               style: TextStyle(
@@ -140,8 +138,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 20),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                         decoration: BoxDecoration(
                           color: Colors.lightGreen.shade100,
                           borderRadius: BorderRadius.circular(20),
@@ -170,8 +167,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     animatedTexts: [
                                       TypewriterAnimatedText(
                                         'Привет! Давай выполним привычки!',
-                                        speed:
-                                            const Duration(milliseconds: 100),
+                                        speed: const Duration(milliseconds: 100),
                                         cursor: '',
                                       ),
                                     ],
@@ -194,28 +190,39 @@ class _HomeScreenState extends State<HomeScreen>
                     child: Center(
                       child: Hero(
                         tag: 'tiger_animation',
-                        child: Container(
+                        child: DecoratedBox(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: FutureBuilder<LottieComposition>(
-                              future: _composition,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return Lottie(
-                                    composition: snapshot.data!,
+                            child: BlocBuilder<ThemeCubit, ThemeState>(
+                              builder: (context, state) {
+                                return Lottie.asset(
+                                    state.themeMode == ThemeMode.dark
+                                        ? 'animation/tiger_orange.json'
+                                        : 'animation/tiger_white.json',
                                     fit: BoxFit.contain,
                                     repeat: true,
-                                    reverse: true,
-                                  );
-                                }
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                                    reverse: true);
                               },
                             ),
+                            //  FutureBuilder<LottieComposition>(
+                            //   future: _composition,
+                            //   builder: (context, snapshot) {
+                            //     if (snapshot.hasData) {
+                            //       return Lottie(
+                            //         composition: snapshot.data,
+                            //         fit: BoxFit.contain,
+                            //         repeat: true,
+                            //         reverse: true,
+                            //       );
+                            //     }
+                            //     return const Center(
+                            //       child: CircularProgressIndicator(),
+                            //     );
+                            //   },
+                            // ),
                           ),
                         ),
                       ),

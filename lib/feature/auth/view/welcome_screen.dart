@@ -8,8 +8,7 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>
-    with SingleTickerProviderStateMixin {
+class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
@@ -83,31 +82,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(32),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Здесь будет навигация к основному экрану привычек
-                      Navigator.of(context).pushReplacementNamed('/main');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Начать',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -173,9 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             height: cubeSize,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
-              color: isLastCube
-                  ? animatedGreenColor.value
-                  : const Color.fromARGB(255, 33, 43, 39),
+              color: isLastCube ? animatedGreenColor.value : const Color.fromARGB(255, 33, 43, 39),
               border: Border.all(
                 color: Colors.black12,
                 width: 0.5,

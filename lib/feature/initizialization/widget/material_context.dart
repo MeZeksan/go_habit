@@ -8,7 +8,6 @@ import 'package:go_habit/feature/habits/widget/habits_scope.dart';
 import 'package:go_habit/feature/initizialization/scopes/app_scope_container.dart';
 import 'package:go_habit/feature/language/domain/bloc/language_bloc.dart';
 import 'package:go_habit/feature/theme/theme_cubit.dart' as theme_cubit;
-import 'package:go_habit/feature/theme/theme_mode_extension.dart';
 import 'package:go_habit/feature/theme/widget/theme_scope.dart';
 import 'package:go_habit/l10n/app_localizations.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
@@ -28,7 +27,7 @@ class MaterialContext extends StatelessWidget {
               builder: (context, scope) => BlocBuilder<LanguageBloc, LanguageState>(
                 builder: (context, languageState) {
                   return BlocBuilder<theme_cubit.ThemeCubit, theme_cubit.ThemeState>(builder: (context, themeState) {
-                    final materialThemeMode = themeState.themeMode.toMaterialThemeMode();
+                    final materialThemeMode = themeState.themeMode;
 
                     final appTheme = AppTheme(
                       themeMode: materialThemeMode,
