@@ -30,8 +30,11 @@ class MaterialContext extends StatelessWidget {
                 builder: (context, languageState) {
                   return BlocBuilder<theme_cubit.ThemeCubit,
                       theme_cubit.ThemeState>(builder: (context, themeState) {
+                    final materialThemeMode =
+                        themeState.themeMode.toMaterialThemeMode();
+
                     final appTheme = AppTheme(
-                      themeMode: themeState.themeMode.toMaterialThemeMode(),
+                      themeMode: materialThemeMode,
                       seed: Colors.blue,
                     );
 
@@ -40,7 +43,7 @@ class MaterialContext extends StatelessWidget {
                       title: 'Go Habit',
                       theme: appTheme.lightTheme,
                       darkTheme: appTheme.darkTheme,
-                      themeMode: themeState.themeMode.toMaterialThemeMode(),
+                      themeMode: materialThemeMode,
                       localizationsDelegates: const [
                         AppLocalizations.delegate,
                         GlobalMaterialLocalizations.delegate,

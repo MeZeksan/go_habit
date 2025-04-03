@@ -7,12 +7,23 @@ class ThemeSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Определяем текущую системную тему через PlatformDispatcher
+    final platformDispatcher = View.of(context).platformDispatcher;
+    final platformBrightness = platformDispatcher.platformBrightness;
+
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         // Определяем текущий режим темы
-        final isDarkMode = state.themeMode == ThemeMode.dark ||
-            (state.themeMode == ThemeMode.system &&
-                Theme.of(context).brightness == Brightness.dark);
+        bool isDarkMode;
+
+        if (state.themeMode == ThemeMode.dark) {
+          isDarkMode = true;
+        } else if (state.themeMode == ThemeMode.light) {
+          isDarkMode = false;
+        } else {
+          // ThemeMode.system
+          isDarkMode = platformBrightness == Brightness.dark;
+        }
 
         return Switch(
           value: isDarkMode,
