@@ -16,10 +16,10 @@ abstract interface class RemoteHabitStatsDataSource {
   Future<void> syncCompletions(List<HabitCompletionModel> completions);
 }
 
-class SupabaseStatsDataSource implements RemoteHabitStatsDataSource {
+class SupabaseHabitsStatsDataSource implements RemoteHabitStatsDataSource {
   final SupabaseClient _supabase;
 
-  SupabaseStatsDataSource(this._supabase);
+  SupabaseHabitsStatsDataSource(this._supabase);
 
   @override
   Future<List<HabitCompletionModel>> fetchCompletions({

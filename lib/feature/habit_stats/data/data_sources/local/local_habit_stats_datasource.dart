@@ -9,6 +9,7 @@ abstract interface class LocalHabitStatsDataSource {
   Future<HabitStreakModel?> getStreak(String habitId);
   Future<void> saveCompletions(List<HabitCompletionModel> completions);
   Future<void> saveStreak(HabitStreakModel streak);
+  Stream<List<HabitCompletionModel>> watchAllCompletions();
 }
 
 class LocalStatsDataSourceImpl implements LocalHabitStatsDataSource {
@@ -48,5 +49,12 @@ class LocalStatsDataSourceImpl implements LocalHabitStatsDataSource {
       streak.currentStreak,
       streak.lastUpdate,
     );
+  }
+
+  @override
+  Stream<List<HabitCompletionModel>> watchAllCompletions() {
+    return _completionDao
+        .watchHabitCompletions()
+        .map((event) => event.map(HabitCompletionModel.fromDriftModel).toList());
   }
 }

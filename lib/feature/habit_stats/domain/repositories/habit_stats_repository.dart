@@ -6,4 +6,6 @@ abstract interface class HabitStatsRepository {
   Future<HabitStreakModel?> getStreak(String habitId);
   Future<void> saveCompletions(List<HabitCompletionModel> completions);
   Future<void> saveStreak(HabitStreakModel streak);
+  Stream<List<HabitCompletionModel>> watchAllCompletions();
+  void dispose();
 }

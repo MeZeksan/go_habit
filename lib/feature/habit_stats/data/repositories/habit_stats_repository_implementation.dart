@@ -52,4 +52,14 @@ class HabitStatsRepositoryImplementation implements HabitStatsRepository {
     // TODO: implement saveStreak
     throw UnimplementedError();
   }
+
+  @override
+  Stream<List<HabitCompletionModel>> watchAllCompletions() {
+    return _localDataSource.watchAllCompletions();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
 }

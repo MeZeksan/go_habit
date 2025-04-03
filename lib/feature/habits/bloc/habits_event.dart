@@ -34,4 +34,14 @@ final class FinishHabit extends HabitsEvent {
   FinishHabit(this.id);
 }
 
+final class UnFinishHabit extends HabitsEvent {
+  final String id;
+  UnFinishHabit(this.id);
+}
+
+final class ToggleActiveHabit extends HabitsEvent {
+  final String id;
+  ToggleActiveHabit(this.id);
+}
+
 final class InitializeHabits extends HabitsEvent {}

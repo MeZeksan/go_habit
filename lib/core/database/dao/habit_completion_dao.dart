@@ -25,6 +25,8 @@ class HabitCompletionDao extends DatabaseAccessor<AppDatabase> with _$HabitCompl
     return into(habitCompletions).insert(completion);
   }
 
+  Stream<List<HabitCompletion>> watchHabitCompletions() => select(habitCompletions).watch();
+
   // Получить все выполнения для привычки
   Future<List<HabitCompletion>> getAllCompletions() async {
     final query = select(habitCompletions);

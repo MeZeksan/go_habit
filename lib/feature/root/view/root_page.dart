@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/theme_extension.dart';
+import 'package:go_habit/feature/habit_stats/widget/habit_stats_scope.dart';
 import 'package:go_habit/feature/root/bloc/bloc/bottom_navigation_bloc.dart';
 import 'package:go_habit/feature/root/view/components/bottom_navbar.dart';
 import 'package:go_habit/feature/root/widget/bottom_navigation_scope.dart';
@@ -26,7 +27,7 @@ class RootPage extends StatelessWidget {
             // extendBodyBehindAppBar: true,
             // bottomNavigationBar: BottomNavBar(currentIndex: state.currentPageIndex),
             body: Stack(children: [
-              navigationShell,
+              HabitStatsScope(child: navigationShell),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: BottomNavBar(currentIndex: state.currentPageIndex),
