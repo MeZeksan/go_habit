@@ -32,28 +32,6 @@ class SettingsSection extends StatelessWidget {
 
           const SettingsDivider(),
 
-          // Архив
-          SettingsItem(
-            icon: Icons.archive_outlined,
-            title: context.l10n.archive,
-            onTap: () {
-              // TODO: Переход на экран архива
-            },
-          ),
-
-          const SettingsDivider(),
-
-          // Уведомления
-          SettingsItem(
-            icon: Icons.notifications_outlined,
-            title: context.l10n.notifications,
-            onTap: () {
-              // TODO: Переход на экран уведомлений
-            },
-          ),
-
-          const SettingsDivider(),
-
           // Виджеты
           SettingsItem(
             icon: Icons.widgets_outlined,
@@ -71,39 +49,6 @@ class SettingsSection extends StatelessWidget {
             title: context.l10n.about_app,
             onTap: () {
               _showAboutAppDialog(context);
-            },
-          ),
-
-          const SettingsDivider(),
-
-          // Оцените нас
-          SettingsItem(
-            icon: Icons.star_border,
-            title: context.l10n.rate_us,
-            onTap: () {
-              // TODO: Реализовать оценку приложения
-            },
-          ),
-
-          const SettingsDivider(),
-
-          // Поделиться приложением
-          SettingsItem(
-            icon: Icons.share_outlined,
-            title: context.l10n.share_app,
-            onTap: () {
-              // TODO: Реализовать шаринг приложения
-            },
-          ),
-
-          const SettingsDivider(),
-
-          // Обратная связь
-          SettingsItem(
-            icon: Icons.feedback_outlined,
-            title: context.l10n.feedback,
-            onTap: () {
-              // TODO: Реализовать обратную связь
             },
           ),
 
