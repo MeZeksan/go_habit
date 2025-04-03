@@ -1,35 +1,37 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ThemeMode;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/feature/theme/theme_cubit.dart';
 
-class ThemeSwitch extends StatefulWidget {
+class ThemeSwitch extends StatelessWidget {
   const ThemeSwitch({super.key});
 
   @override
-  State<ThemeSwitch> createState() => _ThemeSwitchState();
-}
-
-class _ThemeSwitchState extends State<ThemeSwitch> {
-  bool _isDarkMode = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _isDarkMode = Theme.of(context).brightness == Brightness.dark;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Switch(
-      value: _isDarkMode,
-      onChanged: (value) {
-        setState(() {
-          _isDarkMode = value;
-          // TODO: Переключить тему
-        });
+    // Определяем текущую системную тему через PlatformDispatcher
+    final platformDispatcher = View.of(context).platformDispatcher;
+    final platformBrightness = platformDispatcher.platformBrightness;
+
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        // Определяем текущий режим темы
+        bool isDarkMode;
+
+        if (state.themeMode == ThemeMode.dark) {
+          isDarkMode = true;
+        } else if (state.themeMode == ThemeMode.light) {
+          isDarkMode = false;
+        } else {
+          // ThemeMode.system
+          isDarkMode = platformBrightness == Brightness.dark;
+        }
+
+        return Switch(
+          value: isDarkMode,
+          onChanged: (_) {
+            // Вызываем переключатель темы при изменении значения
+            context.read<ThemeCubit>().toggleTheme();
+          },
+        );
       },
     );
   }

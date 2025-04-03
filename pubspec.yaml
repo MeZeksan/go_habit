@@ -60,3 +60,4 @@ flutter:
   assets:
     - .env
     - assets/navbar_icons/
+    - assets/images/
