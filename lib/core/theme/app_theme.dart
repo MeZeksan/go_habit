@@ -35,6 +35,7 @@ final _lightThemeData = ThemeData(
     color: _commonColors.lightCard,
   ),
   dialogBackgroundColor: _commonColors.lightCard,
+  focusColor: _commonColors.darkCard,
   textTheme: TextTheme(
     displayLarge: TextStyle(color: _commonColors.lightPrimaryText),
     displayMedium: TextStyle(color: _commonColors.lightPrimaryText),
@@ -70,6 +71,7 @@ final _darkThemeData = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     color: _commonColors.darkCard,
   ),
+  focusColor: Colors.black54,
   dialogBackgroundColor: _commonColors.black,
   textTheme: TextTheme(
     displayLarge: TextStyle(color: _commonColors.darkPrimaryText),

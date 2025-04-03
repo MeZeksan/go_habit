@@ -108,7 +108,7 @@ class _HabitCardState extends State<HabitCard>
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.black87,
+                color: context.themeOf.focusColor,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: isActive
