@@ -41,7 +41,7 @@ class SettingsSection extends StatelessWidget {
               icon: Icons.widgets_outlined,
               title: context.l10n.widgets,
               onTap: () {
-                // TODO: Переход на экран виджетов
+                context.pushNamed(ProfileRoutes.settings.name);
               },
             ),
 

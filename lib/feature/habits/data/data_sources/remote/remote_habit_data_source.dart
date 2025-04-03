@@ -20,7 +20,7 @@ class SupabaseHabitDataSource implements RemoteHabitDataSource {
   Future<List<Habit>> getHabits() async {
     try {
       final response = await _supabaseClient.from('habit').select().eq('user_id', _supabaseClient.auth.currentUser!.id);
-      final List<Habit> habits = response.map((json) => Habit.fromJson(json)).toList();
+      final habits = response.map(Habit.fromJson).toList();
 
       return habits;
     } on PostgrestException catch (e) {
@@ -44,7 +44,7 @@ class SupabaseHabitDataSource implements RemoteHabitDataSource {
   @override
   Future<void> addHabit(Habit habit) async {
     try {
-      Map<String, dynamic> habitJson = habit.toJson();
+      final habitJson = habit.toJson();
       habitJson['user_id'] = _supabaseClient.auth.currentUser!.id;
       habitJson['created_at'] = DateTime.now().toIso8601String();
       habitJson['updated_at'] = DateTime.now().toIso8601String();
@@ -62,7 +62,7 @@ class SupabaseHabitDataSource implements RemoteHabitDataSource {
   @override
   Future<void> updateHabit(Habit habit) async {
     try {
-      Map<String, dynamic> habitJson = habit.toJson();
+      final habitJson = habit.toJson();
       habitJson['user_id'] = _supabaseClient.auth.currentUser!.id;
       habitJson['updated_at'] = DateTime.now().toIso8601String();
       habitJson['last_completed_time'] = habit.lastCompletedTime;
@@ -91,6 +91,6 @@ class SupabaseHabitDataSource implements RemoteHabitDataSource {
         .from('habit')
         .stream(primaryKey: ['id'])
         .eq('user_id', _supabaseClient.auth.currentUser!.id)
-        .map((events) => events.map((event) => Habit.fromJson(event)).toList());
+        .map((events) => events.map(Habit.fromJson).toList());
   }
 }

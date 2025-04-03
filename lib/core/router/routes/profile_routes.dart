@@ -12,6 +12,6 @@ final _profileRoutes = [
   GoRoute(
     path: ProfileRoutes.settings.path,
     name: ProfileRoutes.settings.name,
-    builder: (_, state) => const Placeholder(),
+    builder: (_, state) => const WidgetsSettingsScreen(),
   ),
 ];
