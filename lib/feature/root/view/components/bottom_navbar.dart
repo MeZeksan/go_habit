@@ -12,8 +12,15 @@ class BottomNavBar extends StatelessWidget {
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
     return Container(
       margin: const EdgeInsets.all(40),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            color: context.theme.commonColors.neutralgrey10.withOpacity(.2),
+            blurRadius: 8,
+            spreadRadius: 2,
+          ),
+        ],
       ),
       height: 40 + bottomPadding,
       child: Row(
@@ -22,29 +29,26 @@ class BottomNavBar extends StatelessWidget {
           Expanded(
             child: Material(
               borderRadius: const BorderRadius.all(Radius.circular(40)),
-              color: context.themeOf.cardColor,
+              color: context.theme.commonColors.white,
               child: SizedBox(
                 height: 64,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _NavBarItem(
-                      onTap: (index) =>
-                          BottomNavigationScope.change(context, index),
+                      onTap: (index) => BottomNavigationScope.change(context, index),
                       index: 0,
                       currentIndex: currentIndex,
                       asset: Assets.navbarIcons.home,
                     ),
                     _NavBarItem(
-                      onTap: (index) =>
-                          BottomNavigationScope.change(context, index),
+                      onTap: (index) => BottomNavigationScope.change(context, index),
                       index: 1,
                       currentIndex: currentIndex,
                       asset: Assets.navbarIcons.edit,
                     ),
                     _NavBarItem(
-                      onTap: (index) =>
-                          BottomNavigationScope.change(context, index),
+                      onTap: (index) => BottomNavigationScope.change(context, index),
                       index: 2,
                       currentIndex: currentIndex,
                       asset: Assets.navbarIcons.bell,
@@ -56,14 +60,13 @@ class BottomNavBar extends StatelessWidget {
           ),
           Material(
             borderRadius: const BorderRadius.all(Radius.circular(40)),
-            color: context.themeOf.scaffoldBackgroundColor,
+            color: context.theme.commonColors.white,
             child: SizedBox(
               height: 64,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Container(
+                margin: const EdgeInsets.all(12),
                 child: _NavBarItem(
-                  onTap: (index) =>
-                      BottomNavigationScope.change(context, index),
+                  onTap: (index) => BottomNavigationScope.change(context, index),
                   index: 3,
                   currentIndex: currentIndex,
                   asset: Assets.navbarIcons.user,
@@ -100,9 +103,7 @@ class _NavBarItem extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected
-              ? context.themeOf.dividerColor
-              : context.themeOf.cardColor,
+          color: isSelected ? colors.green10 : colors.neutralgrey3,
         ),
         padding: const EdgeInsets.all(12),
         child: index == 2
@@ -110,15 +111,13 @@ class _NavBarItem extends StatelessWidget {
                 count: 2,
                 child: asset.svg(
                   colorFilter: ColorFilter.mode(
-                    isSelected
-                        ? context.themeOf.primaryColor
-                        : colors.darkGrey30,
+                    isSelected ? colors.green100 : colors.darkGrey30,
                     BlendMode.srcIn,
                   ),
                 ))
             : asset.svg(
                 colorFilter: ColorFilter.mode(
-                  isSelected ? context.themeOf.primaryColor : colors.darkGrey30,
+                  isSelected ? colors.green100 : colors.darkGrey30,
                   BlendMode.srcIn,
                 ),
               ),

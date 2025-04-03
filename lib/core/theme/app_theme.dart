@@ -23,71 +23,24 @@ final _lightThemeData = ThemeData(
   extensions: [
     AppThemeExtension.lightThemeExtension(),
   ],
-  cardColor: _commonColors.lightCard,
+  cardColor: _commonColors.white,
   elevatedButtonTheme: _buttonStyles.elevatedButtonThemeData,
   radioTheme: _buttonStyles.radioButtonTheme,
   textButtonTheme: _buttonStyles.textButtonThemeData,
-  scaffoldBackgroundColor: _commonColors.lightBackground,
+  scaffoldBackgroundColor: _commonColors.neutralgrey3,
   floatingActionButtonTheme: _buttonStyles.floatingActionButtonTheme,
-  dividerColor: _commonColors.lightDivider,
-  popupMenuTheme: PopupMenuThemeData(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    color: _commonColors.lightCard,
-  ),
-  dialogBackgroundColor: _commonColors.lightCard,
-  textTheme: TextTheme(
-    displayLarge: TextStyle(color: _commonColors.lightPrimaryText),
-    displayMedium: TextStyle(color: _commonColors.lightPrimaryText),
-    displaySmall: TextStyle(color: _commonColors.lightPrimaryText),
-    headlineLarge: TextStyle(color: _commonColors.lightPrimaryText),
-    headlineMedium: TextStyle(color: _commonColors.lightPrimaryText),
-    headlineSmall: TextStyle(color: _commonColors.lightPrimaryText),
-    titleLarge: TextStyle(color: _commonColors.lightPrimaryText),
-    titleMedium: TextStyle(color: _commonColors.lightPrimaryText),
-    titleSmall: TextStyle(color: _commonColors.lightPrimaryText),
-    bodyLarge: TextStyle(color: _commonColors.lightPrimaryText),
-    bodyMedium: TextStyle(color: _commonColors.lightPrimaryText),
-    bodySmall: TextStyle(color: _commonColors.lightSecondaryText),
-    labelLarge: TextStyle(color: _commonColors.lightPrimaryText),
-    labelMedium: TextStyle(color: _commonColors.lightPrimaryText),
-    labelSmall: TextStyle(color: _commonColors.lightSecondaryText),
-  ),
 );
 
 final _darkThemeData = ThemeData(
-  appBarTheme: _appBarThemes.dark,
   useMaterial3: true,
   primaryColor: _commonColors.green100,
   extensions: [
     AppThemeExtension.darkThemeExtension(),
   ],
-  cardColor: _commonColors.darkCard,
+  cardColor: _commonColors.black,
   elevatedButtonTheme: _buttonStyles.elevatedButtonThemeData,
   radioTheme: _buttonStyles.radioButtonTheme,
-  scaffoldBackgroundColor: _commonColors.darkBackground,
-  dividerColor: _commonColors.darkDivider,
-  popupMenuTheme: PopupMenuThemeData(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    color: _commonColors.darkCard,
-  ),
-  dialogBackgroundColor: _commonColors.black,
-  textTheme: TextTheme(
-    displayLarge: TextStyle(color: _commonColors.darkPrimaryText),
-    displayMedium: TextStyle(color: _commonColors.darkPrimaryText),
-    displaySmall: TextStyle(color: _commonColors.darkPrimaryText),
-    headlineLarge: TextStyle(color: _commonColors.darkPrimaryText),
-    headlineMedium: TextStyle(color: _commonColors.darkPrimaryText),
-    headlineSmall: TextStyle(color: _commonColors.darkPrimaryText),
-    titleLarge: TextStyle(color: _commonColors.darkPrimaryText),
-    titleMedium: TextStyle(color: _commonColors.darkPrimaryText),
-    titleSmall: TextStyle(color: _commonColors.darkPrimaryText),
-    bodyLarge: TextStyle(color: _commonColors.darkPrimaryText),
-    bodyMedium: TextStyle(color: _commonColors.darkPrimaryText),
-    bodySmall: TextStyle(color: _commonColors.darkSecondaryText),
-    labelLarge: TextStyle(color: _commonColors.darkPrimaryText),
-    labelMedium: TextStyle(color: _commonColors.darkPrimaryText),
-    labelSmall: TextStyle(color: _commonColors.darkSecondaryText),
-  ),
+  scaffoldBackgroundColor: _commonColors.black,
 );
 
 /// {@template app_theme}
@@ -119,8 +72,7 @@ final class AppTheme with Diagnosticable {
     seed: Colors.blue,
   );
 
-  static AppThemeExtension themeExtension(BuildContext context) =>
-      Theme.of(context).extension<AppThemeExtension>()!;
+  static AppThemeExtension themeExtension(BuildContext context) => Theme.of(context).extension<AppThemeExtension>()!;
 
   /// The [ThemeData] for this [AppTheme].
   /// This is computed based on the [themeMode].
@@ -131,9 +83,7 @@ final class AppTheme with Diagnosticable {
       case ThemeMode.dark:
         return darkTheme;
       case ThemeMode.system:
-        return PlatformDispatcher.instance.platformBrightness == Brightness.dark
-            ? darkTheme
-            : lightTheme;
+        return PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme;
     }
   }
 
@@ -148,8 +98,7 @@ final class AppTheme with Diagnosticable {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AppTheme && seed == other.seed && themeMode == other.themeMode;
+      identical(this, other) || other is AppTheme && seed == other.seed && themeMode == other.themeMode;
 
   @override
   int get hashCode => Object.hash(seed, themeMode);

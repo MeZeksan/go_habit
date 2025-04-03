@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_habit/core/extension/theme_extension.dart';
 import 'package:go_habit/feature/language/domain/bloc/language_bloc.dart';
 
 class LanguageWidget extends StatelessWidget {
@@ -10,35 +9,35 @@ class LanguageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageBloc, LanguageState>(
       builder: (context, state) {
-        final flagEmogi = state.currentLocale == 'ru' ? '🇷🇺' : '🇬🇧';
-        final languageName = state.currentLocale == 'ru' ? 'РУ' : 'EN';
+        String flagEmogi = state.currentLocale == 'ru' ? '🇷🇺' : '🇬🇧';
+        String languageName = state.currentLocale == 'ru' ? 'РУ' : 'EN';
 
         return PopupMenuButton<String>(
           offset: const Offset(0, 50), // Позиция выпадающего меню
-          itemBuilder: (context) => [
-            PopupMenuItem<String>(
+          itemBuilder: (BuildContext context) => [
+            const PopupMenuItem<String>(
               value: 'ru',
               child: Row(
                 children: [
-                  const Text('🇷🇺', style: TextStyle(fontSize: 24)),
-                  const SizedBox(width: 8),
-                  Text('Русский', style: context.themeOf.textTheme.bodyLarge),
+                  Text('🇷🇺', style: TextStyle(fontSize: 24)),
+                  SizedBox(width: 8),
+                  Text('Русский', style: TextStyle(fontSize: 16)),
                 ],
               ),
             ),
-            PopupMenuItem<String>(
+            const PopupMenuItem<String>(
               value: 'en',
               child: Row(
                 children: [
-                  const Text('🇬🇧', style: TextStyle(fontSize: 24)),
-                  const SizedBox(width: 8),
-                  Text('English', style: context.themeOf.textTheme.bodyLarge),
+                  Text('🇬🇧', style: TextStyle(fontSize: 24)),
+                  SizedBox(width: 8),
+                  Text('English', style: TextStyle(fontSize: 16)),
                 ],
               ),
             ),
             // Добавьте другие языки по необходимости
           ],
-          onSelected: (value) {
+          onSelected: (String value) {
             context.read<LanguageBloc>().add(ChangeLanguage(value));
           },
           child: Container(
@@ -46,7 +45,7 @@ class LanguageWidget extends StatelessWidget {
             child: Row(
               children: [
                 Text(flagEmogi, style: const TextStyle(fontSize: 24)),
-                Text(languageName, style: context.themeOf.textTheme.bodyLarge),
+                Text(languageName, style: const TextStyle(fontSize: 24)),
               ],
             ),
           ),

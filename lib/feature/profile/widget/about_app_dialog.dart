@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
-import 'package:go_habit/core/extension/theme_extension.dart';
 
 class AboutAppDialog extends StatelessWidget {
   const AboutAppDialog({super.key});
@@ -8,7 +7,6 @@ class AboutAppDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: context.themeOf.cardColor,
       title: Text(context.l10n.about_app),
       content: Column(
         mainAxisSize: MainAxisSize.min,
