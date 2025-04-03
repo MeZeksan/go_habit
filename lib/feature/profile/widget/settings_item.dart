@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_habit/core/extension/theme_extension.dart';
 
 class SettingsItem extends StatelessWidget {
   final IconData icon;
@@ -10,9 +9,9 @@ class SettingsItem extends StatelessWidget {
   final Color? textColor;
 
   const SettingsItem({
+    super.key,
     required this.icon,
     required this.title,
-    super.key,
     this.onTap,
     this.trailing,
     this.iconColor,
@@ -22,18 +21,19 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       leading: Icon(
         icon,
         color: iconColor ?? Colors.green,
       ),
       title: Text(
         title,
-        style: context.themeOf.textTheme.bodyLarge,
+        style: TextStyle(
+          fontSize: 16,
+          color: textColor,
+        ),
       ),
       trailing: trailing ?? const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: onTap,
-      tileColor: context.themeOf.cardColor,
     );
   }
 }
