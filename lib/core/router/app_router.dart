@@ -9,6 +9,7 @@ import 'package:go_habit/feature/habits/view/habits_page.dart';
 import 'package:go_habit/feature/home/view/home_screen.dart';
 import 'package:go_habit/feature/profile/view/profile_screen.dart';
 import 'package:go_habit/feature/root/view/root_page.dart';
+import 'package:go_habit/feature/settings/view/widgets_settings_screen.dart';
 import 'package:go_router/go_router.dart';
 
 part 'routes/auth_routes.dart';
