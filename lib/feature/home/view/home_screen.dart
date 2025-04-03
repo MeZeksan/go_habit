@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_habit/core/extension/theme_extension.dart';
 import 'package:go_habit/feature/home/domain/bloc/home_bloc.dart';
 import 'package:go_habit/feature/home/view/components/habit_home_list.dart';
 import 'package:go_habit/feature/home/view/components/loading_quote_widget.dart';
@@ -175,15 +176,35 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           case HomeLoading():
                                             return const LoadingAnimation();
                                           case HomeLoadSuccess(:final quote):
-                                            return AnimatedTextKit(
-                                              animatedTexts: [
-                                                TypewriterAnimatedText(
-                                                  quote.q,
-                                                  cursor: '',
+                                            return Column(
+                                              children: [
+                                                AnimatedTextKit(
+                                                  animatedTexts: [
+                                                    TypewriterAnimatedText(
+                                                      quote.q,
+                                                      cursor: '',
+                                                    ),
+                                                  ],
+                                                  isRepeatingAnimation: false,
+                                                  displayFullTextOnTap: true,
                                                 ),
+                                                const SizedBox(height: 8),
+                                                Align(
+                                                  alignment: Alignment.centerRight,
+                                                  child: AnimatedTextKit(
+                                                    animatedTexts: [
+                                                      TypewriterAnimatedText(
+                                                        textStyle: TextStyle(
+                                                            color: context.themeOf.textTheme.bodySmall!.color),
+                                                        quote.a,
+                                                        cursor: '',
+                                                      ),
+                                                    ],
+                                                    isRepeatingAnimation: false,
+                                                    displayFullTextOnTap: true,
+                                                  ),
+                                                )
                                               ],
-                                              isRepeatingAnimation: false,
-                                              displayFullTextOnTap: true,
                                             );
 
                                           case HomeOperationFailure():

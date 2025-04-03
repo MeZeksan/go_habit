@@ -53,7 +53,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           Material(
             borderRadius: const BorderRadius.all(Radius.circular(40)),
-            color: context.themeOf.scaffoldBackgroundColor,
+            color: context.themeOf.cardColor,
             child: SizedBox(
               height: 64,
               child: Padding(

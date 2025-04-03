@@ -13,15 +13,13 @@ class HabitCard extends StatefulWidget {
   final Habit habit;
   final HabitCategory habitCategory;
 
-  const HabitCard(
-      {required this.habit, required this.habitCategory, super.key});
+  const HabitCard({required this.habit, required this.habitCategory, super.key});
 
   @override
   State<HabitCard> createState() => _HabitCardState();
 }
 
-class _HabitCardState extends State<HabitCard>
-    with SingleTickerProviderStateMixin {
+class _HabitCardState extends State<HabitCard> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
   late Animation<Color?> _colorAnimation;
@@ -111,9 +109,7 @@ class _HabitCardState extends State<HabitCard>
                 color: context.themeOf.focusColor,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isActive
-                      ? Colors.transparent
-                      : Colors.grey.withOpacity(0.5),
+                  color: isActive ? Colors.transparent : Colors.grey.withOpacity(0.5),
                 ),
               ),
               child: Column(
@@ -127,11 +123,17 @@ class _HabitCardState extends State<HabitCard>
                           color: Colors.black87.withValues(alpha: 0.5),
                           shape: BoxShape.circle,
                         ),
-                        child: Text(
-                          widget.habit.icon ?? '',
-                          style: TextStyle(
-                            fontSize: 48,
-                            color: _colorAnimation.value,
+                        child: SizedBox(
+                          width: 48,
+                          height: 48,
+                          child: Center(
+                            child: Text(
+                              widget.habit.icon ?? '',
+                              style: TextStyle(
+                                fontSize: 32,
+                                color: _colorAnimation.value,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -147,9 +149,7 @@ class _HabitCardState extends State<HabitCard>
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 color: _colorAnimation.value,
-                                decoration: isActive
-                                    ? null
-                                    : TextDecoration.lineThrough,
+                                decoration: isActive ? null : TextDecoration.lineThrough,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -165,29 +165,22 @@ class _HabitCardState extends State<HabitCard>
                       ),
                       if (isActive)
                         InkWell(
-                          onTap: DateTime.parse(
-                                          widget.habit.lastCompletedTime ??
-                                              '2023-03-31T00:00:00.000')
+                          onTap: DateTime.parse(widget.habit.lastCompletedTime ?? '2023-03-31T00:00:00.000')
                                       .difference(DateTime.now())
                                       .inDays ==
                                   0
                               ? () {
-                                  context
-                                      .read<HabitsBloc>()
-                                      .add(UnFinishHabit(widget.habit.id));
+                                  context.read<HabitsBloc>().add(UnFinishHabit(widget.habit.id));
                                 }
                               : () {
-                                  context
-                                      .read<HabitsBloc>()
-                                      .add(FinishHabit(widget.habit.id));
+                                  context.read<HabitsBloc>().add(FinishHabit(widget.habit.id));
                                 },
                           child: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: DateTime.now()
                                           .difference(DateTime.parse(
-                                              widget.habit.lastCompletedTime ??
-                                                  '2023-03-31T00:00:00.000'))
+                                              widget.habit.lastCompletedTime ?? '2023-03-31T00:00:00.000'))
                                           .inDays ==
                                       0
                                   ? Colors.grey
@@ -210,8 +203,7 @@ class _HabitCardState extends State<HabitCard>
                                   return HabitGridPainterWidget(
                                     color: cardColor,
                                     completedDates: completions
-                                        .where(
-                                            (c) => c.habitId == widget.habit.id)
+                                        .where((c) => c.habitId == widget.habit.id)
                                         .map((c) => c.dateComplete)
                                         .toList(),
                                   );
@@ -240,8 +232,7 @@ class _HabitCardState extends State<HabitCard>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: cardColor.withOpacity(isActive ? 1.0 : 0.5),
                           borderRadius: BorderRadius.circular(20),
@@ -266,9 +257,7 @@ class _HabitCardState extends State<HabitCard>
                       Switch(
                         value: widget.habit.isActive,
                         onChanged: (value) {
-                          context
-                              .read<HabitsBloc>()
-                              .add(ToggleActiveHabit(widget.habit.id));
+                          context.read<HabitsBloc>().add(ToggleActiveHabit(widget.habit.id));
                         },
                         activeColor: cardColor,
                         inactiveThumbColor: Colors.grey,
