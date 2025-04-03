@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             child: BlocBuilder<ThemeCubit, ThemeState>(
                               builder: (context, state) {
                                 return Lottie.asset(
-                                    state.themeMode == ThemeMode.dark
+                                    state.themeMode == ThemeMode.light
                                         ? 'animation/tiger_orange.json'
                                         : 'animation/tiger_white.json',
                                     fit: BoxFit.contain,
