@@ -26,7 +26,7 @@ class ThemeSwitch extends StatelessWidget {
         }
 
         return Switch(
-          value: isDarkMode,
+          value: isDarkMode, //выводится значение темы
           onChanged: (_) {
             // Вызываем переключатель темы при изменении значения
             context.read<ThemeCubit>().toggleTheme();
