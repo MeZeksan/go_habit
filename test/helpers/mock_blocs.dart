@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/feature/habit_stats/bloc/habit_stats_bloc.dart';
-import 'package:go_habit/feature/habit_stats/domain/models/habit_completion.dart';
 import 'package:go_habit/feature/habits/bloc/habits_bloc.dart';
 import 'package:mockito/mockito.dart';
 

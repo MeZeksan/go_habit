@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_habit/feature/categories/domain/models/habit_category.dart';
@@ -49,7 +47,7 @@ void main() {
       title: 'Читать книгу',
       description: '30 минут чтения каждый день',
       categoryId: 'education',
-      icon: 'V',
+      icon: 'G',
       lastCompletedTime: DateHelper.getStableYesterdayIso(),
     );
 
