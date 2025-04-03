@@ -1,143 +1,188 @@
 import 'package:flutter/material.dart';
-import 'package:go_habit/core/extension/locale_extension.dart';
-import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart' as app_auth;
-import 'package:go_habit/feature/auth/view/auth_screen.dart';
-import 'package:go_habit/feature/profile/view/profile_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:go_habit/core/extension/theme_extension.dart';
 
-//экран заглушка для приветствия пользователя
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final User? user = Supabase.instance.client.auth.currentUser;
-    final email = user?.email ?? 'пользователь';
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Go Habit'),
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.logout),
-        //     onPressed: () {
-        //       context.read<app_auth.AuthBloc>().add(
-        //             app_auth.AuthSignOutRequested(),
-        //           );
-        //     },
-        //   ),
-        // ],
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 2500),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.2, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0, 0.4, curve: Curves.easeOut),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Добро пожаловать, $email!',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+    );
+
+    _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.7, 0.9, curve: Curves.easeIn),
+      ),
+    );
+
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Center(
+                  child: AnimatedBuilder(
+                    animation: _animationController,
+                    builder: (context, child) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Transform.scale(
+                            scale: _scaleAnimation.value,
+                            child: _buildGithubStyleChart(context),
+                          ),
+                          const SizedBox(height: 50),
+                          FadeTransition(
+                            opacity: _opacityAnimation,
+                            child: const Text(
+                              'Добро пожаловать в Go Habit',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Приложение Go Habit поможет вам:',
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 16),
-                FeatureCardWidget(
-                    context: context,
-                    icon: Icons.track_changes,
-                    title: context.l10n.habit_tracking_feature,
-                    description: context.l10n.daily_habits_feature),
-                const SizedBox(height: 16),
-                FeatureCardWidget(
-                    context: context,
-                    icon: Icons.insert_chart,
-                    title: context.l10n.analytics_feature,
-                    description: context.l10n.visualization_feature),
-                const SizedBox(height: 16),
-                FeatureCardWidget(
-                    context: context,
-                    icon: Icons.notifications_active,
-                    title: context.l10n.reminders_feature,
-                    description: context.l10n.notifications_feature),
-                const SizedBox(height: 16),
-                FeatureCardWidget(
-                    context: context,
-                    icon: Icons.widgets_rounded,
-                    title: context.l10n.widgets_feature,
-                    description: context.l10n.customWidgets_feature),
-                const SizedBox(height: 16),
-                SizedBox(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: SizedBox(
                   width: double.infinity,
+                  height: 56,
                   child: ElevatedButton(
                     onPressed: () {
                       // Здесь будет навигация к основному экрану привычек
+                      Navigator.of(context).pushReplacementNamed('/main');
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
-                    child: Text(context.l10n.start_tracking_button),
+                    child: const Text(
+                      'Начать',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-}
 
-class FeatureCardWidget extends StatelessWidget {
-  const FeatureCardWidget({
-    super.key,
-    required this.context,
-    required this.icon,
-    required this.title,
-    required this.description,
-  });
+  Widget _buildGithubStyleChart(BuildContext context) {
+    // Настраиваем цвета
+    const neutralGrey = Color.fromARGB(255, 33, 43, 39);
+    final greenColor = context.theme.commonColors.green100;
+    final animatedGreenColor = ColorTween(
+      begin: neutralGrey,
+      end: greenColor,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.5, 0.7, curve: Curves.elasticOut),
+      ),
+    );
 
-  final BuildContext context;
-  final IconData icon;
-  final String title;
-  final String description;
+    // Определяем размеры и расстояния
+    const rows = 7;
+    const columns = 12;
+    const cubeSize = 16.0;
+    const cubeSpacing = 4.0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              size: 36,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(description),
-                ],
+    // Рассчитываем общий размер с учетом отступов
+    const padding = 16.0;
+    const width = (columns * (cubeSize + cubeSpacing)) + padding * 2;
+    const height = (rows * (cubeSize + cubeSpacing)) + padding * 2;
+
+    return Container(
+      width: width,
+      height: height,
+      padding: const EdgeInsets.all(padding),
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: columns,
+          crossAxisSpacing: cubeSpacing,
+          mainAxisSpacing: cubeSpacing,
+        ),
+        itemCount: rows * columns,
+        itemBuilder: (context, index) {
+          // Последний кубик с анимацией
+          final isLastCube = index == rows * columns - 1;
+
+          return Container(
+            width: cubeSize,
+            height: cubeSize,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3),
+              color: isLastCube
+                  ? animatedGreenColor.value
+                  : const Color.fromARGB(255, 33, 43, 39),
+              border: Border.all(
+                color: Colors.black12,
+                width: 0.5,
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

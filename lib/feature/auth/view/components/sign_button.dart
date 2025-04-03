@@ -5,10 +5,10 @@ import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
 
 class SignButton extends StatelessWidget {
   const SignButton({
-    super.key,
     required GlobalKey<FormState> formKey,
     required TextEditingController emailController,
     required TextEditingController passwordController,
+    super.key,
     this.isRegistration = false, // По умолчанию считаем, что это вход
   })  : _formKey = formKey,
         _emailController = emailController,
@@ -48,7 +48,6 @@ class SignButton extends StatelessWidget {
                   }
                 },
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
