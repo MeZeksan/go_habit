@@ -49,6 +49,7 @@ dev_dependencies:
   mockito: ^5.4.5
   flutter_gen_runner: ^5.5.0+1
   home_widget: ^0.7.0
+  golden_toolkit: ^0.15.0
 
 flutter_gen:
   output: lib/core/resources/

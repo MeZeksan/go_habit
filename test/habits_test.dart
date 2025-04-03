@@ -37,7 +37,8 @@ void main() {
     localDataSource = MockLocalHabitDataSource();
     remoteDataSource = MockRemoteHabitDataSource();
     appConnect = MockIAppConnect();
-    habitsRepository = HabitsRepositoryImplementation(localDataSource, remoteDataSource, appConnect);
+    habitsRepository = HabitsRepositoryImplementation(
+        localDataSource, remoteDataSource, appConnect);
     testHabit = Habit(
         id: '1',
         title: 'title',
@@ -150,7 +151,8 @@ void main() {
 
       await localDatasource.deleteHabit('1');
 
-      final captured = verify(habitsDao.deleteHabit(captureAny)).captured.first as String;
+      final captured =
+          verify(habitsDao.deleteHabit(captureAny)).captured.first as String;
       expect(captured, '1');
     });
 
@@ -161,7 +163,8 @@ void main() {
 
       try {
         await localDatasource.deleteHabit('1');
-        final captured = verify(habitsDao.deleteHabit(captureAny)).captured.first as String;
+        final captured =
+            verify(habitsDao.deleteHabit(captureAny)).captured.first as String;
         expect(captured, '1');
         fail('Ожидалось исключение, но оно не было выброшено');
       } catch (e) {
@@ -205,7 +208,8 @@ void main() {
       expect(capturedArgs[3], testHabit.categoryId);
       expect(capturedArgs[4], testHabit.steps);
       expect(capturedArgs[5], testHabit.isActive);
-      expect((capturedArgs[6] as DateTime).toIso8601String(), testHabit.lastCompletedTime);
+      expect((capturedArgs[6] as DateTime).toIso8601String(),
+          testHabit.lastCompletedTime);
       expect(capturedArgs[7], true);
       expect(capturedArgs[8], 'update');
     });
@@ -301,8 +305,8 @@ void main() {
   //Group for Remote Datasource
   group('Habits Remote DataSource', () {
     test('Get habits', () async {
-      when(remoteDataSource.getHabits())
-          .thenAnswer((_) async => Future.value([testHabit, testHabit.copyWith(id: '2')]));
+      when(remoteDataSource.getHabits()).thenAnswer(
+          (_) async => Future.value([testHabit, testHabit.copyWith(id: '2')]));
 
       final habits = await remoteDataSource.getHabits();
 
@@ -314,7 +318,8 @@ void main() {
     });
 
     test('Get habit by id', () async {
-      when(remoteDataSource.getHabitById(any)).thenAnswer((_) async => Future.value(testHabit));
+      when(remoteDataSource.getHabitById(any))
+          .thenAnswer((_) async => Future.value(testHabit));
 
       final habit = await remoteDataSource.getHabitById('1');
 
@@ -324,7 +329,8 @@ void main() {
     });
 
     test('Add habit', () async {
-      when(remoteDataSource.addHabit(any)).thenAnswer((_) async => Future.value());
+      when(remoteDataSource.addHabit(any))
+          .thenAnswer((_) async => Future.value());
 
       await remoteDataSource.addHabit(testHabit);
 
@@ -338,7 +344,8 @@ void main() {
     });
 
     test('Update habit', () async {
-      when(remoteDataSource.updateHabit(any)).thenAnswer((_) async => Future.value());
+      when(remoteDataSource.updateHabit(any))
+          .thenAnswer((_) async => Future.value());
 
       await remoteDataSource.updateHabit(testHabit);
 
@@ -352,7 +359,8 @@ void main() {
     });
 
     test('Delete habit', () async {
-      when(remoteDataSource.deleteHabit(any)).thenAnswer((_) async => Future.value());
+      when(remoteDataSource.deleteHabit(any))
+          .thenAnswer((_) async => Future.value());
 
       await remoteDataSource.deleteHabit('1');
 
@@ -369,11 +377,12 @@ void main() {
   group('Habits Repository Implementation Tests', () {
     group('With Internet connection', () {
       test('Get habits with same objects', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.getHabits())
-            .thenAnswer((_) async => Future.value([testHabit, testHabit.copyWith(id: '2')]));
-        when(remoteDataSource.getHabits())
-            .thenAnswer((_) async => Future.value([testHabit, testHabit.copyWith(id: '2')]));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.getHabits()).thenAnswer((_) async =>
+            Future.value([testHabit, testHabit.copyWith(id: '2')]));
+        when(remoteDataSource.getHabits()).thenAnswer((_) async =>
+            Future.value([testHabit, testHabit.copyWith(id: '2')]));
 
         final habits = await habitsRepository.getHabits();
 
@@ -386,14 +395,17 @@ void main() {
       });
 
       test('Remote habit is newer,should update local', () async {
-        final oldLocalHabit = testHabit.copyWith(id: '1', updatedAt: DateTime(2024, 2, 20).toIso8601String());
-        final newLocalHabit =
-            testHabit.copyWith(id: '1', updatedAt: DateTime(2024, 2, 25).toIso8601String()); // после обновления
+        final oldLocalHabit = testHabit.copyWith(
+            id: '1', updatedAt: DateTime(2024, 2, 20).toIso8601String());
+        final newLocalHabit = testHabit.copyWith(
+            id: '1',
+            updatedAt:
+                DateTime(2024, 2, 25).toIso8601String()); // после обновления
 
         final remoteHabit = testHabit.copyWith(
             id: '1',
-            updatedAt:
-                DateTime(2024, 2, 22).toIso8601String()); // Новее, чем `oldLocalHabit`, но старее `newLocalHabit`
+            updatedAt: DateTime(2024, 2, 22)
+                .toIso8601String()); // Новее, чем `oldLocalHabit`, но старее `newLocalHabit`
 
         when(appConnect.hasConnect()).thenAnswer((_) async => true);
 
@@ -408,7 +420,8 @@ void main() {
           }
         });
 
-        when(remoteDataSource.getHabits()).thenAnswer((_) async => [remoteHabit]);
+        when(remoteDataSource.getHabits())
+            .thenAnswer((_) async => [remoteHabit]);
 
         final habits = await habitsRepository.getHabits();
 
@@ -420,18 +433,24 @@ void main() {
       });
 
       test('Local habit is newer, should update remote', () async {
-        final localHabit = testHabit.copyWith(id: '1', updatedAt: '2023-11-25T14:30:45.123456Z');
-        final remoteHabit =
-            testHabit.copyWith(id: '1', updatedAt: '2023-11-22T14:30:45.123456Z'); // более старая версия
+        final localHabit = testHabit.copyWith(
+            id: '1', updatedAt: '2023-11-25T14:30:45.123456Z');
+        final remoteHabit = testHabit.copyWith(
+            id: '1',
+            updatedAt: '2023-11-22T14:30:45.123456Z'); // более старая версия
 
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.getHabits()).thenAnswer((_) async => Future.value([localHabit]));
-        when(remoteDataSource.getHabits()).thenAnswer((_) async => Future.value([remoteHabit]));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.getHabits())
+            .thenAnswer((_) async => Future.value([localHabit]));
+        when(remoteDataSource.getHabits())
+            .thenAnswer((_) async => Future.value([remoteHabit]));
 
         final habits = await habitsRepository.getHabits();
 
         expect(habits.length, 1);
-        expect(habits[0].updatedAt, localHabit.updatedAt); // Должна остаться локальная версия
+        expect(habits[0].updatedAt,
+            localHabit.updatedAt); // Должна остаться локальная версия
 
         verify(localDataSource.getHabits()).called(2);
         verify(remoteDataSource.getHabits()).called(1);
@@ -442,7 +461,8 @@ void main() {
       test('Local habit is missing, should save from remote', () async {
         final remoteHabit = testHabit.copyWith(id: '3');
 
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
         var getHabitsCallCount = 0;
         when(localDataSource.getHabits()).thenAnswer((_) async {
           if (getHabitsCallCount == 0) {
@@ -452,7 +472,8 @@ void main() {
             return [remoteHabit];
           }
         });
-        when(remoteDataSource.getHabits()).thenAnswer((_) async => Future.value([remoteHabit]));
+        when(remoteDataSource.getHabits())
+            .thenAnswer((_) async => Future.value([remoteHabit]));
 
         final habits = await habitsRepository.getHabits();
 
@@ -467,7 +488,8 @@ void main() {
       test('Remote habit deleted, should delete locally', () async {
         final localHabit = testHabit.copyWith(id: '4');
 
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
         var getHabitsCallCount = 0;
         when(localDataSource.getHabits()).thenAnswer((_) async {
           if (getHabitsCallCount == 0) {
@@ -477,11 +499,13 @@ void main() {
             return [];
           }
         });
-        when(remoteDataSource.getHabits()).thenAnswer((_) async => Future.value([])); // На сервере удалили
+        when(remoteDataSource.getHabits())
+            .thenAnswer((_) async => Future.value([])); // На сервере удалили
 
         final habits = await habitsRepository.getHabits();
 
-        expect(habits.isEmpty, true); // Локальная запись тоже должна быть удалена
+        expect(
+            habits.isEmpty, true); // Локальная запись тоже должна быть удалена
 
         verify(localDataSource.getHabits()).called(2);
         verify(remoteDataSource.getHabits()).called(1);
@@ -489,20 +513,28 @@ void main() {
       });
 
       test('Add Habit success', () async {
-        when(localDataSource.saveHabit(any)).thenAnswer((_) async => Future.value());
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(remoteDataSource.addHabit(any)).thenAnswer((_) async => Future.value());
-        when(localDataSource.markHabitAsSynced(any)).thenAnswer((_) async => Future.value());
+        when(localDataSource.saveHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(remoteDataSource.addHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(localDataSource.markHabitAsSynced(any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.addHabit(testHabit);
 
-        final verificationOnLocalSave = verify(await localDataSource.saveHabit(captureAny));
+        final verificationOnLocalSave =
+            verify(await localDataSource.saveHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnRemoteAdd = verify(await remoteDataSource.addHabit(captureAny));
-        final verificationOnLocalMarkAsSynced = verify(localDataSource.markHabitAsSynced(captureAny));
+        final verificationOnRemoteAdd =
+            verify(await remoteDataSource.addHabit(captureAny));
+        final verificationOnLocalMarkAsSynced =
+            verify(localDataSource.markHabitAsSynced(captureAny));
 
         expect(verificationOnLocalSave.callCount, 1);
-        expect(verificationOnLocalSave.captured.first.id as String, testHabit.id);
+        expect(
+            verificationOnLocalSave.captured.first.id as String, testHabit.id);
 
         expect(verificationOnRemoteAdd.callCount, 1);
         expect(verificationOnRemoteAdd.captured.first.id, testHabit.id);
@@ -512,18 +544,24 @@ void main() {
       });
 
       test('Add Habit remote error', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.saveHabit(any)).thenAnswer((_) async => Future.value());
-        when(remoteDataSource.addHabit(any)).thenThrow(Exception('Remote error'));
-        when(localDataSource.markHabitAsPendingSync(any, any)).thenAnswer((_) async => Future.value());
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.saveHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(remoteDataSource.addHabit(any))
+            .thenThrow(Exception('Remote error'));
+        when(localDataSource.markHabitAsPendingSync(any, any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.addHabit(testHabit);
 
-        final verificationOnLocalSave = verify(await localDataSource.saveHabit(captureAny));
+        final verificationOnLocalSave =
+            verify(await localDataSource.saveHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnRemoteAdd = verify(await remoteDataSource.addHabit(captureAny));
-        final verificationOnLocalMarkAsPendingSync =
-            verify(localDataSource.markHabitAsPendingSync(captureAny, captureAny));
+        final verificationOnRemoteAdd =
+            verify(await remoteDataSource.addHabit(captureAny));
+        final verificationOnLocalMarkAsPendingSync = verify(
+            localDataSource.markHabitAsPendingSync(captureAny, captureAny));
 
         expect(verificationOnLocalSave.callCount, 1);
         expect(verificationOnLocalSave.captured.first.id, testHabit.id);
@@ -532,29 +570,41 @@ void main() {
         expect(verificationOnRemoteAdd.captured.first.id, testHabit.id);
 
         expect(verificationOnLocalMarkAsPendingSync.callCount, 1);
-        expect(verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
-        expect(verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.add);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.add);
       });
 
       test('Add Habit local error', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.saveHabit(any)).thenThrow(Exception('Local error'));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.saveHabit(any))
+            .thenThrow(Exception('Local error'));
 
-        await expectLater(habitsRepository.addHabit(testHabit), throwsException);
+        await expectLater(
+            habitsRepository.addHabit(testHabit), throwsException);
       });
 
       test('Update Habit success', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.updateHabit(any)).thenAnswer((_) async => Future.value());
-        when(remoteDataSource.updateHabit(any)).thenAnswer((_) async => Future.value());
-        when(localDataSource.markHabitAsSynced(any)).thenAnswer((_) async => Future.value());
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.updateHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(remoteDataSource.updateHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(localDataSource.markHabitAsSynced(any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.updateHabit(testHabit);
 
-        final verificationOnLocalUpdate = verify(await localDataSource.updateHabit(captureAny));
+        final verificationOnLocalUpdate =
+            verify(await localDataSource.updateHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnRemoteUpdate = verify(await remoteDataSource.updateHabit(captureAny));
-        final verificationOnLocalMarkAsSynced = verify(localDataSource.markHabitAsSynced(captureAny));
+        final verificationOnRemoteUpdate =
+            verify(await remoteDataSource.updateHabit(captureAny));
+        final verificationOnLocalMarkAsSynced =
+            verify(localDataSource.markHabitAsSynced(captureAny));
 
         expect(verificationOnLocalUpdate.callCount, 1);
         expect(verificationOnLocalUpdate.captured.first.id, testHabit.id);
@@ -567,18 +617,24 @@ void main() {
       });
 
       test('Update Habit remote error', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.updateHabit(any)).thenAnswer((_) async => Future.value());
-        when(remoteDataSource.updateHabit(any)).thenThrow(Exception('Remote error'));
-        when(localDataSource.markHabitAsPendingSync(any, any)).thenAnswer((_) async => Future.value());
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.updateHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(remoteDataSource.updateHabit(any))
+            .thenThrow(Exception('Remote error'));
+        when(localDataSource.markHabitAsPendingSync(any, any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.updateHabit(testHabit);
 
-        final verificationOnLocalUpdate = verify(await localDataSource.updateHabit(captureAny));
+        final verificationOnLocalUpdate =
+            verify(await localDataSource.updateHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnRemoteUpdate = verify(await remoteDataSource.updateHabit(captureAny));
-        final verificationOnLocalMarkAsPendingSync =
-            verify(localDataSource.markHabitAsPendingSync(captureAny, captureAny));
+        final verificationOnRemoteUpdate =
+            verify(await remoteDataSource.updateHabit(captureAny));
+        final verificationOnLocalMarkAsPendingSync = verify(
+            localDataSource.markHabitAsPendingSync(captureAny, captureAny));
 
         expect(verificationOnLocalUpdate.callCount, 1);
         expect(verificationOnLocalUpdate.captured.first.id, testHabit.id);
@@ -587,27 +643,37 @@ void main() {
         expect(verificationOnRemoteUpdate.captured.first.id, testHabit.id);
 
         expect(verificationOnLocalMarkAsPendingSync.callCount, 1);
-        expect(verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
-        expect(verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.update);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
+        expect(verificationOnLocalMarkAsPendingSync.captured[1],
+            SyncStatus.update);
       });
 
       test('Update Habit local error', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.updateHabit(any)).thenThrow(Exception('Local error'));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.updateHabit(any))
+            .thenThrow(Exception('Local error'));
 
-        await expectLater(habitsRepository.updateHabit(testHabit), throwsException);
+        await expectLater(
+            habitsRepository.updateHabit(testHabit), throwsException);
       });
 
       test('Delete Habit success', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.deleteHabit(any)).thenAnswer((_) async => Future.value());
-        when(remoteDataSource.deleteHabit(any)).thenAnswer((_) async => Future.value());
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.deleteHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(remoteDataSource.deleteHabit(any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.deleteHabit(testHabit.id);
 
-        final verificationOnLocalDelete = verify(await localDataSource.deleteHabit(captureAny));
+        final verificationOnLocalDelete =
+            verify(await localDataSource.deleteHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnRemoteDelete = verify(await remoteDataSource.deleteHabit(captureAny));
+        final verificationOnRemoteDelete =
+            verify(await remoteDataSource.deleteHabit(captureAny));
 
         expect(verificationOnLocalDelete.callCount, 1);
         expect(verificationOnLocalDelete.captured.first, testHabit.id);
@@ -617,18 +683,24 @@ void main() {
       });
 
       test('Delete Habit remote error', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(true));
-        when(localDataSource.deleteHabit(any)).thenAnswer((_) async => Future.value());
-        when(remoteDataSource.deleteHabit(any)).thenThrow(Exception('Remote error'));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(true));
+        when(localDataSource.deleteHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(remoteDataSource.deleteHabit(any))
+            .thenThrow(Exception('Remote error'));
 
-        await expectLater(habitsRepository.deleteHabit(testHabit.id), throwsException);
+        await expectLater(
+            habitsRepository.deleteHabit(testHabit.id), throwsException);
       });
     });
 
     group('Without Internet Connection', () {
       test('Get habits', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(false));
-        when(localDataSource.getHabits()).thenAnswer((_) async => Future.value([testHabit]));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(false));
+        when(localDataSource.getHabits())
+            .thenAnswer((_) async => Future.value([testHabit]));
 
         final habits = await habitsRepository.getHabits();
 
@@ -639,87 +711,108 @@ void main() {
       });
 
       test('Get Habit with Error', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(false));
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(false));
         when(localDataSource.getHabits()).thenThrow(Exception('Local error'));
 
         await expectLater(habitsRepository.getHabits(), throwsException);
       });
 
       test('Add Habit success', () async {
-        when(appConnect.hasConnect()).thenAnswer((_) async => Future.value(false));
-        when(localDataSource.saveHabit(any)).thenAnswer((_) async => Future.value());
-        when(localDataSource.markHabitAsPendingSync(testHabit.id, SyncStatus.add))
+        when(appConnect.hasConnect())
+            .thenAnswer((_) async => Future.value(false));
+        when(localDataSource.saveHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(localDataSource.markHabitAsPendingSync(
+                testHabit.id, SyncStatus.add))
             .thenAnswer((_) async => Future.value());
 
         await habitsRepository.addHabit(testHabit);
 
-        final verificationOnLocalSave = verify(await localDataSource.saveHabit(captureAny));
+        final verificationOnLocalSave =
+            verify(await localDataSource.saveHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnLocalMarkAsPendingSync =
-            verify(localDataSource.markHabitAsPendingSync(captureAny, captureAny));
+        final verificationOnLocalMarkAsPendingSync = verify(
+            localDataSource.markHabitAsPendingSync(captureAny, captureAny));
 
         expect(verificationOnLocalSave.callCount, 1);
         expect(verificationOnLocalSave.captured.first.id, testHabit.id);
 
         expect(verificationOnLocalMarkAsPendingSync.callCount, 1);
-        expect(verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
-        expect(verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.add);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.add);
       });
 
       test('Add Habit local error', () async {
         when(appConnect.hasConnect()).thenAnswer((_) async => false);
-        when(localDataSource.saveHabit(any)).thenThrow(Exception('Local error'));
+        when(localDataSource.saveHabit(any))
+            .thenThrow(Exception('Local error'));
 
-        await expectLater(habitsRepository.addHabit(testHabit), throwsException);
+        await expectLater(
+            habitsRepository.addHabit(testHabit), throwsException);
       });
 
       test('Update Habit success', () async {
         when(appConnect.hasConnect()).thenAnswer((_) async => false);
-        when(localDataSource.updateHabit(any)).thenAnswer((_) async => Future.value());
-        when(localDataSource.markHabitAsPendingSync(any, any)).thenAnswer((_) async => Future.value());
+        when(localDataSource.updateHabit(any))
+            .thenAnswer((_) async => Future.value());
+        when(localDataSource.markHabitAsPendingSync(any, any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.updateHabit(testHabit);
 
-        final verificationOnLocalUpdate = verify(localDataSource.updateHabit(captureAny));
+        final verificationOnLocalUpdate =
+            verify(localDataSource.updateHabit(captureAny));
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnLocalMarkAsPendingSync =
-            verify(localDataSource.markHabitAsPendingSync(captureAny, captureAny));
+        final verificationOnLocalMarkAsPendingSync = verify(
+            localDataSource.markHabitAsPendingSync(captureAny, captureAny));
 
         expect(verificationOnLocalUpdate.callCount, 1);
         expect(verificationOnLocalUpdate.captured.first.id, testHabit.id);
 
         expect(verificationOnLocalMarkAsPendingSync.callCount, 1);
-        expect(verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
-        expect(verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.update);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
+        expect(verificationOnLocalMarkAsPendingSync.captured[1],
+            SyncStatus.update);
       });
 
       test('Update Habit local error', () async {
         when(appConnect.hasConnect()).thenAnswer((_) async => false);
-        when(localDataSource.updateHabit(any)).thenThrow(Exception('Local error'));
+        when(localDataSource.updateHabit(any))
+            .thenThrow(Exception('Local error'));
 
-        await expectLater(habitsRepository.updateHabit(testHabit), throwsException);
+        await expectLater(
+            habitsRepository.updateHabit(testHabit), throwsException);
       });
 
       test('Delete Habit success', () async {
         when(appConnect.hasConnect()).thenAnswer((_) async => false);
-        when(localDataSource.markHabitAsPendingSync(any, any)).thenAnswer((_) async => Future.value());
+        when(localDataSource.markHabitAsPendingSync(any, any))
+            .thenAnswer((_) async => Future.value());
 
         await habitsRepository.deleteHabit(testHabit.id);
 
         verify(appConnect.hasConnect()).called(1);
-        final verificationOnLocalMarkAsPendingSync =
-            verify(localDataSource.markHabitAsPendingSync(captureAny, captureAny));
+        final verificationOnLocalMarkAsPendingSync = verify(
+            localDataSource.markHabitAsPendingSync(captureAny, captureAny));
 
         expect(verificationOnLocalMarkAsPendingSync.callCount, 1);
-        expect(verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
-        expect(verificationOnLocalMarkAsPendingSync.captured[1], SyncStatus.delete);
+        expect(
+            verificationOnLocalMarkAsPendingSync.captured.first, testHabit.id);
+        expect(verificationOnLocalMarkAsPendingSync.captured[1],
+            SyncStatus.delete);
       });
 
       test('Delete Habit local error', () async {
         when(appConnect.hasConnect()).thenAnswer((_) async => false);
-        when(localDataSource.markHabitAsPendingSync(any, any)).thenThrow(Exception('Local error'));
+        when(localDataSource.markHabitAsPendingSync(any, any))
+            .thenThrow(Exception('Local error'));
 
-        await expectLater(habitsRepository.deleteHabit(testHabit.id), throwsException);
+        await expectLater(
+            habitsRepository.deleteHabit(testHabit.id), throwsException);
       });
     });
 

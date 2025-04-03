@@ -37,9 +37,9 @@ class ProfileAvatar extends StatelessWidget {
             ),
             // Изображение тигра поверх круга
             Image.asset(
-              'assets/images/tiger.png',
-              width: 200,
-              height: 200,
+              'assets/images/paw.png',
+              width: 100,
+              height: 100,
               fit: BoxFit.contain,
             ),
           ],
