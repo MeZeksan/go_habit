@@ -36,19 +36,22 @@ class BottomNavBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _NavBarItem(
-                      onTap: (index) => BottomNavigationScope.change(context, index),
+                      onTap: (index) =>
+                          BottomNavigationScope.change(context, index),
                       index: 0,
                       currentIndex: currentIndex,
                       asset: Assets.navbarIcons.home,
                     ),
                     _NavBarItem(
-                      onTap: (index) => BottomNavigationScope.change(context, index),
+                      onTap: (index) =>
+                          BottomNavigationScope.change(context, index),
                       index: 1,
                       currentIndex: currentIndex,
                       asset: Assets.navbarIcons.edit,
                     ),
                     _NavBarItem(
-                      onTap: (index) => BottomNavigationScope.change(context, index),
+                      onTap: (index) =>
+                          BottomNavigationScope.change(context, index),
                       index: 2,
                       currentIndex: currentIndex,
                       asset: Assets.navbarIcons.bell,
@@ -63,10 +66,11 @@ class BottomNavBar extends StatelessWidget {
             color: context.theme.commonColors.white,
             child: SizedBox(
               height: 64,
-              child: Container(
-                margin: const EdgeInsets.all(12),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: _NavBarItem(
-                  onTap: (index) => BottomNavigationScope.change(context, index),
+                  onTap: (index) =>
+                      BottomNavigationScope.change(context, index),
                   index: 3,
                   currentIndex: currentIndex,
                   asset: Assets.navbarIcons.user,
