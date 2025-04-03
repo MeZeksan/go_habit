@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_habit/core/extension/locale_extension.dart';
 import 'package:go_habit/core/router/routes_enum.dart';
 import 'package:go_habit/feature/auth/domain/bloc/auth_bloc.dart';
+import 'package:go_habit/feature/auth/view/welcome_screen.dart';
 import 'package:go_habit/feature/profile/view/privacy_policy_screen.dart';
 import 'package:go_habit/feature/profile/widget/about_app_dialog.dart';
 import 'package:go_habit/feature/profile/widget/settings_divider.dart';
@@ -63,6 +64,22 @@ class SettingsSection extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const PrivacyPolicyScreen(),
+                ),
+              );
+            },
+          ),
+
+          const SettingsDivider(),
+
+          // Экран приветствия
+          SettingsItem(
+            icon: Icons.start_outlined,
+            title: 'Экран приветствия',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WelcomeScreen(),
                 ),
               );
             },
