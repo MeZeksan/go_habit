@@ -12,15 +12,15 @@ class BottomNavBar extends StatelessWidget {
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
     return Container(
       margin: const EdgeInsets.all(40),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-            color: context.theme.commonColors.neutralgrey10.withOpacity(.2),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        // boxShadow: [
+        // BoxShadow(
+        //   color: context.theme.commonColors.neutralgrey10.withOpacity(.2),
+        //   blurRadius: 8,
+        //   spreadRadius: 2,
+        // ),
+        // ],
       ),
       height: 40 + bottomPadding,
       child: Row(

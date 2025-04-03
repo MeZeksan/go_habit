@@ -2,12 +2,14 @@ import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:go_habit/core/database/dao/habits_dao.dart';
 import 'package:go_habit/core/database/tables/habit_categories.dart';
+import 'package:go_habit/core/database/tables/habit_completions.dart';
+import 'package:go_habit/core/database/tables/habit_streaks.dart';
 import 'package:go_habit/core/database/tables/habits.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'drift_database.g.dart';
 
-@DriftDatabase(tables: [Habits, HabitCategories], daos: [HabitsDao])
+@DriftDatabase(tables: [Habits, HabitCategories, HabitCompletions, HabitStreaks], daos: [HabitsDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
