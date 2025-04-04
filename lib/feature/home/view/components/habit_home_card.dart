@@ -248,7 +248,16 @@ class _HabitHomeCardState extends State<HabitHomeCard> {
                             : cardColor.withValues(alpha: 0.9),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Icon(Icons.check, color: Colors.white),
+                      child: Icon(
+                        DateTime.now()
+                                    .difference(
+                                        DateTime.parse(widget.habit.lastCompletedTime ?? '2023-03-31T00:00:00.000'))
+                                    .inDays ==
+                                0
+                            ? Icons.close
+                            : Icons.check,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
