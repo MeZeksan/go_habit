@@ -31,7 +31,7 @@ class SignButton extends StatelessWidget {
                     if (isRegistration) {
                       // Для экрана регистрации
                       context.read<AuthBloc>().add(
-                            AuthSignInRequested(
+                            AuthSignUpRequested(
                               email: _emailController.text,
                               password: _passwordController.text,
                             ),
