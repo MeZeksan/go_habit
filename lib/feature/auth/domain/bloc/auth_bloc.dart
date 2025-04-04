@@ -24,36 +24,56 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           _onAuthErrorOccurred(event, emit);
         case AuthSignInRequested():
           _onSignInRequested(event, emit);
+        case AuthSignUpRequested():
+          _onSignUpRequested(event, emit);
       }
     });
 
     _startUserSubscription();
   }
 
-  Future<void> _onSignInRequested(AuthSignInRequested event, Emitter<AuthState> emit) async {
+  Future<void> _onSignInRequested(
+      AuthSignInRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    await _authenticationRepository.signInWithEmail(email: event.email, password: event.password);
+    await _authenticationRepository.signInWithEmail(
+        email: event.email, password: event.password);
   }
 
-  Future<void> _onInitialAuthChecked(AuthInitialCheckRequested event, Emitter<AuthState> emit) async {
+  Future<void> _onSignUpRequested(
+      AuthSignUpRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    await _authenticationRepository.singUp(
+        email: event.email, password: event.password);
+  }
+
+  Future<void> _onInitialAuthChecked(
+      AuthInitialCheckRequested event, Emitter<AuthState> emit) async {
     final signedInUser = _authenticationRepository.getSignedInUser();
-    signedInUser != null ? emit(AuthUserAuthenticated(signedInUser)) : emit(AuthUserUnauthenticated());
+    signedInUser != null
+        ? emit(AuthUserAuthenticated(signedInUser))
+        : emit(AuthUserUnauthenticated());
   }
 
-  Future<void> _onLogoutButtonPressed(AuthLogoutButtonPressed event, Emitter<AuthState> emit) async {
+  Future<void> _onLogoutButtonPressed(
+      AuthLogoutButtonPressed event, Emitter<AuthState> emit) async {
     await _authenticationRepository.signOut();
   }
 
-  Future<void> _onCurrentUserChanged(AuthOnCurrentUserChanged event, Emitter<AuthState> emit) async =>
-      event.user != null ? emit(AuthUserAuthenticated(event.user!)) : emit(AuthUserUnauthenticated());
+  Future<void> _onCurrentUserChanged(
+          AuthOnCurrentUserChanged event, Emitter<AuthState> emit) async =>
+      event.user != null
+          ? emit(AuthUserAuthenticated(event.user!))
+          : emit(AuthUserUnauthenticated());
 
-  void _startUserSubscription() => _userSubscription =
-      _authenticationRepository.getCurrentUser().listen((user) => add(AuthOnCurrentUserChanged(user)))
-        ..onError((error) {
-          add(AuthErrorOccurred(error.toString())); // Обработка ошибок
-        });
+  void _startUserSubscription() => _userSubscription = _authenticationRepository
+      .getCurrentUser()
+      .listen((user) => add(AuthOnCurrentUserChanged(user)))
+    ..onError((error) {
+      add(AuthErrorOccurred(error.toString())); // Обработка ошибок
+    });
 
-  void _onAuthErrorOccurred(AuthErrorOccurred event, Emitter<AuthState> emit) => emit(AuthError(event.errorMessage));
+  void _onAuthErrorOccurred(AuthErrorOccurred event, Emitter<AuthState> emit) =>
+      emit(AuthError(event.errorMessage));
 
   @override
   Future<void> close() {
