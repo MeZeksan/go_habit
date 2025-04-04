@@ -88,3 +88,17 @@ flutter pub run build_runner build --delete-conflicting-outputs
 flutter test
 flutter test --update-goldens
 ```
+
+## Скриншоты
+
+<div align="center">
+  <img src="assets/screenshots/screen1.jpg" alt="Экран 1 - темная тема" width="250" />
+  <img src="assets/screenshots/screen2.jpg" alt="Экран 1 - светлая тема" width="250" />
+  <img src="assets/screenshots/screen3.jpg" alt="Экран 2 -расширенные задачки" width="250" />
+</div>
+
+<div align="center">
+  <img src="assets/screenshots/screen4.jpg" alt="Экран 3 - splash screen" width="250" />
+  <img src="assets/screenshots/screen5.jpg" alt="Экран 4 - экран профиля" width="250" />
+  <img src="assets/screenshots/screen6.jpg" alt="Экран 5 - экран уведомлений" width="250" />
+</div>
