@@ -28,11 +28,11 @@ class $AnimationGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/tiger.png
-  AssetGenImage get tiger => const AssetGenImage('assets/images/tiger.png');
+  /// File path: assets/images/paw.png
+  AssetGenImage get paw => const AssetGenImage('assets/images/paw.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [tiger];
+  List<AssetGenImage> get values => [paw];
 }
 
 class $AssetsNavbarIconsGen {
