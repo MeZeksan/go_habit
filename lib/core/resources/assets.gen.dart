@@ -57,13 +57,9 @@ class $AssetsNavbarIconsGen {
 class Assets {
   const Assets._();
 
-  static const String aEnv = '.env';
   static const $AnimationGen animation = $AnimationGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsNavbarIconsGen navbarIcons = $AssetsNavbarIconsGen();
-
-  /// List of all assets
-  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

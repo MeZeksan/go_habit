@@ -29,6 +29,8 @@ class SignButton extends StatelessWidget {
               : () {
                   if (_formKey.currentState!.validate()) {
                     if (isRegistration) {
+                      debugPrint('Email: ${_emailController.text}');
+                      debugPrint('Password: ${_passwordController.text}');
                       // Для экрана регистрации
                       context.read<AuthBloc>().add(
                             AuthSignUpRequested(

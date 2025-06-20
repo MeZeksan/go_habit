@@ -6,7 +6,7 @@ import 'package:go_habit/core/database/dao/habit_streak_dao.dart';
 import 'package:go_habit/core/database/dao/habits_dao.dart';
 import 'package:go_habit/core/database/drift_database.dart';
 import 'package:go_habit/core/router/app_router.dart';
-import 'package:go_habit/feature/auth/data/repositories/authentication_repository.dart';
+import 'package:go_habit/feature/auth/data/repositories/authentication_repository_impl.dart';
 import 'package:go_habit/feature/auth/domain/repositories/i_authentication_repository.dart';
 import 'package:go_habit/feature/categories/data/data_sources/local/local_habit_category_datasource.dart';
 import 'package:go_habit/feature/categories/data/data_sources/remote/remote_habit_category_datasource.dart';
@@ -62,7 +62,7 @@ class AppScopeContainer extends ScopeContainer {
   //               RemoteHabitStatsDataSource(),
   //               const AppConnect(),
 
-  late final authRepositoryDep = dep<IAuthenticationRepository>(AuthenticationRepository.new);
+  late final authRepositoryDep = dep<IAuthenticationRepository>(AuthenticationRepositoryImpl.new);
 
   late final habitRepositoryDep = dep<HabitRepository>(
       () => HabitsRepositoryImplementation(localHabitDataSource.get, remoteHabitDataSource.get, appConnect.get));
