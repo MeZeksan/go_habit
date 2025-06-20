@@ -1,22 +1,19 @@
 import 'package:go_habit/feature/auth/domain/repositories/i_authentication_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class AuthenticationRepository implements IAuthenticationRepository {
-  final _supabase = Supabase.instance.client; //ссылка на клиент _supabase
+final class AuthenticationRepositoryImpl implements IAuthenticationRepository {
+  final _supabase = Supabase.instance.client;
+
+  AuthenticationRepositoryImpl();
 
   @override
-  Stream<User?> getCurrentUser() {
-    return _supabase.auth.onAuthStateChange.map((data) {
-      return data.session?.user;
-    });
-  }
+  Stream<User?> getCurrentUser() => _supabase.auth.onAuthStateChange.map((data) {
+        return data.session?.user;
+      });
 
   @override
-  User? getSignedInUser() {
-    return _supabase.auth.currentUser; // AI assistant
-  }
+  User? getSignedInUser() => _supabase.auth.currentUser;
 
-  //авторизация пользователя
   @override
   Future<void> signInWithEmail({
     required String email,
@@ -31,16 +28,15 @@ class AuthenticationRepository implements IAuthenticationRepository {
       if (response.user == null) {
         throw Exception('Пользователь не найден');
       }
-    } on AuthException catch (e) {
-      throw Exception('Ошибка авторизации: ${e.message}');
+    } on AuthException {
+      rethrow;
     } catch (e) {
       throw Exception('Неизвестная ошибка: $e');
     }
   }
 
-  //регистрация пользователя
   @override
-  Future<void> singUp({required String email, required String password}) async {
+  Future<void> signUp({required String email, required String password}) async {
     try {
       final response = await _supabase.auth.signUp(
         email: email,
@@ -50,14 +46,13 @@ class AuthenticationRepository implements IAuthenticationRepository {
       if (response.user == null) {
         throw Exception('Ошибка при создании пользователя');
       }
-    } on AuthException catch (e) {
-      throw Exception('Ошибка регистрации: ${e.message}');
+    } on AuthException {
+      rethrow;
     } catch (e) {
       throw Exception('Неизвестная ошибка: $e');
     }
   }
 
-  //выход из системы
   @override
   Future<void> signOut() async {
     try {
